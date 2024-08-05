@@ -1,0 +1,30 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+.headerContainer {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  max-height: 20vh;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dateAndTimeContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2vw;
+  padding: 2vw;
+  font-size: 1.5em;
+}
+
+.dateText {
+
+}
