@@ -19,13 +19,19 @@ const Sidebar:FC<SidebarProps> = (props) => {
     setAddClassFormStatus(!addClassFormStatus);
   };
 
+  const verifyUserOffClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.id === 'sidebar-container-background') changeAddClassFromStatus();
+  };
+
   return (
     sidebarStatus === false ? (
       <></>
     ) : (
       <div 
-        onClick={() => changeSidebarStatus()}
+        onClick={(e) => verifyUserOffClick(e)}
         className={styles.sidebarContainerBackground}
+        id="sidebar-container-background"
       >
         <div className={styles.sidebarContainer}>
           <ClassList />

@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Agenda from './components/Agenda/Agenda';
 import Footer from './components/Footer/Footer';
 import { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       <Header 
         changeSidebarStatus={changeSidebarStatus} 
       />
