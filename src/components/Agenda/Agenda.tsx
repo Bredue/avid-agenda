@@ -1,11 +1,14 @@
-import React from "react";
+import React from 'react';
+import styles from '../../styles/App.module.css';
 
-const Agenda = () => {
+const App = () => {
   return (
-    <p>
-      Agenda
-    </p>
+    <main className={styles.appContainer}>
+      <div>
+        Agenda
+      </div>
+    </main>
   )
 };
 
-export default Agenda;
+export default App;

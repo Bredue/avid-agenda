@@ -1,10 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
+import sidebarButton from '../../assets/menu.svg';
+import styles from '../../styles/App.module.css';
 
-const SidebarButton = () => {
+interface SidebarButtonProps {
+  changeSidebarStatus: () => void,
+}
+
+const SidebarButton: FC<SidebarButtonProps> = (props) => {
+
+  const { changeSidebarStatus } = props; 
+
   return (
-    <p>
-      SidebarButton
-    </p>
+    <img 
+      onClick={() => changeSidebarStatus()}
+      className={styles.sidebarSvg}
+      alt="menu icon" 
+      src={sidebarButton}>
+    </img>
   )
 };
 

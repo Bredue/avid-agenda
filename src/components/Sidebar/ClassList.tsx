@@ -3,7 +3,7 @@ import React from "react";
 const ClassList = () => {
   return (
     <p>
-      ClassList
+      No Classes Created.
     </p>
   )
 };

@@ -4,11 +4,11 @@ import styles from '../../styles/App.module.css';
 
 const Date = () => {
 
-  const [date, setDate] = useState(dayjs().format('MMMM, ddd DD, YY'));
+  const [date, setDate] = useState(dayjs().format('MMMM, ddd DD'));
 
   useEffect(() => {
     const intervalController = setInterval(() => {
-      setDate(dayjs().format('MMMM, ddd DD, YY'));
+      setDate(dayjs().format('MMMM, ddd DD'));
     }, 3600000)
 
     return () => clearInterval(intervalController);
