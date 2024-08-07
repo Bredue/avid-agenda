@@ -21,7 +21,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
 
   const verifyUserOffClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (target.id === 'sidebar-container-background') changeAddClassFromStatus();
+    if (target.id === 'sidebar-container-background') changeSidebarStatus();
   };
 
   return (
