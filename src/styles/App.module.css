@@ -62,6 +62,46 @@
   align-items: center;
 }
 
+.sidebarMenuContainer {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  background-color: #fff; /* Changed background color to white */
+}
+
+.sidebarMenu {
+  display: flex;
+  flex-direction: row; /* Changed to row to align buttons horizontally */
+}
+
+.sideBarMenuButton {
+  background: none;
+  border: none;
+  padding: 10px 15px; /* Adjusted padding to add some horizontal space */
+  font-size: 16px;
+  cursor: pointer;
+  color: black;
+  transition: background-color 0.3s, color 0.3s;
+  border-right: 1px solid #ddd; /* Added border to separate buttons */
+}
+
+.sideBarMenuButton:last-child {
+  border-right: none; /* Remove border from the last button */
+}
+
+.sideBarMenuButton:hover {
+  background-color: #e0e0e0;
+}
+
+.sideBarMenuButton.active {
+  background-color: #007bff;
+  color: white;
+}
+
 .classAddButton {
   width: 5vh;
   height: auto;

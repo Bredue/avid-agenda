@@ -3,6 +3,7 @@ import styles from '../../styles/App.module.css';
 import ClassList from "./ClassList";
 import ClassAddButton from "./ClassAddButton";
 import AddClassForm from "./AddClassForm";
+import SidebarMenu from "./SidebarMenu";
 
 interface SidebarProps {
   changeSidebarStatus: () => void,
@@ -21,6 +22,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
+  const [sidebarMenuStatus, setSidebarMenuStatus] = useState('class');
 
   const changeAddClassFromStatus = () => {
     setAddClassFormStatus(!addClassFormStatus);
@@ -29,6 +31,10 @@ const Sidebar:FC<SidebarProps> = (props) => {
   const verifyUserOffClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     if (target.id === 'sidebar-container-background') changeSidebarStatus();
+  };
+
+  const changeSidebarMenuStatus = (requestedMenu: string) => {
+    setSidebarMenuStatus(requestedMenu);
   };
 
   return (
@@ -41,12 +47,33 @@ const Sidebar:FC<SidebarProps> = (props) => {
         id="sidebar-container-background"
       >
         <div className={styles.sidebarContainer}>
-          <ClassList 
-            classes={classes}
-          />
-          <ClassAddButton
-            changeAddClassFromStatus={changeAddClassFromStatus}
-          />
+          <SidebarMenu />
+          {sidebarMenuStatus === 'class' ? (
+            <>
+              <ClassList 
+                classes={classes}
+              />
+              <ClassAddButton
+                changeAddClassFromStatus={changeAddClassFromStatus}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+          {sidebarMenuStatus === 'task' ? (
+            <>
+              
+            </>
+          ) : (
+            <></>
+          )}
+          {sidebarMenuStatus === 'event' ? (
+            <>
+             
+            </>
+          ) : (
+            <></>
+          )}
           {addClassFormStatus === true ? (
             <AddClassForm 
               changeAddClassFromStatus={changeAddClassFromStatus}
