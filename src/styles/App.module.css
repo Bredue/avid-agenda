@@ -4,9 +4,7 @@
   padding: 2rem;
 }
 
-
 /* HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER HEADER */
-
 
 .headerContainer {
   width: 100vw;
@@ -139,4 +137,21 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.addClassFormLabel {
+  font-size: 2em;
+}
+
+.addClassFormInput {
+  font-size: 1.5em;
+}
+
+.addClassFormSubmitButton {
+  min-height: 3vh;
+  max-height: 5vh;
+  width: auto;
+  font-size: 1.25em;
+  padding: 1vh;
+  cursor: pointer;
 }

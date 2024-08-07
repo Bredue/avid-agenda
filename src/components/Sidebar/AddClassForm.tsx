@@ -32,7 +32,6 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
 
   const saveClassToStorage = () => {
     localStorage.setItem(`class-${uniqid()}`, `${className}`);
-    console.log(localStorage)
   };
 
   return (
@@ -51,15 +50,25 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
           alt="close icon" 
           src={closeSvg}>
         </img>
-        <label htmlFor="className">Class Name:</label>
+        <label 
+          htmlFor="className"
+          className={styles.addClassFormLabel}>
+            Class Name:
+        </label>
         <input
           type="text"
           id="className"
+          className={styles.addClassFormInput}
           value={className}
           onChange={handleChange}
           required
         />
-        <button onClick={(e) => handleSubmit(e)} type="submit">Submit</button>
+        <button 
+          onClick={(e) => handleSubmit(e)} 
+          type="submit"
+          className={styles.addClassFormSubmitButton}>
+            Submit
+        </button>
       </form>
     </div>
   )
