@@ -7,11 +7,18 @@ import AddClassForm from "./AddClassForm";
 interface SidebarProps {
   changeSidebarStatus: () => void,
   sidebarStatus: boolean,
+  classes: string[],
+  addClass: (newClass: string) => void,
 };
 
 const Sidebar:FC<SidebarProps> = (props) => {
 
-  const { changeSidebarStatus, sidebarStatus } = props;
+  const { 
+    changeSidebarStatus, 
+    sidebarStatus,
+    classes,
+    addClass,
+  } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
 
@@ -34,13 +41,16 @@ const Sidebar:FC<SidebarProps> = (props) => {
         id="sidebar-container-background"
       >
         <div className={styles.sidebarContainer}>
-          <ClassList />
+          <ClassList 
+            classes={classes}
+          />
           <ClassAddButton
             changeAddClassFromStatus={changeAddClassFromStatus}
           />
           {addClassFormStatus === true ? (
             <AddClassForm 
               changeAddClassFromStatus={changeAddClassFromStatus}
+              addClass={addClass}
             />
           ) : (
             <></>

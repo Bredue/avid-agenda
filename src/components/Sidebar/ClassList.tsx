@@ -1,10 +1,31 @@
-import React from "react";
+import React, { FC } from "react";
+import uniqid from "uniqid";
+import styles from '../../styles/App.module.css';
 
-const ClassList = () => {
+interface ClassListProps {
+  classes: string[],
+}
+
+const ClassList:FC<ClassListProps> = (props) => {
+
+  const { classes } = props;
+
   return (
-    <p>
-      No Classes Created.
-    </p>
+    <>
+    {classes.length > 0 ? (
+      <ul className={styles.classListContainer}>
+        {classes.map((classItem) => (
+          <li 
+            className={styles.classListItem}
+            key={uniqid()}>
+              {classItem}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No classes available</p>
+    )}
+  </>
   )
 };
 

@@ -6,11 +6,12 @@ import uniqid from 'uniqid';
 
 interface AddClassFormProps {
   changeAddClassFromStatus: () => void,
+  addClass: (newClass: string) => void,
 }
 
 const AddClassForm:FC<AddClassFormProps> = (props) => {
 
-  const { changeAddClassFromStatus } = props;
+  const { changeAddClassFromStatus, addClass } = props;
 
   const identifyUserOffClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -27,6 +28,7 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
     e.preventDefault();
     toast.success(`Class Name Submitted: ${className}`, {'id': 'new-class'});
     saveClassToStorage();
+    addClass(className);
     changeAddClassFromStatus();
   };
 

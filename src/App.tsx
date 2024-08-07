@@ -9,11 +9,15 @@ import { Toaster } from 'react-hot-toast';
 function App() {
 
   const [sidebarStatus, setSidebarStatus] = useState(false);
+  const [classes, setClasses] = useState<string[]>([]);
 
   const changeSidebarStatus = () => {
     setSidebarStatus(!sidebarStatus);
   };
   
+  const addClass = (newClass: string) => {
+    setClasses([...classes, newClass]);
+  };
 
   return (
     <>
@@ -24,6 +28,8 @@ function App() {
       <Sidebar 
         changeSidebarStatus={changeSidebarStatus}
         sidebarStatus={sidebarStatus} 
+        classes={classes}
+        addClass={addClass}
       /> 
       <Agenda />
       <Footer />
