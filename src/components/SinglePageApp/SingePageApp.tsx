@@ -3,26 +3,24 @@ import styles from '../../styles/App.module.css';
 import Class from '../../models/class';
 
 interface SingePageAppProps {
+  selectedClass: string,
   classes: Class[],
-  tasks: string[],
-  events: string[],
 }
 
 const SingePageApp: FC<SingePageAppProps> = (props) => {
 
   const { 
+    selectedClass,
     classes,
-    tasks,
-    events,
   } = props;
 
   return (
     <main className={styles.appContainer}>
-      {classes.length > 0 ? (
+      {classes.length > 0 && selectedClass.length > 0 ? (
         <p>Single Page App</p>
       ) : (
         <p>
-          No Classes Added, create one to start your agenda
+          No classes selected or agendas present, please create one
         </p>
       )}
     </main>

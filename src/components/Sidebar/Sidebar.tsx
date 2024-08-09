@@ -5,6 +5,8 @@ import ClassAddButton from "./ClassAddButton";
 import AddClassForm from "./AddClassForm";
 import SidebarMenu from "./SidebarMenu";
 import Class from "../../models/class";
+import Agendas from "./class-menus/Agendas";
+import Events from "./class-menus/Events";
 
 interface SidebarProps {
   changeSidebarStatus: () => void,
@@ -27,7 +29,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
-  const [sidebarMenuStatus, setSidebarMenuStatus] = useState('class');
+  const [sidebarMenuStatus, setSidebarMenuStatus] = useState('classes');
 
   const changeAddClassFromStatus = () => {
     setAddClassFormStatus(!addClassFormStatus);
@@ -53,11 +55,14 @@ const Sidebar:FC<SidebarProps> = (props) => {
       >
         <div className={styles.sidebarContainer}>
           {classes.length > 0 && selectedClass.length > 0 ? (
-            <SidebarMenu />
+            <SidebarMenu 
+              sidebarMenuStatus={sidebarMenuStatus}
+              changeSidebarMenuStatus={changeSidebarMenuStatus}
+            />
           ) : (
             <p className={styles.sidebarSelectAClassText}>Select a class to add agenda items and events</p>
           )}
-          {sidebarMenuStatus === 'class' ? (
+          {sidebarMenuStatus === 'classes' ? (
             <>
               <ClassList 
                 classes={classes}
@@ -71,16 +76,18 @@ const Sidebar:FC<SidebarProps> = (props) => {
           ) : (
             <></>
           )}
-          {sidebarMenuStatus === 'task' ? (
+          {sidebarMenuStatus === 'agendas' ? (
             <>
-              
+              <Agendas 
+                classes={classes}
+              />
             </>
           ) : (
             <></>
           )}
-          {sidebarMenuStatus === 'event' ? (
+          {sidebarMenuStatus === 'events' ? (
             <>
-             
+              <Events />
             </>
           ) : (
             <></>

@@ -42,7 +42,7 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast.success(`Class Submitted: ${formData.className}, ${formData.classPeriod}`, {'id': 'new-class'});
-    const newClass = new Class(formData.className, formData.classPeriod);
+    const newClass = new Class([], [], formData.className, formData.classPeriod);
     saveClassToStorage(newClass);
     addClass(newClass);
     changeAddClassFromStatus();

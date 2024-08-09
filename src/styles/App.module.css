@@ -53,6 +53,7 @@
   left: 0;
   height: 80vh;
   width: 30vw;
+  overflow: scroll;
   color: black;
   background-color: white;
   z-index: 2;
@@ -70,27 +71,27 @@
   justify-content: center;
   align-items: center;
   width: 80%;
-  background-color: #fff; /* Changed background color to white */
+  background-color: #fff;
 }
 
 .sidebarMenu {
   display: flex;
-  flex-direction: row; /* Changed to row to align buttons horizontally */
+  flex-direction: row;
 }
 
 .sideBarMenuButton {
   background: none;
   border: none;
-  padding: 10px 15px; /* Adjusted padding to add some horizontal space */
+  padding: 10px 15px;
   font-size: 16px;
   cursor: pointer;
   color: black;
   transition: background-color 0.3s, color 0.3s;
-  border-right: 1px solid #ddd; /* Added border to separate buttons */
+  border-right: 1px solid #ddd;
 }
 
 .sideBarMenuButton:last-child {
-  border-right: none; /* Remove border from the last button */
+  border-right: none;
 }
 
 .sideBarMenuButton:hover {
@@ -115,6 +116,97 @@
 .sidebarSelectAClassText {
   top: 0;
   position: absolute;
+}
+
+.agendaForm {
+  font-family: Arial, sans-serif;
+  width: 90%;
+  max-height: 60vh;
+  overflow-y: scroll;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.agendaFormGroup {
+  margin-bottom: 16px;
+}
+
+.agendaFormLabel {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.agendaFormTaskInput {
+  min-width: 15vw;
+}
+
+.agendaFormSelect, .agendaFormSelectDuration, input[type="date"], input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.agendaFormSelectDuration {
+  max-width: 5vw;
+}
+
+.agendaFormClassItem {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.agendaFormCloseIcon {
+  width: 2vw;
+  height: auto;
+}
+
+.agendaFormClassItemSelected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+
+.agendaFormTaskRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.agendaFormTaskRow input[type="text"] {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.agendaFormTaskRow select {
+  margin-left: 8px;
+}
+
+.agendaFormButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.agendaFormButton:hover {
+  background-color: #0056b3;
+}
+
+.agendaFormSubmitButton {
+  height: 4vh;
+  font-size: 1.25em;
+  width: 10vw;
+  cursor: pointer;
 }
 
 /* APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP */
@@ -234,8 +326,8 @@
 }
 
 .classListItemSelected {
-  background-color: #d0e0ff; /* Soft blue background for selected item */
-  border: 2px solid #0044cc; /* Blue border for emphasis */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly stronger shadow for selected item */
-  font-weight: bold; /* Bold text for selected item */
+  background-color: #d0e0ff;
+  border: 2px solid #0044cc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
 }

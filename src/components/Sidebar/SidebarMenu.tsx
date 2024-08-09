@@ -1,31 +1,36 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styles from '../../styles/App.module.css';
 
-const SidebarMenu = () => {
+interface SidebarMenuProps {
+    sidebarMenuStatus: string,
+    changeSidebarMenuStatus: (requestedMenu: string) => void,
+}
 
-    const [activeTab, setActiveTab] = useState('classes');
+const SidebarMenu:FC<SidebarMenuProps> = (props) => {
+
+    const { sidebarMenuStatus, changeSidebarMenuStatus } = props;
 
     const handleTabClick = (tab: string) => {
-        setActiveTab(tab);
+        changeSidebarMenuStatus(tab);
     };
 
     return (
         <div className={styles.sidebarMenuContainer}>
             <div className={styles.sidebarMenu}>
                 <button
-                    className={`${styles.sideBarMenuButton} ${activeTab === 'classes' ? styles.active : ''}`}
+                    className={`${styles.sideBarMenuButton} ${sidebarMenuStatus === 'classes' ? styles.active : ''}`}
                     onClick={() => handleTabClick('classes')}
                 >
                     Classes
                 </button>
                 <button
-                    className={`${styles.sideBarMenuButton} ${activeTab === 'tasks' ? styles.active : ''}`}
-                    onClick={() => handleTabClick('tasks')}
+                    className={`${styles.sideBarMenuButton} ${sidebarMenuStatus === 'agendas' ? styles.active : ''}`}
+                    onClick={() => handleTabClick('agendas')}
                 >
-                    Tasks
+                    Agendas
                 </button>
                 <button
-                    className={`${styles.sideBarMenuButton} ${activeTab === 'events' ? styles.active : ''}`}
+                    className={`${styles.sideBarMenuButton} ${sidebarMenuStatus === 'events' ? styles.active : ''}`}
                     onClick={() => handleTabClick('events')}
                 >
                     Events

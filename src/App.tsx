@@ -1,13 +1,11 @@
 import './styles/App.module.css';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
-import Agenda from './components/SinglePageApp/SingePageApp';
 import Footer from './components/Footer/Footer';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import SingePageApp from './components/SinglePageApp/SingePageApp';
 import Class from './models/class';
-import Task from './models/task';
 import Event from './models/event';
 
 function App() {
@@ -15,44 +13,27 @@ function App() {
   const [sidebarStatus, setSidebarStatus] = useState(false);
   const [selectedClass, setSelectedClass] = useState('');
   const [classes, setClasses] = useState<Class[]>([]);
-  const [tasks, setTasks] = useState<string[]>([]);
-  const [events, setEvents] = useState<string[]>([]);
 
-  // mount classes and tasks to app
   useEffect(() => {
     mountClasses();
-    mountTasks();
-    mountEvents();
     verifyNewUser();
   }, []);
 
   const mountClasses = () => {
     const keys = Object.keys(localStorage);
-    const classes = iterateLocalStorage('class', keys);
+    const classes = iterateLocalStorage(keys);
     setClasses(classes);
   };
 
-  const mountTasks = () => {
-    const keys = Object.keys(localStorage);
-    const tasks = iterateLocalStorage('task', keys);
-    setTasks(tasks);
-  };
-
-  const mountEvents = () => {
-    const keys = Object.keys(localStorage);
-    const events = iterateLocalStorage('event', keys);
-    setEvents(events);
-  };
-
-  const iterateLocalStorage = (searchParam: string, keys: string[]) => {
+  const iterateLocalStorage = (keys: string[]) => {
     const results: any[] = [];
 
     keys.forEach((key: string) => {
-      if (key.split('-')[0] === searchParam) {
+      if (key.split('-')[0] === 'class') {
         const value = localStorage.getItem(key)
         if (value && value.length > 0) {
           const parsedData = JSON.parse(value);
-          const convertToObject = handleObjectRecreation(parsedData, searchParam);
+          const convertToObject = handleObjectRecreation(parsedData);
           results.push(convertToObject);
         };
       };
@@ -61,18 +42,8 @@ function App() {
     return results;
   };
 
-  const handleObjectRecreation = (parsedData: any, searchParam: string) => {
-    if (searchParam === 'class') {
-      return Class.fromPlainObject(parsedData);
-    };
-
-    if (searchParam === 'event') {
-      return Event.fromPlainObject(parsedData);
-    };
-
-    if (searchParam === 'task') {
-      return Task.fromPlainObject(parsedData);
-    };
+  const handleObjectRecreation = (parsedData: any) => {
+    return Class.fromPlainObject(parsedData);
   };
 
   const changeSidebarStatus = () => {
@@ -120,9 +91,8 @@ function App() {
         selectedClass={selectedClass}
       /> 
       <SingePageApp 
+        selectedClass={selectedClass}
         classes={classes}
-        tasks={tasks}
-        events={events}
       />
       <Footer />
     </>
