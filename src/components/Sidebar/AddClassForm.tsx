@@ -3,10 +3,11 @@ import styles from '../../styles/App.module.css';
 import closeSvg from '../../assets/close.svg';
 import toast from "react-hot-toast";
 import uniqid from 'uniqid';
+import Class from "../../models/class";
 
 interface AddClassFormProps {
   changeAddClassFromStatus: () => void,
-  addClass: (newClass: string) => void,
+  addClass: (newClass: Class) => void,
 }
 
 const AddClassForm:FC<AddClassFormProps> = (props) => {
@@ -18,22 +19,38 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
     if (target.id === 'add-class-form-background') changeAddClassFromStatus();
   };
 
-  const [className, setClassName] = useState('');
+  const [formData, setFormData] = useState({
+    className: '',
+    classPeriod: '',
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setClassName(e.target.value);
+    if (e.target.id === 'className') {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        className: e.target.value,
+      }));
+    }
+    if (e.target.id === 'classPeriod') {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        classPeriod: e.target.value,
+      }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success(`Class Name Submitted: ${className}`, {'id': 'new-class'});
-    saveClassToStorage();
-    addClass(className);
+    toast.success(`Class Submitted: ${formData.className}, ${formData.classPeriod}`, {'id': 'new-class'});
+    const newClass = new Class(formData.className, formData.classPeriod);
+    saveClassToStorage(newClass);
+    addClass(newClass);
     changeAddClassFromStatus();
   };
 
-  const saveClassToStorage = () => {
-    localStorage.setItem(`class-${uniqid()}`, `${className}`);
+  const saveClassToStorage = (newClass: Class) => {
+    const serializedData = JSON.stringify(newClass.toPlainObject());
+    localStorage.setItem(`class-${newClass.id}`, serializedData);
   };
 
   return (
@@ -61,7 +78,20 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
           type="text"
           id="className"
           className={styles.addClassFormInput}
-          value={className}
+          value={formData.className}
+          onChange={handleChange}
+          required
+        />
+        <label 
+          htmlFor="classPeriod"
+          className={styles.addClassFormLabel}>
+            Class Period:
+        </label>
+        <input
+          type="text"
+          id="classPeriod"
+          className={styles.addClassFormInput}
+          value={formData.classPeriod}
           onChange={handleChange}
           required
         />

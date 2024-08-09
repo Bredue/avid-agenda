@@ -4,12 +4,15 @@ import ClassList from "./ClassList";
 import ClassAddButton from "./ClassAddButton";
 import AddClassForm from "./AddClassForm";
 import SidebarMenu from "./SidebarMenu";
+import Class from "../../models/class";
 
 interface SidebarProps {
   changeSidebarStatus: () => void,
   sidebarStatus: boolean,
-  classes: string[],
-  addClass: (newClass: string) => void,
+  classes: Class[],
+  addClass: (newClass: Class) => void,
+  selectActiveClass: (selectedClass: string) => void,
+  selectedClass: string,
 };
 
 const Sidebar:FC<SidebarProps> = (props) => {
@@ -19,10 +22,12 @@ const Sidebar:FC<SidebarProps> = (props) => {
     sidebarStatus,
     classes,
     addClass,
+    selectActiveClass,
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
   const [sidebarMenuStatus, setSidebarMenuStatus] = useState('class');
+  const [selectedClass, setSelectedClass] = useState('');
 
   const changeAddClassFromStatus = () => {
     setAddClassFormStatus(!addClassFormStatus);
@@ -47,11 +52,17 @@ const Sidebar:FC<SidebarProps> = (props) => {
         id="sidebar-container-background"
       >
         <div className={styles.sidebarContainer}>
-          <SidebarMenu />
+          {classes.length > 0 && selectedClass.length > 0 ? (
+            <SidebarMenu />
+          ) : (
+            <></>
+          )}
           {sidebarMenuStatus === 'class' ? (
             <>
               <ClassList 
                 classes={classes}
+                selectActiveClass={selectActiveClass}
+                selectedClass={selectedClass}
               />
               <ClassAddButton
                 changeAddClassFromStatus={changeAddClassFromStatus}
