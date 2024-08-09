@@ -23,11 +23,11 @@ const Sidebar:FC<SidebarProps> = (props) => {
     classes,
     addClass,
     selectActiveClass,
+    selectedClass,
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
   const [sidebarMenuStatus, setSidebarMenuStatus] = useState('class');
-  const [selectedClass, setSelectedClass] = useState('');
 
   const changeAddClassFromStatus = () => {
     setAddClassFormStatus(!addClassFormStatus);
@@ -55,7 +55,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
           {classes.length > 0 && selectedClass.length > 0 ? (
             <SidebarMenu />
           ) : (
-            <></>
+            <p className={styles.sidebarSelectAClassText}>Select a class to add agenda items and events</p>
           )}
           {sidebarMenuStatus === 'class' ? (
             <>

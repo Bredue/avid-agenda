@@ -17,9 +17,10 @@ const ClassList:FC<ClassListProps> = (props) => {
     selectedClass,
   } = props;
 
-  const handleClassSelection = (e: any) => {
-    const value = e.target.textContent;
-    selectActiveClass(value);
+  console.log('class selected')
+
+  const handleClassSelection = (id: string) => {
+    selectActiveClass(id);
   };
 
   return (
@@ -28,9 +29,9 @@ const ClassList:FC<ClassListProps> = (props) => {
       <ul className={styles.classListContainer}>
         {classes.map((classItem) => (
           <li 
-            onClick={(e) => handleClassSelection(e)}
+            onClick={() => handleClassSelection(classItem.id)}
             className={`${styles.classListItem} ${classItem.id === selectedClass ? styles.classListItemSelected : ''}`}
-            key={uniqid()}>
+            key={classItem.id}>
               {classItem.name}
           </li>
         ))}

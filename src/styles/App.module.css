@@ -112,6 +112,11 @@
   transform: translateX(-50%);
 }
 
+.sidebarSelectAClassText {
+  top: 0;
+  position: absolute;
+}
+
 /* APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP */
 
 .appContainer {

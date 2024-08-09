@@ -91,10 +91,14 @@ function App() {
     };
   };
 
-  const selectActiveClass = (selectedClass: string) => {
+  const selectActiveClass = (id: string) => {
     if (classes.length > 0) {
       classes.forEach((cls: Class) => {
-        if (cls.getClassName() === selectedClass) {
+        if (cls.getId() === id) {
+          if (cls.getId() === selectedClass) {
+            setSelectedClass('');
+            return;
+          };
           setSelectedClass(cls.id);
         }
       });
