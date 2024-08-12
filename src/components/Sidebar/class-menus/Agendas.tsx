@@ -22,6 +22,9 @@ const Agendas: FC<AgendasProps> = (props) => {
     const [date, setDate] = useState(new Date);
     const [tasks, setTasks] = useState<{ id: string; task: string; duration: string }[]>([]);
     const [durations, setDurations] = useState<string[]>([]);
+    const [why, setWhy] = useState('');
+    const [essentialQuestion, setEssentialQuestion] = useState('');
+    const [homework, setHomework] = useState('');
 
     useEffect(() => {
         compileTaskDurations();
@@ -82,8 +85,24 @@ const Agendas: FC<AgendasProps> = (props) => {
           );
     };
 
+    const handleWhyChange = (value: string) => {
+        setWhy(value);
+    };
+
+    const handleEQChange = (value: string) => {
+        setEssentialQuestion(value);
+    };
+
+    const handleHomeworkChange = (value: string) => {
+        setHomework(value);
+    };
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        if (assignedClasses.length === 0) {
+            toast.error('You must have an assigned class to submit an agenda', {'id': 'agenda-submit'});
+            return;
+        }
         saveAgendaToLocalStorage();
     };
 
@@ -112,7 +131,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     className={styles.agendaFormLabel}
                     htmlFor="classes"
                 >
-                    Assigned Classes
+                    *Assigned Classes
                 </label>
                 <div className={styles.classList}>
                     {classes.map(cls => (
@@ -140,6 +159,51 @@ const Agendas: FC<AgendasProps> = (props) => {
                     filterDate={(date) => !doesDateAlreadyHaveAgenda(date)}
                     placeholderText="Select a date"
                 />
+            </div>
+
+            <div className={styles.agendaFormGroup}>
+                <label 
+                    className={styles.agendaFormLabel} 
+                    htmlFor="EQ"
+                >
+                    Essential Question
+                </label>
+                <input 
+                    className={styles.agendaFormTaskInput} 
+                    type="text" 
+                    value={essentialQuestion} 
+                    onChange={(e) => handleEQChange(e.target.value)}>
+                </input>
+            </div>
+
+            <div className={styles.agendaFormGroup}>
+                <label 
+                    className={styles.agendaFormLabel} 
+                    htmlFor="HW"
+                >
+                    Homework
+                </label>
+                <input 
+                    className={styles.agendaFormTaskInput} 
+                    type="text" 
+                    value={homework} 
+                    onChange={(e) => handleHomeworkChange(e.target.value)}>
+                </input>
+            </div>
+
+            <div className={styles.agendaFormGroup}>
+                <label 
+                    className={styles.agendaFormLabel} 
+                    htmlFor="why"
+                >
+                    The Why
+                </label>
+                <input 
+                    className={styles.agendaFormTaskInput} 
+                    type="text" 
+                    value={why} 
+                    onChange={(e) => handleWhyChange(e.target.value)}>
+                </input>
             </div>
 
             <div className={styles.agendaFormGroup}>
