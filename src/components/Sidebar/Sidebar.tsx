@@ -7,6 +7,7 @@ import SidebarMenu from "./SidebarMenu";
 import Class from "../../models/class";
 import Agendas from "./class-menus/Agendas";
 import Events from "./class-menus/Events";
+import Agenda from "../../models/agenda";
 
 interface SidebarProps {
   changeSidebarStatus: () => void,
@@ -15,6 +16,7 @@ interface SidebarProps {
   addClass: (newClass: Class) => void,
   selectActiveClass: (selectedClass: string) => void,
   selectedClass: string,
+  addAgenda: (newAgenda: Agenda) => void,
 };
 
 const Sidebar:FC<SidebarProps> = (props) => {
@@ -26,6 +28,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
     addClass,
     selectActiveClass,
     selectedClass,
+    addAgenda,
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
@@ -80,6 +83,8 @@ const Sidebar:FC<SidebarProps> = (props) => {
             <>
               <Agendas 
                 classes={classes}
+                selectedClass={selectedClass}
+                addAgenda={addAgenda}
               />
             </>
           ) : (

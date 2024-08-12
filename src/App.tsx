@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import SingePageApp from './components/SinglePageApp/SingePageApp';
 import Class from './models/class';
 import Event from './models/event';
+import Agenda from './models/agenda';
 
 function App() {
 
@@ -54,6 +55,14 @@ function App() {
     setClasses([...classes, newClass]);
   };
 
+  const addAgenda = (newAgenda: Agenda) => {
+    classes.forEach((cls) => {
+      if (newAgenda.assignedClasses.includes(cls.id)) {
+        cls.agendas.push(newAgenda);
+      };
+    });
+  };
+
   const verifyNewUser = () => {
     if (classes.length === 0) {
       setTimeout(() => {
@@ -89,6 +98,7 @@ function App() {
         addClass={addClass}
         selectActiveClass={selectActiveClass}
         selectedClass={selectedClass}
+        addAgenda={addAgenda}
       /> 
       <SingePageApp 
         selectedClass={selectedClass}

@@ -17,8 +17,6 @@ const ClassList:FC<ClassListProps> = (props) => {
     selectedClass,
   } = props;
 
-  console.log('class selected')
-
   const handleClassSelection = (id: string) => {
     selectActiveClass(id);
   };

@@ -4,17 +4,22 @@ import uniqid from 'uniqid';
 import styles from '../../../styles/App.module.css';
 import closeSvg from '../../../assets/close.svg';
 import Agenda from "../../../models/agenda";
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css';
+import toast from "react-hot-toast";
 
 interface AgendasProps {
     classes: Class[],
+    selectedClass: string,
+    addAgenda: (newAgenda: Agenda) => void,
 };
 
 const Agendas: FC<AgendasProps> = (props) => {
 
-    const { classes } = props;
+    const { classes, selectedClass, addAgenda } = props;
 
     const [assignedClasses, setAssignedClasses] = useState<string[]>([]);
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState(new Date);
     const [tasks, setTasks] = useState<{ id: string; task: string; duration: string }[]>([]);
     const [durations, setDurations] = useState<string[]>([]);
 
@@ -54,15 +59,50 @@ const Agendas: FC<AgendasProps> = (props) => {
         setTasks(tasks.filter(task => task.id !== taskId));
     };
 
+    const handleDateSelect = (date: Date | null) => {
+        if (date !== null) {
+            setDate(date);
+        }
+    };
+
+    const doesDateAlreadyHaveAgenda = (date: Date) => {
+        const agendaDates: Date[] = [];
+
+        classes.forEach((cls: Class) => {
+            cls.agendas.forEach((agenda: Agenda) => {
+                const dateConversion = new Date(agenda.date);
+                agendaDates.push(dateConversion);
+            });
+        });
+
+        return agendaDates.some(agendaDate =>
+            date.getDate() === agendaDate.getDate() &&
+            date.getMonth() === agendaDate.getMonth() &&
+            date.getFullYear() === agendaDate.getFullYear()
+          );
+    };
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         saveAgendaToLocalStorage();
-        console.log({ assignedClasses, date, tasks });
     };
 
     const saveAgendaToLocalStorage = () => {
-        const agenda = new Agenda(assignedClasses, date, tasks);
-        
+        const agenda = new Agenda(assignedClasses, date.toString(), tasks);
+
+        assignedClasses.forEach((assignedClass) => {
+            const cls = localStorage.getItem(`class-${assignedClass}`);
+            if (cls) {
+                const parsedData = JSON.parse(cls);
+                const convertedObject = Class.fromPlainObject(parsedData);
+                convertedObject.agendas.push(agenda);
+                const serializedData = JSON.stringify(convertedObject.toPlainObject());
+                localStorage.setItem(`class-${assignedClass}`, serializedData);
+                toast.success('Agenda Created!', {'id': 'new-agenda'});
+            };
+        });
+
+        addAgenda(agenda);
     };
 
     return (
@@ -94,11 +134,11 @@ const Agendas: FC<AgendasProps> = (props) => {
                 >
                     Date
                 </label>
-                <input
-                    id="date"
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                <DatePicker
+                    selected={date}
+                    onChange={(date) => handleDateSelect(date)}
+                    filterDate={(date) => !doesDateAlreadyHaveAgenda(date)}
+                    placeholderText="Select a date"
                 />
             </div>
 
