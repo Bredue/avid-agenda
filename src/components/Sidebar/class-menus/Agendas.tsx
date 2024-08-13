@@ -7,6 +7,15 @@ import Agenda from "../../../models/agenda";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import toast from "react-hot-toast";
+import clipboardSvg from '../../../assets/supplies/clipboard-outline.svg';
+import headphonesSvg from '../../../assets/supplies/headphones.svg';
+import laptopSvg from '../../../assets/supplies/laptop.svg';
+import markerSvg from '../../../assets/supplies/marker.svg';
+import notebookSvg from '../../../assets/supplies/notebook.svg';
+import notesSvg from '../../../assets/supplies/notes.svg';
+import penSvg from '../../../assets/supplies/pen.svg';
+import pencilSvg from '../../../assets/supplies/pencil.svg';
+import scissorsSvg from '../../../assets/supplies/scissors.svg';
 
 interface AgendasProps {
     classes: Class[],
@@ -14,9 +23,31 @@ interface AgendasProps {
     addAgenda: (newAgenda: Agenda) => void,
 };
 
+interface SVGOption {
+    id: string;
+    svg: string;
+    alt: string;
+  }
+
 const Agendas: FC<AgendasProps> = (props) => {
 
-    const { classes, selectedClass, addAgenda } = props;
+    const { 
+        classes, 
+        selectedClass, 
+        addAgenda 
+    } = props;
+
+    const svgOptions: SVGOption[] = [
+        { id: 'clipboard', svg: clipboardSvg, alt: 'Clipboard' },
+        { id: 'headphones', svg: headphonesSvg, alt: 'Headphones' },
+        { id: 'laptop', svg: laptopSvg, alt: 'Laptop' },
+        { id: 'marker', svg: markerSvg, alt: 'Marker' },
+        { id: 'notebook', svg: notebookSvg, alt: 'Notebook' },
+        { id: 'notes', svg: notesSvg, alt: 'Notes' },
+        { id: 'pen', svg: penSvg, alt: 'Pen' },
+        { id: 'pencil', svg: pencilSvg, alt: 'Pencil' },
+        { id: 'scissors', svg: scissorsSvg, alt: 'Scissors' },
+    ];
 
     const [assignedClasses, setAssignedClasses] = useState<string[]>([]);
     const [date, setDate] = useState(new Date);
@@ -25,6 +56,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     const [why, setWhy] = useState('');
     const [essentialQuestion, setEssentialQuestion] = useState('');
     const [homework, setHomework] = useState('');
+    const [selectedSvgs, setSelectedSvgs] = useState<string[]>([]);
 
     useEffect(() => {
         compileTaskDurations();
@@ -97,8 +129,22 @@ const Agendas: FC<AgendasProps> = (props) => {
         setHomework(value);
     };
 
+    const handleSvgChange = (e: React.MouseEvent<HTMLSelectElement>) => {
+        const selectedOption = (e.target as any).value;
+
+        setSelectedSvgs((prevState) => {
+            const index = prevState.indexOf(selectedOption);
+            if (index !== -1) {
+                return [...prevState.slice(0, index), ...prevState.slice(index + 1)];
+            } else {
+                return [...prevState, selectedOption];
+            }
+        });
+    };
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        removeEmptyTasks();
         if (assignedClasses.length === 0) {
             toast.error('You must have an assigned class to submit an agenda', {'id': 'agenda-submit'});
             return;
@@ -106,8 +152,22 @@ const Agendas: FC<AgendasProps> = (props) => {
         saveAgendaToLocalStorage();
     };
 
+    const removeEmptyTasks = () => {
+        setTasks((prevTasks) => {
+            return prevTasks.filter(task => task.task.length !== 0);
+        });
+    };
+
     const saveAgendaToLocalStorage = () => {
-        const agenda = new Agenda(assignedClasses, date.toString(), tasks);
+        const agenda = new Agenda(
+            assignedClasses, 
+            date.toString(), 
+            tasks.filter(task => task.task.length !== 0), // remove empty tasks before storing in case state update lags
+            why,
+            essentialQuestion,
+            homework,
+            selectedSvgs,
+        );
 
         assignedClasses.forEach((assignedClass) => {
             const cls = localStorage.getItem(`class-${assignedClass}`);
@@ -248,7 +308,49 @@ const Agendas: FC<AgendasProps> = (props) => {
                 </button>
             </div>
 
-            <button className={styles.agendaFormSubmitButton} type="submit">Submit</button>
+            <div className={styles.agendaFormRequiredItemsFormGroup}>
+                <label 
+                    htmlFor="necessaryItems"
+                    className={styles.agendaFormLabel}
+                >
+                    What items are required?
+                </label>
+                <select 
+                    id="necessaryItems" 
+                    multiple 
+                    onClick={(e) => handleSvgChange(e)}
+                    value={selectedSvgs}
+                    className={styles.agendaFormSelectContainer}
+                >
+                    {svgOptions.map(option => (
+                    <option 
+                        key={option.id} 
+                        value={option.id}
+                        className={styles.agendaFormSelectOption}
+                    >
+                        {option.alt}
+                    </option>
+                    ))}
+                </select>
+                <div className={styles.selectedSvgContainer}>
+                    {svgOptions
+                        .filter(option => selectedSvgs.includes(option.id))
+                        .map(option => (
+                            <img
+                                key={option.id}
+                                src={option.svg}
+                                alt={option.alt}
+                                className={styles.agendaFormSelectedSvg}
+                            />
+                    ))}
+                </div>
+            </div>
+
+            <button 
+                className={styles.agendaFormSubmitButton} 
+                type="submit">
+                    Submit
+            </button>
         </form>
     );
 };

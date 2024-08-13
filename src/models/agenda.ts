@@ -6,12 +6,28 @@ class Agenda {
     assignedClasses: string[];
     date: string;
     tasks: Tasks;
+    why: string;
+    essentialQuestion: string;
+    homework: string;
+    selectedSvgs: string[];
     id: string;
 
-    constructor(assignedClasses: string[], date: string, tasks: Tasks) {
+    constructor(
+        assignedClasses: string[], 
+        date: string, 
+        tasks: Tasks, 
+        why: string, 
+        essentialQuestion: string, 
+        homework: string, 
+        selectedSvgs: string[]
+    ) {
         this.assignedClasses = assignedClasses;
         this.date = date;
         this.tasks = tasks;
+        this.why = why;
+        this.essentialQuestion = essentialQuestion;
+        this.homework = homework;
+        this.selectedSvgs = selectedSvgs;
         this.id = uniqid();
     }
 
@@ -32,19 +48,50 @@ class Agenda {
     }
 
     // for storing and retrieving objects from local storage
-    toPlainObject(): { assignedClasses: string[], date: string, tasks: Tasks, id: string } {
+    toPlainObject(): { 
+        assignedClasses: string[],
+        date: string, 
+        tasks: Tasks, 
+        why: string,
+        essentialQuestion: string,
+        homework: string,
+        selectedSvgs: string[],
+        id: string 
+    } {
         return {
             assignedClasses: this.assignedClasses,
             date: this.date,
             tasks: this.tasks,
+            why: this.why,
+            essentialQuestion: this.essentialQuestion,
+            homework: this.homework,
+            selectedSvgs: this.selectedSvgs,
             id: this.id
         };
     }
 
-    static fromPlainObject(obj: { assignedClasses: string[], date: string, tasks: Tasks, id: string }): Agenda {
-        const instance = new Agenda(obj.assignedClasses, obj.date, obj.tasks);
-        instance.id = obj.id;
-        return instance;
+    static fromPlainObject(
+        obj: { 
+            assignedClasses: string[], 
+            date: string, 
+            tasks: Tasks, 
+            why: string, 
+            essentialQuestion: string, 
+            homework: string, 
+            selectedSvgs: string[], 
+            id: string 
+        }): Agenda {
+            const instance = new Agenda(
+                obj.assignedClasses, 
+                obj.date, 
+                obj.tasks,
+                obj.why,
+                obj.essentialQuestion,
+                obj.homework,
+                obj.selectedSvgs,
+            );
+            instance.id = obj.id;
+            return instance;
     }
 }
 
