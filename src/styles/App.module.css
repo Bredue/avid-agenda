@@ -264,11 +264,16 @@
   position: absolute;
   bottom: 0;
   width: 100vw;
-  max-height: 10vh;
+  max-height: 5vh;
+  overflow: hidden;
   background-color: #333;
   color: white;
   text-align: center;
   padding: 10px;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ADD CLASS FORM ADD CLASS FORM ADD CLASS FORM ADD CLASS FORM ADD CLASS FORM ADD CLASS FORM ADD CLASS FORM ADD CLASS FORM ADD CLASS FORM */
