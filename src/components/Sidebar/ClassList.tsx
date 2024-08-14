@@ -25,12 +25,12 @@ const ClassList:FC<ClassListProps> = (props) => {
     <>
     {classes.length > 0 ? (
       <ul className={styles.classListContainer}>
-        {classes.map((classItem) => (
+        {classes.sort((a, b) => Number(a.period) - Number(b.period)).map((classItem) => (
           <li 
             onClick={() => handleClassSelection(classItem.id)}
             className={`${styles.classListItem} ${classItem.id === selectedClass ? styles.classListItemSelected : ''}`}
             key={classItem.id}>
-              {classItem.name}
+              {classItem.period}{classItem.period.length > 0 ? ' - ' : ''}{classItem.name}
           </li>
         ))}
       </ul>

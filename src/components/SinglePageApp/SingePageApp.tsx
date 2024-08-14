@@ -13,8 +13,6 @@ const SingePageApp: FC<SingePageAppProps> = (props) => {
     cls
   } = props;
 
-  console.log(cls)
-
   return (
     <main className={styles.appContainer}>
       {cls !== undefined ? (
