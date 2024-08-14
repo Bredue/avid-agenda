@@ -264,12 +264,11 @@
   position: absolute;
   bottom: 0;
   width: 100vw;
-  max-height: 5vh;
+  max-height: 4vh;
   overflow: hidden;
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 10px;
   font-size: 1em;
   display: flex;
   justify-content: center;
@@ -372,4 +371,156 @@
   border: 2px solid #0044cc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   font-weight: bold;
+}
+
+/* AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION */
+
+.agendaOptionsContainer {
+  min-width: 20vw;
+  max-width: 50vw;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  height: 80vh;
+}
+
+.agendaOptionsHeaderText {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.agendaOptionText {
+  font-size: 1rem;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #444;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.agendaOptionText:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.agendaOptionText.selected {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.agendaPresentation {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: #242424;
+  color: rgba(255, 255, 255, 0.87);
+  overflow-y: visible;
+  box-sizing: border-box;
+}
+
+.agendaImportInfoContainer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.agendaPresentationHeader {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.agendaPresentationEssentialQuestion {
+  font-size: 2em;
+  color: rgba(255, 255, 255, 0.87);
+  margin: 0;
+}
+
+.agendaPresentationHomework,
+.agendaPresentationWhy {
+  font-size: 1.5em;
+  color: rgba(255, 255, 255, 0.87);
+  margin: 0;
+}
+
+.agendaPresentationSvgContainer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+.agendaPresentationHeaderText {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+
+.agendaPresentationSvgIcons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  gap: 1vw;
+}
+
+.agendaPresentationSvgIcon {
+  width: 3vw;
+  height: auto;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(78deg) brightness(103%) contrast(102%);
+}
+
+.agendaPresentationTasks {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.agendaPresentationTasksHeader {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.agendaPresentationTasksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.agendaPresentationTaskItem {
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.87);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+}
+
+.agendaPresentationTaskItem:last-child {
+  border-bottom: none;
 }

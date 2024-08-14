@@ -2,6 +2,12 @@ import uniqid from 'uniqid';
 
 type Tasks = { id: string; task: string; duration: string }[]
 
+interface SVGOption {
+    id: string;
+    svg: string;
+    alt: string;
+  }
+
 class Agenda {
     assignedClasses: string[];
     date: string;
@@ -9,7 +15,7 @@ class Agenda {
     why: string;
     essentialQuestion: string;
     homework: string;
-    selectedSvgs: string[];
+    selectedSvgs: SVGOption[];
     id: string;
 
     constructor(
@@ -19,7 +25,7 @@ class Agenda {
         why: string, 
         essentialQuestion: string, 
         homework: string, 
-        selectedSvgs: string[]
+        selectedSvgs: SVGOption[]
     ) {
         this.assignedClasses = assignedClasses;
         this.date = date;
@@ -55,7 +61,7 @@ class Agenda {
         why: string,
         essentialQuestion: string,
         homework: string,
-        selectedSvgs: string[],
+        selectedSvgs: SVGOption[],
         id: string 
     } {
         return {
@@ -78,7 +84,7 @@ class Agenda {
             why: string, 
             essentialQuestion: string, 
             homework: string, 
-            selectedSvgs: string[], 
+            selectedSvgs: SVGOption[], 
             id: string 
         }): Agenda {
             const instance = new Agenda(

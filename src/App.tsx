@@ -101,8 +101,7 @@ function App() {
         addAgenda={addAgenda}
       /> 
       <SingePageApp 
-        selectedClass={selectedClass}
-        classes={classes}
+        cls={classes.find((cls) => cls.id === selectedClass)}
       />
       <Footer />
     </>

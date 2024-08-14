@@ -158,6 +158,19 @@ const Agendas: FC<AgendasProps> = (props) => {
         });
     };
 
+    const compileSvgData = () => {
+        const compiledSvgs: SVGOption[] = [];
+
+        selectedSvgs.forEach((svg) => {
+            const matchStatus = svgOptions.find((option => option.id === svg.toLowerCase()));
+            if (matchStatus !== undefined) {
+                compiledSvgs.push(matchStatus);
+            };
+        });
+
+        return compiledSvgs;
+    };
+
     const saveAgendaToLocalStorage = () => {
         const agenda = new Agenda(
             assignedClasses, 
@@ -166,7 +179,7 @@ const Agendas: FC<AgendasProps> = (props) => {
             why,
             essentialQuestion,
             homework,
-            selectedSvgs,
+            compileSvgData(),
         );
 
         assignedClasses.forEach((assignedClass) => {
@@ -318,6 +331,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                 <select 
                     id="necessaryItems" 
                     multiple 
+                    onChange={() => {return}}
                     onClick={(e) => handleSvgChange(e)}
                     value={selectedSvgs}
                     className={styles.agendaFormSelectContainer}
