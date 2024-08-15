@@ -14,6 +14,11 @@ function App() {
   const [selectedClass, setSelectedClass] = useState('');
   const [classes, setClasses] = useState<Class[]>([]);
   const [viewingAgenda, setViewingAgenda] = useState(false);
+  const [agendaEditRequest, setAgendaEditRequest] = useState<{status: boolean, id: string, classes: string[]}>({
+    status: false,
+    id: '',
+    classes: [],
+  });
 
   useEffect(() => {
     mountClasses();
@@ -66,6 +71,10 @@ function App() {
     setClasses(classesUpdated);
   };
 
+  const editAgenda = (newAgenda: Agenda) => {
+    mountClasses(); // workaround, will fix later
+  };
+
   const verifyNewUser = () => {
     if (classes.length === 0) {
       setTimeout(() => {
@@ -115,6 +124,15 @@ function App() {
     setClasses(updatedClasses);
   };
 
+  const handleAgendaEditRequest = (agendaId: string, classes: string[]) => {
+    setSidebarStatus(true);
+    setAgendaEditRequest({
+      status: true,
+      id: agendaId,
+      classes: classes,
+    });
+  };
+
   return (
     <>
       <Toaster />
@@ -133,12 +151,15 @@ function App() {
         handleAgendaViewingStatus={handleAgendaViewingStatus}
         removeClass={removeClass}
         editClass={editClass}
+        agendaEditRequest={agendaEditRequest}
+        editAgenda={editAgenda}
       /> 
       <SingePageApp 
         cls={classes.find((cls) => cls.id === selectedClass)}
         handleAgendaViewingStatus={handleAgendaViewingStatus}
         viewingAgenda={viewingAgenda}
         removeAgenda={removeAgenda}
+        handleAgendaEditRequest={handleAgendaEditRequest}
       />
       <Footer />
     </>

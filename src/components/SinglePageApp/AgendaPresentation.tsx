@@ -7,16 +7,19 @@ interface AgendaProps {
   handleAgendaViewingStatus: (status: boolean) => void,
   viewingAgenda: boolean,
   removeAgenda: (agendaId: string) => void,
+  handleAgendaEditRequest: (agendaId: string, classes: string[]) => void,
 }
 
 interface simpleDateObject {
   date: Date,
   agendaId: string,
+  classes: string[],
 }
 
 interface formattedDateObject {
   date: string,
   agendaId: string,
+  classes: string[],
 }
 
 const AgendaPresentation:FC<AgendaProps> = (props) => {
@@ -26,6 +29,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
     handleAgendaViewingStatus,
     viewingAgenda,
     removeAgenda,
+    handleAgendaEditRequest,
   } = props;
 
   const [selectedAgenda, setSelectedAgenda] = useState<Agenda | object>({});
@@ -59,6 +63,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
       const simpleDateObject: simpleDateObject = {
         date: date,
         agendaId: agenda.id,
+        classes: agenda.assignedClasses,
       }
       justDates.push(simpleDateObject);
     });
@@ -80,6 +85,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
       const formatDate = {
         date: filteredDate.date.toDateString(),
         agendaId: filteredDate.agendaId,
+        classes: filteredDate.classes,
       };
       reformatedDates.push(formatDate);
     });
@@ -97,8 +103,8 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
     };
   };
 
-  const handleAgendaEdit = (id: string) => {
-    
+  const handleAgendaEdit = (id: string, classes: string[]) => {
+    handleAgendaEditRequest(id, classes);
   };
 
   const handleAgendaDelete = (id: string) => {
@@ -128,7 +134,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
             </span>
             {hoveredAgendaId === agenda.agendaId && (
               <div className={styles.AgendaOptionsContainer}>
-                <button onClick={(e) => { e.stopPropagation(); handleAgendaEdit(agenda.agendaId); }}>Edit</button>
+                <button onClick={(e) => { e.stopPropagation(); handleAgendaEdit(agenda.agendaId, agenda.classes); }}>Edit</button>
                 <button onClick={(e) => { e.stopPropagation(); handleAgendaDelete(agenda.agendaId); }}>Delete</button>
               </div>
             )}

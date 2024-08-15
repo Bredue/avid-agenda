@@ -21,6 +21,12 @@ interface AgendasProps {
     classes: Class[],
     selectedClass: string,
     addAgenda: (newAgenda: Agenda) => void,
+    agendaEditRequest: {
+        status: boolean,
+        id: string,
+        classes: string[],
+    },
+    editAgenda: (newAgenda: Agenda) => void,
 };
 
 interface SVGOption {
@@ -34,7 +40,9 @@ const Agendas: FC<AgendasProps> = (props) => {
     const { 
         classes, 
         selectedClass, 
-        addAgenda 
+        addAgenda,
+        agendaEditRequest,
+        editAgenda,
     } = props;
 
     const svgOptions: SVGOption[] = [
@@ -61,6 +69,12 @@ const Agendas: FC<AgendasProps> = (props) => {
     useEffect(() => {
         compileTaskDurations();
     }, []);
+
+    useEffect(() => {
+        if (agendaEditRequest.status === true) {
+            loadAgendaDataForEdit();
+        };
+    }, [agendaEditRequest]);
 
     const compileTaskDurations = () => {
         const durations: string[] = [];
@@ -145,10 +159,17 @@ const Agendas: FC<AgendasProps> = (props) => {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         removeEmptyTasks();
+
         if (assignedClasses.length === 0) {
             toast.error('You must have an assigned class to submit an agenda', {'id': 'agenda-submit'});
             return;
         }
+
+        if (agendaEditRequest.status === true) {
+            handleAgendaEditSubmit();
+            return;
+        };
+
         saveAgendaToLocalStorage();
     };
 
@@ -190,11 +211,65 @@ const Agendas: FC<AgendasProps> = (props) => {
                 convertedObject.agendas.push(agenda);
                 const serializedData = JSON.stringify(convertedObject.toPlainObject());
                 localStorage.setItem(`class-${assignedClass}`, serializedData);
-                toast.success('Agenda Created!', {'id': 'new-agenda'});
             };
         });
 
+        toast.success('Agenda Created!', {'id': 'new-agenda'});
         addAgenda(agenda);
+    };
+
+    const handleAgendaEditSubmit = () => {
+        const agenda = new Agenda(
+            assignedClasses, 
+            date.toString(), 
+            tasks.filter(task => task.task.length !== 0), // remove empty tasks before storing in case state update lags
+            why,
+            essentialQuestion,
+            homework,
+            compileSvgData(),
+        );
+
+        assignedClasses.forEach((assignedClass) => {
+            const cls = localStorage.getItem(`class-${assignedClass}`);
+            if (cls) {
+                const parsedData = JSON.parse(cls);
+                const convertedObject = Class.fromPlainObject(parsedData);
+                
+                convertedObject.agendas = convertedObject.agendas.map(oldAgenda =>
+                    oldAgenda.id !== agendaEditRequest.id ? oldAgenda : agenda
+                );
+
+                const serializedData = JSON.stringify(convertedObject.toPlainObject());
+                localStorage.setItem(`class-${assignedClass}`, serializedData);
+            };
+        });
+
+        toast.success('Agenda Edited!', {'id': 'edited-agenda'});
+        editAgenda(agenda);
+    };
+
+    const loadAgendaDataForEdit = () => {
+        if (agendaEditRequest.classes.length === 0) return;
+        const cls = localStorage.getItem(`class-${agendaEditRequest.classes[0]}`);
+        if (cls) {
+            const parsedData = JSON.parse(cls);
+            const convertedData = Class.fromPlainObject(parsedData);
+            const agenda = convertedData.agendas.find((agenda => agenda.id === agendaEditRequest.id));
+            if (agenda) {
+                setAssignedClasses(agenda.assignedClasses);
+                setDate(new Date(agenda.date));
+                setEssentialQuestion(agenda.essentialQuestion);
+                setHomework(agenda.homework)
+                setTasks(agenda.tasks);
+                setWhy(agenda.why);
+
+                const selectedSvgs: string[] = [];
+                agenda.selectedSvgs.forEach((svg) => {
+                    selectedSvgs.push(svg.id);
+                });
+                setSelectedSvgs(selectedSvgs);
+            };
+        };
     };
 
     return (
@@ -363,7 +438,7 @@ const Agendas: FC<AgendasProps> = (props) => {
             <button 
                 className={styles.agendaFormSubmitButton} 
                 type="submit">
-                    Submit
+                    {agendaEditRequest.status === true ? 'Submit Edit' : 'Submit'}
             </button>
         </form>
     );

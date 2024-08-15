@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from '../../styles/App.module.css';
 import ClassList from "./ClassList";
 import ClassAddButton from "./ClassAddButton";
@@ -21,6 +21,12 @@ interface SidebarProps {
   handleAgendaViewingStatus: (status: boolean) => void,
   removeClass: (id: string) => void,
   editClass: (editedClass: Class) => void,
+  agendaEditRequest: {
+    status: boolean,
+    id: string,
+    classes: string[],
+  },
+  editAgenda: (newAgenda: Agenda) => void,
 };
 
 const Sidebar:FC<SidebarProps> = (props) => {
@@ -37,6 +43,8 @@ const Sidebar:FC<SidebarProps> = (props) => {
     handleAgendaViewingStatus,
     removeClass,
     editClass,
+    agendaEditRequest,
+    editAgenda,
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
@@ -45,6 +53,12 @@ const Sidebar:FC<SidebarProps> = (props) => {
     request: false,
     id: '',
   });
+
+  useEffect(() => {
+    if (agendaEditRequest.status === true) {
+      changeSidebarMenuStatus('agendas');
+    }
+  }, [agendaEditRequest]);
 
   const changeAddClassFromStatus = () => {
     setAddClassFormStatus(!addClassFormStatus);
@@ -137,6 +151,8 @@ const Sidebar:FC<SidebarProps> = (props) => {
                 classes={classes}
                 selectedClass={selectedClass}
                 addAgenda={addAgenda}
+                agendaEditRequest={agendaEditRequest}
+                editAgenda={editAgenda}
               />
             </>
           ) : (
