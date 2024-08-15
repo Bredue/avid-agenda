@@ -1,16 +1,20 @@
 import React, { FC } from 'react';
 import styles from '../../styles/App.module.css';
 import Class from '../../models/class';
-import AgendaPresentation from './Agenda';
+import AgendaPresentation from './AgendaPresentation';
 
 interface SingePageAppProps {
   cls: Class | undefined,
+  handleAgendaViewingStatus: (status: boolean) => void,
+  viewingAgenda: boolean,
 }
 
 const SingePageApp: FC<SingePageAppProps> = (props) => {
 
   const { 
-    cls
+    cls,
+    handleAgendaViewingStatus,
+    viewingAgenda,
   } = props;
 
   return (
@@ -18,6 +22,8 @@ const SingePageApp: FC<SingePageAppProps> = (props) => {
       {cls !== undefined ? (
         <AgendaPresentation 
           agendas={cls.agendas}
+          handleAgendaViewingStatus={handleAgendaViewingStatus}
+          viewingAgenda={viewingAgenda}
         />
       ) : (
         <p>

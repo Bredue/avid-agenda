@@ -14,6 +14,7 @@ function App() {
   const [sidebarStatus, setSidebarStatus] = useState(false);
   const [selectedClass, setSelectedClass] = useState('');
   const [classes, setClasses] = useState<Class[]>([]);
+  const [viewingAgenda, setViewingAgenda] = useState(false);
 
   useEffect(() => {
     mountClasses();
@@ -56,11 +57,14 @@ function App() {
   };
 
   const addAgenda = (newAgenda: Agenda) => {
+    const classesUpdated: Class[] = [];
     classes.forEach((cls) => {
       if (newAgenda.assignedClasses.includes(cls.id)) {
         cls.agendas.push(newAgenda);
       };
+      classesUpdated.push(cls);
     });
+    setClasses(classesUpdated);
   };
 
   const verifyNewUser = () => {
@@ -83,6 +87,22 @@ function App() {
         }
       });
     };
+    handleAgendaViewingStatus(false);
+  };
+
+  const handleAgendaViewingStatus = (status: boolean) => {
+    setViewingAgenda(status);
+  }
+
+  const removeClass = (id: string) => {
+    setClasses((prevClasses) => {
+      return prevClasses.filter(cls => cls.id !== id);
+    });
+  };
+
+  const editClass = (editedClass: Class) => {
+    const updatedClass = classes.map((cls => cls.id === editedClass.id ? editedClass : cls));
+    setClasses(updatedClass);
   };
 
   return (
@@ -99,9 +119,15 @@ function App() {
         selectActiveClass={selectActiveClass}
         selectedClass={selectedClass}
         addAgenda={addAgenda}
+        viewingAgenda={viewingAgenda}
+        handleAgendaViewingStatus={handleAgendaViewingStatus}
+        removeClass={removeClass}
+        editClass={editClass}
       /> 
       <SingePageApp 
         cls={classes.find((cls) => cls.id === selectedClass)}
+        handleAgendaViewingStatus={handleAgendaViewingStatus}
+        viewingAgenda={viewingAgenda}
       />
       <Footer />
     </>

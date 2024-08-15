@@ -17,6 +17,10 @@ interface SidebarProps {
   selectActiveClass: (selectedClass: string) => void,
   selectedClass: string,
   addAgenda: (newAgenda: Agenda) => void,
+  viewingAgenda: boolean,
+  handleAgendaViewingStatus: (status: boolean) => void,
+  removeClass: (id: string) => void,
+  editClass: (editedClass: Class) => void,
 };
 
 const Sidebar:FC<SidebarProps> = (props) => {
@@ -29,10 +33,18 @@ const Sidebar:FC<SidebarProps> = (props) => {
     selectActiveClass,
     selectedClass,
     addAgenda,
+    viewingAgenda,
+    handleAgendaViewingStatus,
+    removeClass,
+    editClass,
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
   const [sidebarMenuStatus, setSidebarMenuStatus] = useState('classes');
+  const [classEditRequest, setClassEditRequest] = useState({
+    request: false,
+    id: '',
+  });
 
   const changeAddClassFromStatus = () => {
     setAddClassFormStatus(!addClassFormStatus);
@@ -40,11 +52,26 @@ const Sidebar:FC<SidebarProps> = (props) => {
 
   const verifyUserOffClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    if (target.id === 'sidebar-container-background') changeSidebarStatus();
+    if (target.id === 'sidebar-container-background') {
+      changeSidebarStatus();
+      changeSidebarMenuStatus('classes');
+    }
   };
 
   const changeSidebarMenuStatus = (requestedMenu: string) => {
     setSidebarMenuStatus(requestedMenu);
+  };
+
+  const handleCloseOpenAgenda = () => {
+    handleAgendaViewingStatus(false);
+  };
+
+  const openEditClassForm = (id: string) => {
+    setClassEditRequest({
+      request: true,
+      id: id,
+    });
+    setAddClassFormStatus(true);
   };
 
   return (
@@ -58,10 +85,33 @@ const Sidebar:FC<SidebarProps> = (props) => {
       >
         <div className={styles.sidebarContainer}>
           {classes.length > 0 && selectedClass.length > 0 ? (
-            <SidebarMenu 
-              sidebarMenuStatus={sidebarMenuStatus}
-              changeSidebarMenuStatus={changeSidebarMenuStatus}
-            />
+            <>
+              <SidebarMenu 
+                sidebarMenuStatus={sidebarMenuStatus}
+                changeSidebarMenuStatus={changeSidebarMenuStatus}
+              />
+              {viewingAgenda === true && sidebarMenuStatus === 'classes' ? (
+                <button
+                  onClick={handleCloseOpenAgenda}
+                  style={{
+                    backgroundColor: 'red',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    padding: '8px 16px',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    position: 'absolute',
+                    top: '8vh',
+                    width: '80%',
+                    height: '5vh',
+                  }}
+                >
+                  Close Current Agenda
+                </button>
+              ) : null}
+            </>
           ) : (
             <p className={styles.sidebarSelectAClassText}>Select a class to add agenda items and events</p>
           )}
@@ -71,6 +121,8 @@ const Sidebar:FC<SidebarProps> = (props) => {
                 classes={classes}
                 selectActiveClass={selectActiveClass}
                 selectedClass={selectedClass}
+                removeClass={removeClass}
+                openEditClassForm={openEditClassForm}
               />
               <ClassAddButton
                 changeAddClassFromStatus={changeAddClassFromStatus}
@@ -101,6 +153,8 @@ const Sidebar:FC<SidebarProps> = (props) => {
             <AddClassForm 
               changeAddClassFromStatus={changeAddClassFromStatus}
               addClass={addClass}
+              classEditRequest={classEditRequest}
+              editClass={editClass}
             />
           ) : (
             <></>

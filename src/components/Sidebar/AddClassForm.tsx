@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent } from "react";
+import React, { FC, useState, ChangeEvent, useEffect } from "react";
 import styles from '../../styles/App.module.css';
 import closeSvg from '../../assets/close.svg';
 import toast from "react-hot-toast";
@@ -8,21 +8,45 @@ import Class from "../../models/class";
 interface AddClassFormProps {
   changeAddClassFromStatus: () => void,
   addClass: (newClass: Class) => void,
+  classEditRequest: {
+    request: boolean,
+    id: string,
+  },
+  editClass: (editedClass: Class) => void,
 }
 
 const AddClassForm:FC<AddClassFormProps> = (props) => {
 
-  const { changeAddClassFromStatus, addClass } = props;
-
-  const identifyUserOffClick = (e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.id === 'add-class-form-background') changeAddClassFromStatus();
-  };
+  const { 
+    changeAddClassFromStatus, 
+    addClass,
+    classEditRequest,
+    editClass,
+  } = props;
 
   const [formData, setFormData] = useState({
     className: '',
     classPeriod: '',
   });
+
+  useEffect(() => {
+    if (classEditRequest.request === true) {
+      const cls = localStorage.getItem(`class-${classEditRequest.id}`);      
+      if (cls) {
+        const parsedData = JSON.parse(cls);
+        const convertedData = Class.fromPlainObject(parsedData);
+        setFormData({
+          className: convertedData.name,
+          classPeriod: convertedData.period,
+        });
+      };
+    };
+  }, [classEditRequest.request]);
+
+  const identifyUserOffClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.id === 'add-class-form-background') changeAddClassFromStatus();
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === 'className') {
@@ -39,8 +63,19 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
     }
   };
 
+  const saveClassToStorage = (newClass: Class) => {
+    const serializedData = JSON.stringify(newClass.toPlainObject());
+    localStorage.setItem(`class-${newClass.id}`, serializedData);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (classEditRequest.request === true) {
+      handleEditSubmit();
+      return;
+    };
+
     toast.success(`Class Submitted: ${formData.className}, ${formData.classPeriod}`, {'id': 'new-class'});
     const newClass = new Class([], [], formData.className, formData.classPeriod);
     saveClassToStorage(newClass);
@@ -48,9 +83,21 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
     changeAddClassFromStatus();
   };
 
-  const saveClassToStorage = (newClass: Class) => {
-    const serializedData = JSON.stringify(newClass.toPlainObject());
-    localStorage.setItem(`class-${newClass.id}`, serializedData);
+  const handleEditSubmit = () => {
+    toast.success(`Class Edited: ${formData.className}, ${formData.classPeriod}`, {'id': 'edited-class'});
+    
+    if (classEditRequest.request === true) {
+      const cls = localStorage.getItem(`class-${classEditRequest.id}`);      
+      if (cls) {
+        const parsedData = JSON.parse(cls);
+        const convertedData = Class.fromPlainObject(parsedData);
+        convertedData.name = formData.className,
+        convertedData.period = formData.classPeriod,
+        saveClassToStorage(convertedData);
+        editClass(convertedData);
+        changeAddClassFromStatus();
+      };
+    };
   };
 
   return (
@@ -72,7 +119,7 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
         <label 
           htmlFor="className"
           className={styles.addClassFormLabel}>
-            Class Name:
+            {classEditRequest.request === true ? 'Edit Name:' : 'Class Name:'}
         </label>
         <input
           type="text"
@@ -85,7 +132,7 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
         <label 
           htmlFor="classPeriod"
           className={styles.addClassFormLabel}>
-            Class Period:
+            {classEditRequest.request === true ? 'Edit Period:' : 'Class Period:'}
         </label>
         <input
           type="text"

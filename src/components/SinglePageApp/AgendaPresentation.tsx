@@ -1,9 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from '../../styles/App.module.css';
 import Agenda from "../../models/agenda";
 
 interface AgendaProps {
   agendas: Agenda[];
+  handleAgendaViewingStatus: (status: boolean) => void,
+  viewingAgenda: boolean,
 }
 
 interface simpleDateObject {
@@ -18,9 +20,27 @@ interface formattedDateObject {
 
 const AgendaPresentation:FC<AgendaProps> = (props) => {
 
-  const { agendas } = props;
+  const { 
+    agendas,
+    handleAgendaViewingStatus,
+    viewingAgenda,
+  } = props;
 
   const [selectedAgenda, setSelectedAgenda] = useState<Agenda | object>({});
+
+  useEffect(() => {
+    if (viewingAgenda === false) {
+      setSelectedAgenda({});
+    };
+  }, [viewingAgenda]);
+
+  useEffect(() => {
+    if (Object.keys(selectedAgenda).length > 0) {
+      handleAgendaViewingStatus(true);
+    } else {
+      handleAgendaViewingStatus(false);
+    }
+  }, [selectedAgenda]);
 
   const getAgendaDates = () => {
     const justDates: simpleDateObject[] = [];
@@ -74,7 +94,13 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
     };
   };
 
-  if (Object.keys(selectedAgenda).length === 0) {
+  if (Object.keys(selectedAgenda).length === 0 && agendas.length === 0) {
+    return (
+      <div className={styles.agendaOptionsContainer}>
+        <p className={styles.agendaOptionsHeaderText}>You have no agendas, create one in the agendas menu</p>
+      </div>
+    );
+  } else if (Object.keys(selectedAgenda).length === 0) {
     return (
       <div className={styles.agendaOptionsContainer}>
         <h2 className={styles.agendaOptionsHeaderText}>Select an agenda</h2>
