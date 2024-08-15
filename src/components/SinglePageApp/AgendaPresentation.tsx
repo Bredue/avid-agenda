@@ -6,6 +6,7 @@ interface AgendaProps {
   agendas: Agenda[];
   handleAgendaViewingStatus: (status: boolean) => void,
   viewingAgenda: boolean,
+  removeAgenda: (agendaId: string) => void,
 }
 
 interface simpleDateObject {
@@ -24,9 +25,11 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
     agendas,
     handleAgendaViewingStatus,
     viewingAgenda,
+    removeAgenda,
   } = props;
 
   const [selectedAgenda, setSelectedAgenda] = useState<Agenda | object>({});
+  const [hoveredAgendaId, setHoveredAgendaId] = useState<string | null>(null);
 
   useEffect(() => {
     if (viewingAgenda === false) {
@@ -94,6 +97,14 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
     };
   };
 
+  const handleAgendaEdit = (id: string) => {
+    
+  };
+
+  const handleAgendaDelete = (id: string) => {
+    removeAgenda(id);
+  };
+
   if (Object.keys(selectedAgenda).length === 0 && agendas.length === 0) {
     return (
       <div className={styles.agendaOptionsContainer}>
@@ -109,8 +120,18 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
             className={styles.agendaOptionText}
             key={agenda.agendaId}
             onClick={() => handleAgendaSelection(agenda.agendaId)}
+            onMouseOver={() => setHoveredAgendaId(agenda.agendaId)}
+            onMouseOut={() => setHoveredAgendaId(null)}
           >
-            {agenda.date}
+            <span>
+              {agenda.date}
+            </span>
+            {hoveredAgendaId === agenda.agendaId && (
+              <div className={styles.AgendaOptionsContainer}>
+                <button onClick={(e) => { e.stopPropagation(); handleAgendaEdit(agenda.agendaId); }}>Edit</button>
+                <button onClick={(e) => { e.stopPropagation(); handleAgendaDelete(agenda.agendaId); }}>Delete</button>
+              </div>
+            )}
           </p>
         ))}
       </div>

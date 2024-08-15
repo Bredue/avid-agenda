@@ -7,6 +7,7 @@ interface SingePageAppProps {
   cls: Class | undefined,
   handleAgendaViewingStatus: (status: boolean) => void,
   viewingAgenda: boolean,
+  removeAgenda: (agendaId: string) => void,
 }
 
 const SingePageApp: FC<SingePageAppProps> = (props) => {
@@ -15,6 +16,7 @@ const SingePageApp: FC<SingePageAppProps> = (props) => {
     cls,
     handleAgendaViewingStatus,
     viewingAgenda,
+    removeAgenda,
   } = props;
 
   return (
@@ -24,6 +26,7 @@ const SingePageApp: FC<SingePageAppProps> = (props) => {
           agendas={cls.agendas}
           handleAgendaViewingStatus={handleAgendaViewingStatus}
           viewingAgenda={viewingAgenda}
+          removeAgenda={removeAgenda}
         />
       ) : (
         <p>

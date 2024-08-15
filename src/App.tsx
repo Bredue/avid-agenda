@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import SingePageApp from './components/SinglePageApp/SingePageApp';
 import Class from './models/class';
-import Event from './models/event';
 import Agenda from './models/agenda';
 
 function App() {
@@ -105,6 +104,17 @@ function App() {
     setClasses(updatedClass);
   };
 
+  const removeAgenda = (agendaId: string) => {
+    const updatedClasses: any = classes.map((cls) => {
+      return {
+        ...cls,
+        agendas: cls.agendas.filter((agenda) => agenda.id !== agendaId),
+      };
+    });
+  
+    setClasses(updatedClasses);
+  };
+
   return (
     <>
       <Toaster />
@@ -128,6 +138,7 @@ function App() {
         cls={classes.find((cls) => cls.id === selectedClass)}
         handleAgendaViewingStatus={handleAgendaViewingStatus}
         viewingAgenda={viewingAgenda}
+        removeAgenda={removeAgenda}
       />
       <Footer />
     </>
