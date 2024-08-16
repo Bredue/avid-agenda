@@ -531,7 +531,7 @@
 
 .agendaPresentationTaskItem {
   font-size: 1rem;
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.87);
   display: flex;
@@ -543,4 +543,37 @@
 
 .agendaPresentationTaskItem:last-child {
   border-bottom: none;
+}
+
+.agendaPresentationTaskItemHover {
+  background-color: #444;
+  color: #e0e0e0;
+}
+
+.agendaPresentationTaskItemSelected {
+  background-color: #00bfae;
+  color: #fff;
+}
+
+.agendaPresentationPlaySvg {
+  width: 3vw;
+  height: auto;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(78deg) brightness(103%) contrast(102%);
+  cursor: pointer;
+}
+
+/* COUNTDOWN TIMER COUNTDOWN TIMER COUNTDOWN TIMER COUNTDOWN TIMER COUNTDOWN TIMER COUNTDOWN TIMER COUNTDOWN TIMER COUNTDOWN TIMER */
+
+.countdownTimerBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255);
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
 }

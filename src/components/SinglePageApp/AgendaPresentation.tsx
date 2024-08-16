@@ -1,6 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from '../../styles/App.module.css';
 import Agenda from "../../models/agenda";
+import playSvg from '../../assets/play.svg';
+import CountdownTimer from "./CountdownTimer";
+import toast from "react-hot-toast";
 
 interface AgendaProps {
   agendas: Agenda[];
@@ -22,6 +25,12 @@ interface formattedDateObject {
   classes: string[],
 }
 
+interface Task { 
+  id: string,
+  task: string, 
+  duration: string,
+}
+
 const AgendaPresentation:FC<AgendaProps> = (props) => {
 
   const { 
@@ -34,6 +43,13 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
 
   const [selectedAgenda, setSelectedAgenda] = useState<Agenda | object>({});
   const [hoveredAgendaId, setHoveredAgendaId] = useState<string | null>(null);
+  const [taskHovered, setTaskHovered] = useState('');
+  const [taskSelected, setTaskSelected] = useState('');
+  const [countdownTimer, setCountdownTimer] = useState<{status: boolean, taskId: string, task: {} | Task}>({
+    status: false,
+    taskId: '',
+    task: {},
+  });
 
   useEffect(() => {
     if (viewingAgenda === false) {
@@ -111,6 +127,56 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
     removeAgenda(id);
   };
 
+  const handleMouseEnterTask = (taskId: string) => {
+    setTaskHovered(taskId);
+  };
+
+  const handleMouseLeaveTask = () => {
+    setTaskHovered('');
+  };
+
+  const handleTaskSelect = (e: React.MouseEvent, taskId: string) => {
+    if ((e.target as any).id === 'play-icon') {
+      handleOpenTaskTimer(taskId);
+      return;
+    };
+
+    if (taskSelected === taskId) {
+      setTaskSelected('');
+    } else {
+      setTaskSelected(taskId);
+    };
+  };
+
+  const handleOpenTaskTimer = (taskId: string) => {
+    let taskToTime: {} | Task = {};
+
+    agendas.forEach((agenda) => {
+      agenda.tasks.forEach((task) => {
+        if (task.id === taskId) {
+          taskToTime = task;
+        };
+      });
+    });
+
+    console.log((taskToTime as Task).duration)
+
+    if (Object.keys(taskToTime).length > 0) {
+      if ((taskToTime as Task).duration === '1 HR +' || (taskToTime as Task).duration === '-') {
+        toast.error('cannot start timer with "1 HR +" or "-" duration on task', {'id': 'open-timer-error'});
+        return;
+      };
+  
+      if (taskToTime) {
+        setCountdownTimer({
+          status: true,
+          taskId: taskId,
+          task: taskToTime,
+        });
+      };
+    }
+  };
+
   if (Object.keys(selectedAgenda).length === 0 && agendas.length === 0) {
     return (
       <div className={styles.agendaOptionsContainer}>
@@ -171,12 +237,37 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
           <h3 className={styles.agendaPresentationTasksHeader}>Agenda:</h3>
           <ul className={styles.agendaPresentationTasksList}>
             {(selectedAgenda as Agenda).tasks.map((task, index) => (
-              <li key={index} className={styles.agendaPresentationTaskItem}>
+              <li 
+                key={index} 
+                className={`${styles.agendaPresentationTaskItem} ${taskSelected === task.id ? styles.agendaPresentationTaskItemSelected : ''} ${taskHovered === task.id ? styles.agendaPresentationTaskItemHover : ''}`}
+                onMouseEnter={() => handleMouseEnterTask(task.id)}
+                onMouseLeave={() => handleMouseLeaveTask()}
+                onClick={(e) => handleTaskSelect(e, task.id)}
+              >
                 <p>{task.task}</p>
+                {taskSelected === task.id ? (
+                  <img 
+                    id="play-icon"
+                    src={playSvg} 
+                    alt="play icon" 
+                    className={styles.agendaPresentationPlaySvg}>
+                  </img>
+                ) : (
+                  <></>
+                )}
                 <p>{task.duration}</p>
               </li>
             ))}
           </ul>
+
+          {countdownTimer.status === true ? (
+            <CountdownTimer 
+              task={countdownTimer.task}
+            />
+          ) : (
+            <></>
+          )}
+
         </div>
       </div>
     );
