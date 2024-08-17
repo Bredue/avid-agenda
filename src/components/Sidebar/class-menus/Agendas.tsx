@@ -19,14 +19,13 @@ import scissorsSvg from '../../../assets/supplies/scissors.svg';
 
 interface AgendasProps {
     classes: Class[],
-    selectedClass: string,
     addAgenda: (newAgenda: Agenda) => void,
     agendaEditRequest: {
         status: boolean,
         id: string,
         classes: string[],
     },
-    editAgenda: (newAgenda: Agenda) => void,
+    editAgenda: () => void,
 };
 
 interface SVGOption {
@@ -39,7 +38,6 @@ const Agendas: FC<AgendasProps> = (props) => {
 
     const { 
         classes, 
-        selectedClass, 
         addAgenda,
         agendaEditRequest,
         editAgenda,
@@ -249,7 +247,7 @@ const Agendas: FC<AgendasProps> = (props) => {
         });
 
         toast.success('Agenda Edited!', {'id': 'edited-agenda'});
-        editAgenda(agenda);
+        editAgenda();
     };
 
     const loadAgendaDataForEdit = () => {

@@ -26,7 +26,7 @@ interface SidebarProps {
     id: string,
     classes: string[],
   },
-  editAgenda: (newAgenda: Agenda) => void,
+  editAgenda: () => void,
 };
 
 const Sidebar:FC<SidebarProps> = (props) => {
@@ -149,7 +149,6 @@ const Sidebar:FC<SidebarProps> = (props) => {
             <>
               <Agendas 
                 classes={classes}
-                selectedClass={selectedClass}
                 addAgenda={addAgenda}
                 agendaEditRequest={agendaEditRequest}
                 editAgenda={editAgenda}

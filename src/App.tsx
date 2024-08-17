@@ -71,7 +71,7 @@ function App() {
     setClasses(classesUpdated);
   };
 
-  const editAgenda = (newAgenda: Agenda) => {
+  const editAgenda = () => {
     mountClasses(); // workaround, will fix later
   };
 
