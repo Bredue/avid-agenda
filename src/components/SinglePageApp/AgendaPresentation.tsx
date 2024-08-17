@@ -159,11 +159,9 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
       });
     });
 
-    console.log((taskToTime as Task).duration)
-
     if (Object.keys(taskToTime).length > 0) {
-      if ((taskToTime as Task).duration === '1 HR +' || (taskToTime as Task).duration === '-') {
-        toast.error('cannot start timer with "1 HR +" or "-" duration on task', {'id': 'open-timer-error'});
+      if ((taskToTime as Task).duration === '1 Hour +' || (taskToTime as Task).duration === '-') {
+        toast.error('cannot start timer with "1 Hour +" or "-" duration on task', {'id': 'open-timer-error'});
         return;
       };
   
@@ -175,6 +173,14 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
         });
       };
     }
+  };
+
+  const closeCountdownTimer = () => {
+    setCountdownTimer({
+      status: false,
+      taskId: '',
+      task: [],
+    });
   };
 
   if (Object.keys(selectedAgenda).length === 0 && agendas.length === 0) {
@@ -263,6 +269,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
           {countdownTimer.status === true ? (
             <CountdownTimer 
               task={countdownTimer.task}
+              closeCountdownTimer={closeCountdownTimer}
             />
           ) : (
             <></>

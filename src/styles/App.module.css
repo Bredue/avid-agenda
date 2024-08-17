@@ -577,3 +577,128 @@
   justify-content: center;
   z-index: 3;
 }
+
+.countdownTimerContainer {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10vh;
+}
+
+.countdownTimerTaskNameHeader {
+  font-size: 3em;
+}
+
+.countdownTimerTimeText {
+  font-size: 3em;
+}
+
+.countdownTimerOptionsContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+}
+
+.countdownTimerOptionSvg {
+  width: 3vw;
+  height: auto;
+  cursor: pointer;
+  filter: invert(38%) sepia(0%) saturate(2598%) hue-rotate(196deg) brightness(90%) contrast(81%);
+}
+
+.countdownTimerOptionSelected {
+  filter: invert(27%) sepia(82%) saturate(4112%) hue-rotate(203deg) brightness(111%) contrast(101%);
+}
+
+.countdownTimerCloseSvg {
+  position: absolute;
+  top: 0vh;
+  left: 0vw;
+  width: 3vw;
+  height: auto;
+  cursor: pointer;
+  filter: invert(45%) sepia(18%) saturate(1952%) hue-rotate(314deg) brightness(93%) contrast(97%);
+}
+
+.countdownTimerEditSvg {
+  position: absolute;
+  top: 0vh;
+  right: 0vw;
+  width: 2.75vw;
+  height: auto;
+  cursor: pointer;
+  filter: invert(71%) sepia(59%) saturate(511%) hue-rotate(159deg) brightness(91%) contrast(91%);
+}
+
+/* EDIT TIMER FORM EDIT TIMER FORM EDIT TIMER FORM EDIT TIMER FORM EDIT TIMER FORM EDIT TIMER FORM EDIT TIMER FORM EDIT TIMER FORM */
+
+.editTimerBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.editTimerForm {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 300px;
+}
+
+.editTimerCloseButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.editTimerFormContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.editTimerField {
+  margin-bottom: 15px;
+}
+
+.editTimerField label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.editTimerField input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.editTimerSubmitButton {
+  padding: 10px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.editTimerSubmitButton:hover {
+  background-color: #0056b3;
+}
