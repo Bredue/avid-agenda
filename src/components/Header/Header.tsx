@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Date from "./Date";
 import Time from "./Time";
 import SidebarButton from "./SidebarButton";

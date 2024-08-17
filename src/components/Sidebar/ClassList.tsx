@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
-import uniqid from "uniqid";
+import { FC, useState } from "react";
 import styles from '../../styles/App.module.css';
 import Class from "../../models/class";
 

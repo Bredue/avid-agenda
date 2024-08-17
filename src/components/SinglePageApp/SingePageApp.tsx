@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styles from '../../styles/App.module.css';
 import Class from '../../models/class';
 import AgendaPresentation from './AgendaPresentation';

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import sidebarButton from '../../assets/menu.svg';
 import styles from '../../styles/App.module.css';
 
