@@ -29,12 +29,12 @@ const SidebarMenu:FC<SidebarMenuProps> = (props) => {
                 >
                     Agendas
                 </button>
-                <button
+                {/* <button
                     className={`${styles.sideBarMenuButton} ${sidebarMenuStatus === 'events' ? styles.active : ''}`}
                     onClick={() => handleTabClick('events')}
                 >
                     Events
-                </button>
+                </button> */}
             </div>
         </div>
     );

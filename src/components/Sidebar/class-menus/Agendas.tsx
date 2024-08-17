@@ -58,7 +58,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     ];
 
     const [assignedClasses, setAssignedClasses] = useState<string[]>([]);
-    const [date, setDate] = useState(new Date);
+    const [date, setDate] = useState<Date | undefined>();
     const [tasks, setTasks] = useState<{ id: string; task: string; duration: string }[]>([]);
     const [durations, setDurations] = useState<string[]>([]);
     const [why, setWhy] = useState('');
@@ -193,6 +193,8 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const saveAgendaToLocalStorage = () => {
+        if (date === undefined) return;
+
         const agenda = new Agenda(
             assignedClasses, 
             date.toString(), 
@@ -219,6 +221,8 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const handleAgendaEditSubmit = () => {
+        if (date === undefined) return;
+
         const agenda = new Agenda(
             assignedClasses, 
             date.toString(), 
