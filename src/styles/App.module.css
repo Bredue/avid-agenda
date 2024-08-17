@@ -465,14 +465,21 @@
   align-items: flex-start;
 }
 
-.agendaPresentationEssentialQuestion {
+.agendaPresentationEssentialQuestion, .agendaPresentationHomework {
   font-size: 2em;
   color: rgba(255, 255, 255, 0.87);
+  width: 100%;
   margin: 0;
 }
 
-.agendaPresentationHomework,
+.agendaPresentationHomework {
+  border-bottom: 1px solid #333333;
+  padding-bottom: 1vh;
+  margin-bottom: 1vh;
+}
+
 .agendaPresentationWhy {
+  margin-top: 2vh;
   font-size: 1.5em;
   color: rgba(255, 255, 255, 0.87);
   margin: 0;
