@@ -77,7 +77,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     const compileTaskDurations = () => {
         const durations: string[] = [];
         durations.push('-');
-        for (let i = 5; i <= 60; i += 5) {
+        for (let i = 1; i <= 60; i += 1) {
             durations.push(`${i}min`);
         }
         durations.push('1 Hour +');
