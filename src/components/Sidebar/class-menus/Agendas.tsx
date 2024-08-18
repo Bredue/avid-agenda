@@ -304,6 +304,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     Date
                 </label>
                 <DatePicker
+                    className={styles.agendaFormCalendarDatePicker}
                     selected={date}
                     onChange={(date) => handleDateSelect(date)}
                     filterDate={(date) => !doesDateAlreadyHaveAgenda(date)}

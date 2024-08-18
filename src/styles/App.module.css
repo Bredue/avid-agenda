@@ -1,6 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+::-webkit-scrollbar {
+  height: 2px;
+  width: 5px;
+  background: #aaa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #393812;
+  -webkit-border-radius: 1ex;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+  background: #000;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -93,7 +109,6 @@ h1 {
   left: 0;
   height: 85vh;
   width: 30vw;
-  overflow: scroll;
   color: black;
   background-color: white;
   z-index: 2;
@@ -101,7 +116,7 @@ h1 {
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .sidebarMenuContainer {
@@ -173,7 +188,15 @@ h1 {
 }
 
 .agendaFormGroup {
+  display: flex;
+  flex-flow: column wrap;
+  width: 100%;
   margin-bottom: 16px;
+}
+
+.agendaFormCalendarDatePicker {
+  flex: 1 1 auto;
+  width: auto;
 }
 
 .agendaFormLabel {
@@ -297,7 +320,7 @@ h1 {
   align-items: center;
   width: 100vw;
   max-height: 80vh;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 /* FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER FOOTER */
@@ -479,7 +502,6 @@ h1 {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
   width: 100%;
   height: 100%;
   background-color: #242424;
@@ -494,6 +516,7 @@ h1 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 2vh;
 }
 
 .agendaPresentationHeader {
@@ -557,6 +580,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2vh;
 }
 
 .agendaPresentationTasksHeader {
