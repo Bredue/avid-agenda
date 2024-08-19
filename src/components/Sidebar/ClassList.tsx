@@ -35,11 +35,29 @@ const ClassList:FC<ClassListProps> = (props) => {
     removeClass(id);
   };
 
+  const handleClassSort = () => {
+    return classes.sort((a, b) => {
+      const extractParts = (str: any) => {
+          const match = str.match(/^(\d+)([A-Z]?)$/);
+          return match ? [Number(match[1]), match[2]] : [Infinity, ''];
+      };
+  
+      const [aNumber, aLetter] = extractParts(a.period);
+      const [bNumber, bLetter] = extractParts(b.period);
+  
+      if (aNumber === bNumber) {
+          return aLetter.localeCompare(bLetter);
+      } else {
+          return aNumber - bNumber;
+      }
+    });
+  };
+
   return (
     <>
     {classes.length > 0 ? (
       <ul className={styles.classListContainer}>
-        {classes.sort((a, b) => Number(a.period) - Number(b.period)).map((classItem) => (
+        {handleClassSort().map((classItem) => (
           <li 
             onClick={() => handleClassSelection(classItem.id)}
             className={`${styles.classListItem} ${classItem.id === selectedClass ? styles.classListItemSelected : ''}`}
