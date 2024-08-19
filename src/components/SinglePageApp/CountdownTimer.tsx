@@ -7,6 +7,12 @@ import restartSvg from '../../assets/restart.svg';
 import closSvg from '../../assets/close.svg';
 import editSvg from '../../assets/edit.svg';
 import EditTimerForm from './EditTimerForm';
+import notificationSound from '../../../public/sounds/notification.wav';
+import volumeOffSvg from '../../assets/volume-off.svg';
+import volumeLowSvg from '../../assets/volume-low.svg';
+import volumeMediumSvg from '../../assets/volume-medium.svg';
+import volumeHighSvg from '../../assets/volume-high.svg';
+import toast from 'react-hot-toast';
 
 interface CountdownTimerProps {
     task: {} | {
@@ -47,6 +53,7 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
     const [timerResetKey, setTimerResetKey] = useState(0);
     const [optionSvgSelected, setOptionSvgSelected] = useState('play');
     const [editTimerForm, setEditTimerForm] = useState(false);
+    const [timerNotificationVolume, setTimerNotificationVolume] = useState('Medium');
 
     useEffect(() => {
         convertDurationToColorsTime();
@@ -124,6 +131,57 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
         setTimerResetKey(newKey += 1);
     };
 
+    const handleTimerSoundOnComplete = () => {
+        const sound = new Audio(notificationSound);
+        
+        switch(timerNotificationVolume) {
+            case 'Medium':
+                sound.volume = 0.7;
+                sound.play();
+                return;
+            case 'Low':
+                sound.volume = 0.3;
+                sound.play();
+                return;
+            case 'Off':
+                sound.volume = 0;
+                sound.play();
+                return;
+            case 'High':
+                sound.volume = 1;
+                sound.play();
+                return;
+            default:
+                sound.volume = 0.7;
+                sound.play();
+                return;
+        };
+    };
+
+    const handleTimerNotificationVolumeChange = () => {
+        switch(timerNotificationVolume) {
+            case 'Medium':
+                toast.success('volume set to low', {'id': 'volume-low'})
+                setTimerNotificationVolume('Low');
+                return;
+            case 'Low':
+                toast.success('volume set to mute', {'id': 'volume-mute'})
+                setTimerNotificationVolume('Off');
+                return;
+            case 'Off':
+                toast.success('volume set to high', {'id': 'volume-high'})
+                setTimerNotificationVolume('High');
+                return;
+            case 'High':
+                toast.success('volume set to medium', {'id': 'volume-medium'})
+                setTimerNotificationVolume('Medium');
+                return;
+            default:
+                setTimerNotificationVolume('Medium');
+                return;
+        };
+    };
+
     if (Object.keys(task).length > 0) {
         return (
             <div 
@@ -164,6 +222,7 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
                         colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                         colorsTime={[timerColorTime.totalTime, timerColorTime.firstChange, timerColorTime.secondChange, 0]}
                         key={timerResetKey}
+                        onComplete={() => handleTimerSoundOnComplete()}
                         size={360}
                         strokeWidth={15}
                     >
@@ -193,6 +252,50 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
                             src={restartSvg} 
                             className={styles.countdownTimerOptionSvg}>
                         </img>
+
+                        {timerNotificationVolume === 'Medium' ? (
+                            <img 
+                                onClick={() => handleTimerNotificationVolumeChange()}
+                                alt='volume medium button' 
+                                src={volumeMediumSvg} 
+                                className={styles.countdownTimerOptionSvg}>
+                            </img>
+                        ) : (
+                            <></>
+                        )}
+
+                        {timerNotificationVolume === 'Low' ? (
+                            <img 
+                                onClick={() => handleTimerNotificationVolumeChange()}
+                                alt='volume low button' 
+                                src={volumeLowSvg} 
+                                className={styles.countdownTimerOptionSvg}>
+                            </img>
+                        ) : (
+                            <></>
+                        )}
+
+                        {timerNotificationVolume === 'Off' ? (
+                            <img 
+                                onClick={() => handleTimerNotificationVolumeChange()}
+                                alt='volume off button' 
+                                src={volumeOffSvg} 
+                                className={styles.countdownTimerOptionSvg}>
+                            </img>
+                        ) : (
+                            <></>
+                        )}
+
+                        {timerNotificationVolume === 'High' ? (
+                            <img 
+                                onClick={() => handleTimerNotificationVolumeChange()}
+                                alt='volume high button' 
+                                src={volumeHighSvg} 
+                                className={styles.countdownTimerOptionSvg}>
+                            </img>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
             </div>
