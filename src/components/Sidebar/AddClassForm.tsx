@@ -12,6 +12,7 @@ interface AddClassFormProps {
     id: string,
   },
   editClass: (editedClass: Class) => void,
+  handleEditSubmission: () => void,
 }
 
 const AddClassForm:FC<AddClassFormProps> = (props) => {
@@ -21,6 +22,7 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
     addClass,
     classEditRequest,
     editClass,
+    handleEditSubmission,
   } = props;
 
   const [formData, setFormData] = useState({
@@ -94,7 +96,7 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
         convertedData.period = formData.classPeriod,
         saveClassToStorage(convertedData);
         editClass(convertedData);
-        changeAddClassFromStatus();
+        handleEditSubmission();
       };
     };
   };

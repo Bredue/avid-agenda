@@ -64,6 +64,14 @@ const Sidebar:FC<SidebarProps> = (props) => {
     setAddClassFormStatus(!addClassFormStatus);
   };
 
+  const handleEditSubmission = () => {
+    changeAddClassFromStatus();
+    setClassEditRequest({
+      request: false,
+      id: '',
+    });
+  };
+
   const verifyUserOffClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     if (target.id === 'sidebar-container-background') {
@@ -170,6 +178,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
               addClass={addClass}
               classEditRequest={classEditRequest}
               editClass={editClass}
+              handleEditSubmission={handleEditSubmission}
             />
           ) : (
             <></>

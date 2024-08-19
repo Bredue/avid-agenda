@@ -20,8 +20,6 @@ const ClassList:FC<ClassListProps> = (props) => {
     openEditClassForm,
   } = props;
 
-  // const [hoveredClassId, setHoveredClassId] = useState<string | null>(null);
-
   const handleClassSelection = (id: string) => {
     selectActiveClass(id);
   };
