@@ -140,6 +140,9 @@ const Agendas: FC<AgendasProps> = (props) => {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         removeEmptyTasks();
+        const errors = handleErrors();
+
+        if (errors === true) return;
 
         if (assignedClasses.length === 0) {
             toast.error('You must have an assigned class to submit an agenda', {'id': 'agenda-submit'});
@@ -159,6 +162,35 @@ const Agendas: FC<AgendasProps> = (props) => {
             return prevTasks.filter(task => task.task.length !== 0);
         });
     };
+
+    const handleErrors = () => {
+        if (date === undefined) {
+            toast.error('a date is required to create an agenda', {'id': 'date-error'});
+            return true;
+        };
+
+        if (essentialQuestion.length === 0) {
+            toast.error('essential question required to create an agenda', {'id': 'essential-question-error'});
+            return true;
+        };
+
+        if (homework.length === 0) {
+            toast.error('homework required to create an agenda', {'id': 'homework-error'});
+            return true;
+        };
+
+        if (why.length === 0) {
+            toast.error('the "why" is required to create an agenda', {'id': 'why-error'});
+            return true;
+        };
+        
+        if (tasks.length === 0) {
+            toast.error('at least one task is required to create an agenda', {'id': 'tasks-error'});
+            return true;
+        };
+
+        return false;
+    }
 
     const compileSvgData = () => {
         const compiledSvgs: SVGOption[] = [];
@@ -329,7 +361,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     className={styles.agendaFormLabel} 
                     htmlFor="why"
                 >
-                    The Why
+                    The "why"
                 </label>
                 <input 
                     className={styles.agendaFormTaskInput} 
