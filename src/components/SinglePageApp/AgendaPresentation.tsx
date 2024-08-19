@@ -92,7 +92,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
     today.setHours(0, 0, 0, 0);
 
     const filteredDates = justDates
-      .filter(date => date.date >= today) // Filter out dates before today
+      // .filter(date => date.date >= today) // Filter out dates before today
       .sort((a, b) => a.date.getTime() - b.date.getTime()); // Sort dates with the earliest first
 
     const reformatedDates: formattedDateObject[] = [];
