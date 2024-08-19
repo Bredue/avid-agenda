@@ -456,8 +456,7 @@ h1 {
 /* AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION */
 
 .agendaOptionsContainer {
-  min-width: 20vw;
-  max-width: 30vw;
+  width: 20vw;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -519,6 +518,7 @@ h1 {
   align-items: center;
   width: 100%;
   padding: 2vh;
+  border-right: 1px solid rgba(255, 255, 255, 0.87);
 }
 
 .agendaPresentationHeader {
@@ -526,6 +526,7 @@ h1 {
   flex-flow: column wrap;
   justify-content: flex-start;
   align-items: flex-start;
+  gap: 3vh;
 }
 
 .agendaPresentationEssentialQuestion, .agendaPresentationHomework {
