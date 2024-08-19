@@ -603,7 +603,7 @@ h1 {
 }
 
 .agendaPresentationTaskItem {
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   padding: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.87);
@@ -656,7 +656,8 @@ h1 {
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-  gap: 10vh;
+  gap: 3vh;
+  max-height: 100vh;
 }
 
 .countdownTimerTaskNameHeader {
@@ -677,7 +678,7 @@ h1 {
 }
 
 .countdownTimerOptionSvg {
-  width: 3vw;
+  width: 5vw;
   height: auto;
   cursor: pointer;
   filter: invert(38%) sepia(0%) saturate(2598%) hue-rotate(196deg) brightness(90%) contrast(81%);
@@ -691,7 +692,7 @@ h1 {
   position: absolute;
   top: 0vh;
   left: 0vw;
-  width: 3vw;
+  width: 5vw;
   height: auto;
   cursor: pointer;
   filter: invert(45%) sepia(18%) saturate(1952%) hue-rotate(314deg) brightness(93%) contrast(97%);
@@ -701,7 +702,7 @@ h1 {
   position: absolute;
   top: 0vh;
   right: 0vw;
-  width: 2.75vw;
+  width: 4.25vw;
   height: auto;
   cursor: pointer;
   filter: invert(71%) sepia(59%) saturate(511%) hue-rotate(159deg) brightness(91%) contrast(91%);
