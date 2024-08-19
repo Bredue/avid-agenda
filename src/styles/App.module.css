@@ -447,10 +447,11 @@ h1 {
 }
 
 .classItemOptionsContainer {
-  position: absolute;
-  right: 3vw;
-  margin: 0;
+  right: 1vw;
+  margin-left: auto;
   padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 /* AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION */

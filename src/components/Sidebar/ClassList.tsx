@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styles from '../../styles/App.module.css';
 import Class from "../../models/class";
 
@@ -20,7 +20,7 @@ const ClassList:FC<ClassListProps> = (props) => {
     openEditClassForm,
   } = props;
 
-  const [hoveredClassId, setHoveredClassId] = useState<string | null>(null);
+  // const [hoveredClassId, setHoveredClassId] = useState<string | null>(null);
 
   const handleClassSelection = (id: string) => {
     selectActiveClass(id);
@@ -42,14 +42,12 @@ const ClassList:FC<ClassListProps> = (props) => {
         {classes.sort((a, b) => Number(a.period) - Number(b.period)).map((classItem) => (
           <li 
             onClick={() => handleClassSelection(classItem.id)}
-            onMouseOver={() => setHoveredClassId(classItem.id)}
-            onMouseOut={() => setHoveredClassId(null)}
             className={`${styles.classListItem} ${classItem.id === selectedClass ? styles.classListItemSelected : ''}`}
             key={classItem.id}>
               <span className={styles.classInfo}>
                 {classItem.period}{classItem.period.length > 0 ? ' - ' : ''}{classItem.name}
               </span>
-              {hoveredClassId === classItem.id && (
+              {selectedClass === classItem.id && (
                 <div className={styles.classItemOptionsContainer}>
                   <button onClick={(e) => { e.stopPropagation(); handleClassEdit(classItem.id); }}>Edit</button>
                   <button onClick={(e) => { e.stopPropagation(); handleClassDelete(classItem.id); }}>Delete</button>
