@@ -112,23 +112,6 @@ const Agendas: FC<AgendasProps> = (props) => {
         }
     };
 
-    const doesDateAlreadyHaveAgenda = (date: Date) => {
-        const agendaDates: Date[] = [];
-
-        classes.forEach((cls: Class) => {
-            cls.agendas.forEach((agenda: Agenda) => {
-                const dateConversion = new Date(agenda.date);
-                agendaDates.push(dateConversion);
-            });
-        });
-
-        return agendaDates.some(agendaDate =>
-            date.getDate() === agendaDate.getDate() &&
-            date.getMonth() === agendaDate.getMonth() &&
-            date.getFullYear() === agendaDate.getFullYear()
-          );
-    };
-
     const handleWhyChange = (value: string) => {
         setWhy(value);
     };
@@ -307,7 +290,6 @@ const Agendas: FC<AgendasProps> = (props) => {
                     className={styles.agendaFormCalendarDatePicker}
                     selected={date}
                     onChange={(date) => handleDateSelect(date)}
-                    filterDate={(date) => !doesDateAlreadyHaveAgenda(date)}
                     placeholderText="Select a date"
                 />
             </div>
