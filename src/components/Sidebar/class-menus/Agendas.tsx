@@ -305,7 +305,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                             className={`${styles.agendaFormClassItem} ${assignedClasses.includes(cls.id) ? styles.agendaFormClassItemSelected : ''}`}
                             onClick={() => handleClassToggle(cls.id)}
                         >
-                            {cls.name}
+                            {cls.period} - {cls.name}
                         </div>
                     ))}
                 </div>
