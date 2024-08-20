@@ -86,8 +86,8 @@ function App() {
   const selectActiveClass = (id: string) => {
     if (classes.length > 0) {
       classes.forEach((cls: Class) => {
-        if (cls.getId() === id) {
-          if (cls.getId() === selectedClass) {
+        if (cls.id === id) {
+          if (cls.id === selectedClass) {
             setSelectedClass('');
             return;
           };
