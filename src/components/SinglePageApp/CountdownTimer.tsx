@@ -53,7 +53,7 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
     const [timerResetKey, setTimerResetKey] = useState(0);
     const [optionSvgSelected, setOptionSvgSelected] = useState('play');
     const [editTimerForm, setEditTimerForm] = useState(false);
-    const [timerNotificationVolume, setTimerNotificationVolume] = useState('Medium');
+    const [timerNotificationVolume, setTimerNotificationVolume] = useState('High');
 
     useEffect(() => {
         convertDurationToColorsTime();
@@ -135,6 +135,10 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
         const sound = new Audio(notificationSound);
         
         switch(timerNotificationVolume) {
+            case 'High':
+                sound.volume = 1;
+                sound.play();
+                return;
             case 'Medium':
                 sound.volume = 0.7;
                 sound.play();
@@ -147,10 +151,6 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
                 sound.volume = 0;
                 sound.play();
                 return;
-            case 'High':
-                sound.volume = 1;
-                sound.play();
-                return;
             default:
                 sound.volume = 0.7;
                 sound.play();
@@ -160,6 +160,10 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
 
     const handleTimerNotificationVolumeChange = () => {
         switch(timerNotificationVolume) {
+            case 'High':
+                toast.success('volume set to medium', {'id': 'volume-medium'})
+                setTimerNotificationVolume('Medium');
+                return;
             case 'Medium':
                 toast.success('volume set to low', {'id': 'volume-low'})
                 setTimerNotificationVolume('Low');
@@ -171,10 +175,6 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
             case 'Off':
                 toast.success('volume set to high', {'id': 'volume-high'})
                 setTimerNotificationVolume('High');
-                return;
-            case 'High':
-                toast.success('volume set to medium', {'id': 'volume-medium'})
-                setTimerNotificationVolume('Medium');
                 return;
             default:
                 setTimerNotificationVolume('Medium');
@@ -253,6 +253,17 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
                             className={styles.countdownTimerOptionSvg}>
                         </img>
 
+                        {timerNotificationVolume === 'High' ? (
+                            <img 
+                                onClick={() => handleTimerNotificationVolumeChange()}
+                                alt='volume high button' 
+                                src={volumeHighSvg} 
+                                className={styles.countdownTimerOptionSvg}>
+                            </img>
+                        ) : (
+                            <></>
+                        )}
+
                         {timerNotificationVolume === 'Medium' ? (
                             <img 
                                 onClick={() => handleTimerNotificationVolumeChange()}
@@ -286,16 +297,6 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
                             <></>
                         )}
 
-                        {timerNotificationVolume === 'High' ? (
-                            <img 
-                                onClick={() => handleTimerNotificationVolumeChange()}
-                                alt='volume high button' 
-                                src={volumeHighSvg} 
-                                className={styles.countdownTimerOptionSvg}>
-                            </img>
-                        ) : (
-                            <></>
-                        )}
                     </div>
                 </div>
             </div>

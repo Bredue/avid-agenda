@@ -120,6 +120,8 @@ function App() {
         agendas: cls.agendas.filter((agenda) => agenda.id !== agendaId),
       };
     });
+
+    
   
     setClasses(updatedClasses);
   };
