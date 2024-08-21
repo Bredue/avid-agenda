@@ -244,25 +244,53 @@ const Agendas: FC<AgendasProps> = (props) => {
             essentialQuestion,
             homework,
             compileSvgData(),
+            agendaEditRequest.id,
         );
 
+        addEditedAgendaToAssignedClasses(agenda);
+        removeAgendaFromPreviouslyAssignedClasses(agenda.id);
+
+        toast.success('Agenda Edited!', {'id': 'edited-agenda'});
+        editAgenda();
+    };
+
+    const addEditedAgendaToAssignedClasses = (agenda: Agenda) => {
         assignedClasses.forEach((assignedClass) => {
             const cls = localStorage.getItem(`class-${assignedClass}`);
             if (cls) {
                 const parsedData = JSON.parse(cls);
                 const convertedObject = Class.fromPlainObject(parsedData);
-                
-                convertedObject.agendas = convertedObject.agendas.map(oldAgenda =>
-                    oldAgenda.id !== agendaEditRequest.id ? oldAgenda : agenda
-                );
+
+                const agendaExists = convertedObject.agendas.some(oldAgenda => oldAgenda.id === agendaEditRequest.id);
+
+                if (agendaExists) {
+                    convertedObject.agendas = convertedObject.agendas.map(oldAgenda =>
+                        oldAgenda.id !== agendaEditRequest.id ? oldAgenda : agenda
+                    );
+                } else {
+                    convertedObject.agendas = [...convertedObject.agendas, agenda];
+                };
 
                 const serializedData = JSON.stringify(convertedObject.toPlainObject());
                 localStorage.setItem(`class-${assignedClass}`, serializedData);
             };
         });
+    };
 
-        toast.success('Agenda Edited!', {'id': 'edited-agenda'});
-        editAgenda();
+    const removeAgendaFromPreviouslyAssignedClasses = (agendaId: string) => {
+        const updatedClasses: Class[] = classes.map((cls) => {
+            if (!assignedClasses.includes(cls.id)) {
+                cls.agendas = cls.agendas.filter((agenda) => agenda.id !== agendaId);
+                return cls;
+            } else {
+                return cls;
+            }
+        });
+
+        updatedClasses.forEach((cls) => {
+            const serializedData = JSON.stringify(cls.toPlainObject());
+            localStorage.setItem(`class-${cls.id}`, serializedData);
+        });
     };
 
     const loadAgendaDataForEdit = () => {

@@ -25,7 +25,8 @@ class Agenda {
         why: string, 
         essentialQuestion: string, 
         homework: string, 
-        selectedSvgs: SVGOption[]
+        selectedSvgs: SVGOption[],
+        id?: string,
     ) {
         this.assignedClasses = assignedClasses;
         this.date = date;
@@ -34,7 +35,7 @@ class Agenda {
         this.essentialQuestion = essentialQuestion;
         this.homework = homework;
         this.selectedSvgs = selectedSvgs;
-        this.id = uniqid();
+        this.id = id || uniqid();
     }
 
     getAgendaClasses(): string[] {

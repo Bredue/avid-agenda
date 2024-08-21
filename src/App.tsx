@@ -121,7 +121,10 @@ function App() {
       };
     });
 
-    
+    updatedClasses.forEach((cls: Class) => {
+      const convertedClass = JSON.stringify(cls.toPlainObject());
+      localStorage.setItem(`class-${cls.id}`, convertedClass);
+    });
   
     setClasses(updatedClasses);
   };
