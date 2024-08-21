@@ -247,8 +247,8 @@ const Agendas: FC<AgendasProps> = (props) => {
             agendaEditRequest.id,
         );
 
-        addEditedAgendaToAssignedClasses(agenda);
         removeAgendaFromPreviouslyAssignedClasses(agenda.id);
+        addEditedAgendaToAssignedClasses(agenda);
 
         toast.success('Agenda Edited!', {'id': 'edited-agenda'});
         editAgenda();
@@ -272,7 +272,9 @@ const Agendas: FC<AgendasProps> = (props) => {
                 };
 
                 const serializedData = JSON.stringify(convertedObject.toPlainObject());
+
                 localStorage.setItem(`class-${assignedClass}`, serializedData);
+                console.log(localStorage.getItem(`class-${assignedClass}`))
             };
         });
     };

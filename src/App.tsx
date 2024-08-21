@@ -114,11 +114,9 @@ function App() {
   };
 
   const removeAgenda = (agendaId: string) => {
-    const updatedClasses: any = classes.map((cls) => {
-      return {
-        ...cls,
-        agendas: cls.agendas.filter((agenda) => agenda.id !== agendaId),
-      };
+    const updatedClasses: Class[] = classes.map((cls) => {
+      cls.agendas = cls.agendas.filter((agenda) => agenda.id !== agendaId);
+      return cls;
     });
 
     updatedClasses.forEach((cls: Class) => {
