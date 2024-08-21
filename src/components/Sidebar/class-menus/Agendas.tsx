@@ -274,7 +274,6 @@ const Agendas: FC<AgendasProps> = (props) => {
                 const serializedData = JSON.stringify(convertedObject.toPlainObject());
 
                 localStorage.setItem(`class-${assignedClass}`, serializedData);
-                console.log(localStorage.getItem(`class-${assignedClass}`))
             };
         });
     };
