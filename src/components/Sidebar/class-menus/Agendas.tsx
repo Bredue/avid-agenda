@@ -260,7 +260,6 @@ const Agendas: FC<AgendasProps> = (props) => {
             if (cls) {
                 const parsedData = JSON.parse(cls);
                 const convertedObject = Class.fromPlainObject(parsedData);
-
                 const agendaExists = convertedObject.agendas.some(oldAgenda => oldAgenda.id === agendaEditRequest.id);
 
                 if (agendaExists) {
@@ -272,7 +271,6 @@ const Agendas: FC<AgendasProps> = (props) => {
                 };
 
                 const serializedData = JSON.stringify(convertedObject.toPlainObject());
-
                 localStorage.setItem(`class-${assignedClass}`, serializedData);
             };
         });
