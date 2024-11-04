@@ -90,11 +90,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
   const handleDateSort = (justDates: simpleDateObject[]) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
-    const filteredDates = justDates
-      // .filter(date => date.date >= today) // Filter out dates before today
-      .sort((a, b) => a.date.getTime() - b.date.getTime()); // Sort dates with the earliest first
-
+    const filteredDates = justDates.sort((a, b) => b.date.getTime() - a.date.getTime()); // sort by most recent date first (descending)
     const reformatedDates: formattedDateObject[] = [];
 
     filteredDates.forEach((filteredDate) => {
