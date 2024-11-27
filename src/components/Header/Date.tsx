@@ -9,7 +9,7 @@ const Date = () => {
   useEffect(() => {
     const intervalController = setInterval(() => {
       setDate(dayjs().format('MMMM, ddd DD'));
-    }, 3600000)
+    }, 30000)
 
     return () => clearInterval(intervalController);
 
