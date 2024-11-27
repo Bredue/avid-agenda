@@ -3,11 +3,11 @@ import dayjs from "dayjs";
 
 const Time = () => {
 
-  const [currentTime, setCurrentTime] = React.useState(dayjs().format('h:mm A'));
+  const [currentTime, setCurrentTime] = React.useState(dayjs().format('h:mm:ss A'));
   
   useEffect(() => {
     const intervalController = setInterval(() => {
-      setCurrentTime(dayjs().format('h:mm A'));
+      setCurrentTime(dayjs().format('h:mm:ss A'));
     }, 1000)
 
     return () => clearInterval(intervalController);
