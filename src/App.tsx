@@ -140,6 +140,7 @@ function App() {
     <>
       <Toaster />
       <Header 
+        sidebarStatus={sidebarStatus}
         changeSidebarStatus={changeSidebarStatus} 
       />
       <Sidebar 
