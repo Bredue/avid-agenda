@@ -81,7 +81,7 @@ const ClassList:FC<ClassListProps> = (props) => {
         ))}
       </ul>
     ) : (
-      <p className={styles.sidebarText}>"No classes available, create one using the button below</p>
+      <p className={styles.sidebarText}>No classes available, create one using the button below</p>
     )}
   </>
   )
