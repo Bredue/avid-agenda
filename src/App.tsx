@@ -22,7 +22,6 @@ function App() {
 
   useEffect(() => {
     mountClasses();
-    verifyNewUser();
   }, []);
 
   const mountClasses = () => {
@@ -73,14 +72,6 @@ function App() {
 
   const editAgenda = () => {
     mountClasses(); // workaround, will fix later
-  };
-
-  const verifyNewUser = () => {
-    if (classes.length === 0) {
-      setTimeout(() => {
-        setSidebarStatus(true);
-      }, 1000);
-    };
   };
 
   const selectActiveClass = (id: string) => {
