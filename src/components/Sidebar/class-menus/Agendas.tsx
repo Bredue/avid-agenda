@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import Class from "../../../models/class";
+import ClassModel from "../../../models/class";
 import uniqid from 'uniqid';
 import styles from '../../../styles/App.module.css';
 import closeSvg from '../../../assets/close.svg';
 import Agenda from "../../../models/agenda";
-import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css';
+import * as ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import clipboardSvg from '../../../assets/supplies/clipboard-outline.svg';
 import headphonesSvg from '../../../assets/supplies/headphones.svg';
@@ -17,8 +17,9 @@ import penSvg from '../../../assets/supplies/pen.svg';
 import pencilSvg from '../../../assets/supplies/pencil.svg';
 import scissorsSvg from '../../../assets/supplies/scissors.svg';
 
+
 interface AgendasProps {
-    classes: Class[],
+    classes: ClassModel[],
     addAgenda: (newAgenda: Agenda) => void,
     agendaEditRequest: {
         status: boolean,
@@ -35,6 +36,9 @@ interface SVGOption {
   }
 
 const Agendas: FC<AgendasProps> = (props) => {
+
+    const DatePicker = (ReactDatePicker as any).default ?? ReactDatePicker;
+    console.log(DatePicker)
 
     const { 
         classes, 
@@ -56,7 +60,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     ];
 
     const [assignedClasses, setAssignedClasses] = useState<string[]>([]);
-    const [date, setDate] = useState<Date | undefined>();
+    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
     const [tasks, setTasks] = useState<{ id: string; task: string; duration: string }[]>([]);
     const [durations, setDurations] = useState<string[]>([]);
     const [why, setWhy] = useState('');
@@ -108,7 +112,7 @@ const Agendas: FC<AgendasProps> = (props) => {
 
     const handleDateSelect = (date: Date | null) => {
         if (date !== null) {
-            setDate(date);
+            setSelectedDate(date);
         }
     };
 
@@ -164,7 +168,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const handleErrors = () => {
-        if (date === undefined) {
+        if (selectedDate === undefined) {
             toast.error('a date is required to create an agenda', {'id': 'date-error'});
             return true;
         };
@@ -206,11 +210,11 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const saveAgendaToLocalStorage = () => {
-        if (date === undefined) return;
+        if (selectedDate === undefined) return;
 
         const agenda = new Agenda(
             assignedClasses, 
-            date.toString(), 
+            selectedDate?.toString() || new Date().toString(), 
             tasks.filter(task => task.task.length !== 0), // remove empty tasks before storing in case state update lags
             why,
             essentialQuestion,
@@ -222,7 +226,7 @@ const Agendas: FC<AgendasProps> = (props) => {
             const cls = localStorage.getItem(`class-${assignedClass}`);
             if (cls) {
                 const parsedData = JSON.parse(cls);
-                const convertedObject = Class.fromPlainObject(parsedData);
+                const convertedObject = ClassModel.fromPlainObject(parsedData);
                 convertedObject.agendas.push(agenda);
                 const serializedData = JSON.stringify(convertedObject.toPlainObject());
                 localStorage.setItem(`class-${assignedClass}`, serializedData);
@@ -234,11 +238,11 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const handleAgendaEditSubmit = () => {
-        if (date === undefined) return;
+        if (selectedDate === undefined) return;
 
         const agenda = new Agenda(
             assignedClasses, 
-            date.toString(), 
+            selectedDate?.toString() || new Date().toString(), 
             tasks.filter(task => task.task.length !== 0), // remove empty tasks before storing in case state update lags
             why,
             essentialQuestion,
@@ -259,7 +263,7 @@ const Agendas: FC<AgendasProps> = (props) => {
             const cls = localStorage.getItem(`class-${assignedClass}`);
             if (cls) {
                 const parsedData = JSON.parse(cls);
-                const convertedObject = Class.fromPlainObject(parsedData);
+                const convertedObject = ClassModel.fromPlainObject(parsedData);
                 const agendaExists = convertedObject.agendas.some(oldAgenda => oldAgenda.id === agendaEditRequest.id);
 
                 if (agendaExists) {
@@ -277,7 +281,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const removeAgendaFromPreviouslyAssignedClasses = (agendaId: string) => {
-        const updatedClasses: Class[] = classes.map((cls) => {
+        const updatedClasses: ClassModel[] = classes.map((cls) => {
             if (!assignedClasses.includes(cls.id)) {
                 cls.agendas = cls.agendas.filter((agenda) => agenda.id !== agendaId);
                 return cls;
@@ -297,11 +301,11 @@ const Agendas: FC<AgendasProps> = (props) => {
         const cls = localStorage.getItem(`class-${agendaEditRequest.classes[0]}`);
         if (cls) {
             const parsedData = JSON.parse(cls);
-            const convertedData = Class.fromPlainObject(parsedData);
+            const convertedData = ClassModel.fromPlainObject(parsedData);
             const agenda = convertedData.agendas.find((agenda => agenda.id === agendaEditRequest.id));
             if (agenda) {
                 setAssignedClasses(agenda.assignedClasses);
-                setDate(new Date(agenda.date));
+                setSelectedDate(new Date(agenda.date));
                 setEssentialQuestion(agenda.essentialQuestion);
                 setHomework(agenda.homework)
                 setTasks(agenda.tasks);
@@ -347,9 +351,8 @@ const Agendas: FC<AgendasProps> = (props) => {
                 </label>
                 <DatePicker
                     className={styles.agendaFormCalendarDatePicker}
-                    selected={date}
-                    onChange={(date) => handleDateSelect(date)}
-                    placeholderText="Select a date"
+                    selected={selectedDate}
+                    onChange={(date: Date) => handleDateSelect(date)}
                 />
             </div>
 

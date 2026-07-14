@@ -6,7 +6,6 @@ import AddClassForm from "./AddClassForm";
 import SidebarMenu from "./SidebarMenu";
 import Class from "../../models/class";
 import Agendas from "./class-menus/Agendas";
-import Events from "./class-menus/Events";
 import Agenda from "../../models/agenda";
 
 interface SidebarProps {
@@ -161,13 +160,6 @@ const Sidebar:FC<SidebarProps> = (props) => {
                 agendaEditRequest={agendaEditRequest}
                 editAgenda={editAgenda}
               />
-            </>
-          ) : (
-            <></>
-          )}
-          {sidebarMenuStatus === 'events' ? (
-            <>
-              <Events />
             </>
           ) : (
             <></>
