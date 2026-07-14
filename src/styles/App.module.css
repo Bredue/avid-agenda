@@ -64,7 +64,7 @@ h1 {
   width: 100vw;
   margin: 0;
   padding: 0;
-  height: 10vh;
+  height: 7vh;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -78,7 +78,7 @@ h1 {
   flex-flow: row nowrap;
   gap: 2vw;
   padding: 2vw;
-  font-size: 1.8em;
+  font-size: 2em;
 }
 
 /* SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR */
@@ -108,28 +108,24 @@ h1 {
       scale(1);
   }
 
-  /* Cock back */
   10% {
     transform:
       rotate(-30deg)
       scale(.96);
   }
 
-  /* Snap forward */
   35% {
     transform:
       rotate(15deg)
       scale(1.08);
   }
 
-  /* Recoil */
   75% {
     transform:
       rotate(10deg)
       scale(1.03);
   }
 
-  /* Settle */
   100% {
     transform:
       rotate(0deg)
@@ -200,10 +196,10 @@ h1 {
 
 .sidebarContainerBackground {
   position: fixed;
-  top: 10vh;
+  top: 7vh;
   left: 0;
   width: 100vw;
-  height: 90vh;
+  height: 93vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,17 +208,17 @@ h1 {
 
 .sidebarContainer {
   position: fixed;
-  top: 10vh;
+  top: 7vh;
   left: 0;
-  height: 90vh;
+  height: 93vh;
   width: 50vw;
   color: black;
   background-color: white;
   z-index: 2;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column nowrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   overflow-y: hidden;
 }
 
@@ -268,7 +264,7 @@ h1 {
 }
 
 .classAddButton {
-  width: 5vh;
+  width: 7vh;
   height: auto;
   cursor: pointer;
   position: absolute;
@@ -277,9 +273,55 @@ h1 {
   transform: translateX(-50%);
 }
 
-.sidebarSelectAClassText {
-  top: 0;
-  position: absolute;
+@keyframes carnivalSpin {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  4% {
+    transform: translateX(-50%) rotate(540deg);
+  }
+
+  10% {
+    transform: translateX(-50%) rotate(1440deg);
+  }
+
+  25% {
+    transform: translateX(-50%) rotate(2880deg);
+  }
+
+  45% {
+    transform: translateX(-50%) rotate(3960deg);
+  }
+
+  65% {
+    transform: translateX(-50%) rotate(4620deg);
+  }
+
+  80% {
+    transform: translateX(-50%) rotate(4920deg);
+  }
+
+  90% {
+    transform: translateX(-50%) rotate(5030deg);
+  }
+
+  96% {
+    transform: translateX(-50%) rotate(5075deg);
+  }
+
+  100% {
+    transform: translateX(-50%) rotate(5100deg);
+  }
+}
+
+.classButtonSpin {
+  animation: carnivalSpin 3s forwards;
+}
+
+.sidebarText, .singlePageText {
+  font-size: 1.5em;
+  padding: 1vw;
 }
 
 .agendaForm {
@@ -428,7 +470,7 @@ h1 {
   justify-content: flex-start;
   align-items: center;
   width: 100vw;
-  height: 90vh;
+  height: 93vh;
   overflow: hidden;
   z-index: 1;
 }
@@ -469,6 +511,7 @@ h1 {
   background: white;
   border-radius: 8px;
   padding: 20px;
+  padding-top: 5vh;
   width: 40vw;
   height: 40vh;
   overflow: scroll;
@@ -490,6 +533,7 @@ h1 {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  filter: invert(34%) sepia(91%) saturate(799%) hue-rotate(323deg) brightness(97%) contrast(105%);
 }
 
 .addClassFormLabel {
@@ -503,10 +547,23 @@ h1 {
 .addClassFormSubmitButton {
   min-height: 3vh;
   max-height: 5vh;
-  width: auto;
-  font-size: 1.25em;
-  padding: 1vh;
+  padding: 0.6em 1.4em;
+  margin-top: 1vh;
+  border: none;
+  border-radius: 10px;
+  background: #22C55E;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.addClassFormSubmitButton:hover {
+  background: #16A34A;
+  transform: translateY(-2px);
 }
 
 /* CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST CLASS LIST */
@@ -521,7 +578,7 @@ h1 {
   align-items: flex-start;
   gap: 1rem;
   width: 100%;
-  max-height: 50vh;
+  max-height: 75vh;
   overflow-y: scroll;
 }
 
@@ -562,18 +619,50 @@ h1 {
   flex-flow: row nowrap;
 }
 
+.classListEditButton,
+.classListDeleteButton {
+  padding: 3px 8px;
+  font-size: 12px;
+  line-height: 1.3;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.classListEditButton {
+  color: #444;
+}
+
+.classListEditButton:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+}
+
+.classListDeleteButton {
+  color: #b33;
+  margin-left: 6px;
+}
+
+.classListDeleteButton:hover {
+  background: #fff5f5;
+  border-color: #d88;
+  color: #922;
+}
+
 /* AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION AGENDA PRESENTATION */
 
 .agendaOptionsContainer {
   width: 20vw;
-  margin: 0 auto;
-  margin-left: 77vw;
+  margin: 2vh;
+  margin-left: 76vw;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: scroll;
-  height: 80vh;
+  height: 90vh;
 }
 
 .agendaOptionsHeaderText {

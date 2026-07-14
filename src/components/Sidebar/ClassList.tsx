@@ -65,15 +65,23 @@ const ClassList:FC<ClassListProps> = (props) => {
               </span>
               {selectedClass === classItem.id && (
                 <div className={styles.classItemOptionsContainer}>
-                  <button onClick={(e) => { e.stopPropagation(); handleClassEdit(classItem.id); }}>Edit</button>
-                  <button onClick={(e) => { e.stopPropagation(); handleClassDelete(classItem.id); }}>Delete</button>
+                  <button 
+                      className={styles.classListEditButton}
+                      onClick={(e) => { e.stopPropagation(); handleClassEdit(classItem.id); }}
+                    >Edit
+                  </button>
+                  <button 
+                    className={styles.classListDeleteButton}
+                    onClick={(e) => { e.stopPropagation(); handleClassDelete(classItem.id); }}
+                      >Delete
+                  </button>
                 </div>
               )}
           </li>
         ))}
       </ul>
     ) : (
-      <p>No classes available, create one using the button below</p>
+      <p className={styles.sidebarText}>"No classes available, create one using the button below</p>
     )}
   </>
   )

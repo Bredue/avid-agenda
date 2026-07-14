@@ -60,7 +60,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
   }, [agendaEditRequest]);
 
   const changeAddClassFromStatus = () => {
-    setAddClassFormStatus(!addClassFormStatus);
+    setAddClassFormStatus(prev => !prev);
   };
 
   const handleEditSubmission = () => {
@@ -134,7 +134,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
               ) : null}
             </>
           ) : (
-            <p className={styles.sidebarSelectAClassText}>Select a class to add agenda items and events</p>
+            <p className={styles.sidebarText}>Select a class to add agenda items and events</p>
           )}
           {sidebarMenuStatus === 'classes' ? (
             <>
@@ -146,6 +146,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
                 openEditClassForm={openEditClassForm}
               />
               <ClassAddButton
+                addClassFormStatus={addClassFormStatus}
                 changeAddClassFromStatus={changeAddClassFromStatus}
               />
             </>

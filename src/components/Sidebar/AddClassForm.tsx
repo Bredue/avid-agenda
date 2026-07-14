@@ -72,6 +72,11 @@ const AddClassForm:FC<AddClassFormProps> = (props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (formData.className.length === 0) {
+      toast.error("In order to add a class, a class name must be present");
+      return;
+    }
+
     if (classEditRequest.request === true) {
       handleEditSubmit();
       return;

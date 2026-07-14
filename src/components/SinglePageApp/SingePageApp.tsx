@@ -32,8 +32,8 @@ const SingePageApp: FC<SingePageAppProps> = (props) => {
           handleAgendaEditRequest={handleAgendaEditRequest}
         />
       ) : (
-        <p>
-          No classes selected or agendas present, please create one
+        <p className={styles.singlePageText}>
+          No classes selected or agendas present, please create one, using the menu icon
         </p>
       )}
     </main>
