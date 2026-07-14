@@ -127,6 +127,8 @@ const Sidebar:FC<SidebarProps> = (props) => {
                     top: '8vh',
                     width: '80%',
                     height: '5vh',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
                   }}
                 >
                   Close Current Agenda

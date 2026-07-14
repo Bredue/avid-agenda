@@ -198,12 +198,25 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
             onMouseOut={() => setHoveredAgendaId(null)}
           >
             <span>
-              {agenda.date}
+              {new Date(agenda.date).toLocaleDateString("en-US", {
+                weekday: "short",
+                month: "long",
+                day: "numeric",
+                year: "numeric"
+              })}
             </span>
             {hoveredAgendaId === agenda.agendaId && (
               <div className={styles.AgendaOptionsContainer}>
-                <button onClick={(e) => { e.stopPropagation(); handleAgendaEdit(agenda.agendaId, agenda.classes); }}>Edit</button>
-                <button onClick={(e) => { e.stopPropagation(); handleAgendaDelete(agenda.agendaId); }}>Delete</button>
+                <button
+                    className={styles.agendaItemEditButton}
+                    onClick={(e) => { e.stopPropagation(); handleAgendaEdit(agenda.agendaId, agenda.classes); }}
+                  >Edit
+                </button>
+                <button 
+                    className={styles.agendaItemDeleteButton}
+                    onClick={(e) => { e.stopPropagation(); handleAgendaDelete(agenda.agendaId); }}
+                  >Delete
+                </button>
               </div>
             )}
           </p>
