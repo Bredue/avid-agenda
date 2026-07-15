@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ClassModel from "../../../models/class";
 import Settings from "../../../models/settings";
 import toast from "react-hot-toast";
