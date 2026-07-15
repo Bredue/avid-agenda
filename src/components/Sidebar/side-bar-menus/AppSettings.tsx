@@ -3,6 +3,7 @@ import ClassModel from "../../../models/class";
 import Settings from "../../../models/settings";
 import toast from "react-hot-toast";
 import styles from "../../../styles/App.module.css";
+import { handleClassSort } from "../../../helpers/sortClasses";
 
 interface SettingsProps {}
 
@@ -307,14 +308,14 @@ const AppSettings: FC<SettingsProps> = () => {
 
     return (
         <form
-            className={styles.agendaForm}
+            className={styles.appSettingForm}
             onSubmit={(e) => {
                 e.preventDefault();
                 saveSettings();
             }}
         >
-            <div className={styles.agendaFormGroup}>
-                <label className={styles.agendaFormLabel}>
+            <div className={styles.appSettingFormGroup}>
+                <label className={styles.appSettingFormLabel}>
                     <input
                         type="checkbox"
                         checked={enableSchoolSchedule}
@@ -330,11 +331,12 @@ const AppSettings: FC<SettingsProps> = () => {
 
             {enableSchoolSchedule && (
                 <>
-                    <div className={styles.agendaFormGroup}>
-                        <label className={styles.agendaFormLabel}>
+                    <div className={styles.appSettingFormGroup}>
+                        <label className={styles.appSettingFormLabel}>
                             School Start
                         </label>
                         <input
+                            className={styles.classTimeEntry}
                             type="time"
                             value={schoolStart}
                             onChange={(e) =>
@@ -345,11 +347,12 @@ const AppSettings: FC<SettingsProps> = () => {
                         />
                     </div>
 
-                    <div className={styles.agendaFormGroup}>
-                        <label className={styles.agendaFormLabel}>
+                    <div className={styles.appSettingFormGroup}>
+                        <label className={styles.appSettingFormLabel}>
                             School End
                         </label>
                         <input
+                            className={styles.classTimeEntry}
                             type="time"
                             value={schoolEnd}
                             onChange={(e) =>
@@ -360,16 +363,17 @@ const AppSettings: FC<SettingsProps> = () => {
                         />
                     </div>
 
-                    <label className={styles.agendaFormLabel}>
+                    <label className={styles.appSettingFormLabel}>
                         Add Additional School Schedules
                     </label>
 
                     {customSchedules.map((schedule, index) => (
                         <div
                             key={index}
-                            className={styles.agendaFormTaskRow}
+                            className={styles.appSettingClassRow}
                         >
                             <input
+                                className={styles.appSettingsAdditionalScheduleText}
                                 type="text"
                                 placeholder={
                                     placeholders[index] || ""
@@ -385,6 +389,7 @@ const AppSettings: FC<SettingsProps> = () => {
                             />
 
                             <input
+                                className={styles.classTimeEntry}
                                 type="time"
                                 value={schedule.start}
                                 onChange={(e) =>
@@ -397,6 +402,7 @@ const AppSettings: FC<SettingsProps> = () => {
                             />
 
                             <input
+                                className={styles.classTimeEntry}
                                 type="time"
                                 value={schedule.end}
                                 onChange={(e) =>
@@ -431,8 +437,8 @@ const AppSettings: FC<SettingsProps> = () => {
 
             )}
 
-            <div className={styles.agendaFormGroup}>
-                <label className={styles.agendaFormLabel}>
+            <div className={styles.appSettingFormGroup}>
+                <label className={styles.appSettingFormLabel}>
                     <input
                         type="checkbox"
                         checked={enableClassTimes}
@@ -446,16 +452,17 @@ const AppSettings: FC<SettingsProps> = () => {
                 </label>
             </div>
 
-            {enableClassTimes && classes.map(cls => (
+            {enableClassTimes && handleClassSort(classes).map(cls => (
                 <div
                     key={cls.id}
-                    className={styles.agendaFormTaskRow}
+                    className={styles.appSettingClassRow}
                 >
-                    <span>
+                    <span className={styles.appSettingsClassText}>
                         {cls.period} - {cls.name}
                     </span>
 
                     <input
+                        className={styles.classTimeEntry}
                         type="time"
                         value={
                             classTimes[cls.id]?.start || ""
@@ -470,6 +477,7 @@ const AppSettings: FC<SettingsProps> = () => {
                     />
 
                     <input
+                        className={styles.classTimeEntry}
                         type="time"
                         value={
                             classTimes[cls.id]?.end || ""
@@ -486,7 +494,7 @@ const AppSettings: FC<SettingsProps> = () => {
                     {classTimes[cls.id] && (
                         <button
                             type="button"
-                            className={styles.agendaFormButton}
+                            className={styles.appSettingsButton}
                             onClick={() =>
                                 removeClassTime(cls.id)
                             }
@@ -499,8 +507,8 @@ const AppSettings: FC<SettingsProps> = () => {
 
             ))}
 
-            <div className={styles.agendaFormGroup}>
-                <label className={styles.agendaFormLabel}>
+            <div className={styles.appSettingFormGroup}>
+                <label className={styles.appSettingFormLabel}>
                     <input
                         type="checkbox"
                         checked={showDayProgress}
@@ -515,8 +523,8 @@ const AppSettings: FC<SettingsProps> = () => {
                 </label>
             </div>
 
-            <div className={styles.agendaFormGroup}>
-                <label className={styles.agendaFormLabel}>
+            <div className={styles.appSettingFormGroup}>
+                <label className={styles.appSettingFormLabel}>
                     <input
                         type="checkbox"
                         checked={showClassProgress}
@@ -532,7 +540,7 @@ const AppSettings: FC<SettingsProps> = () => {
             </div>
 
             <button
-                className={styles.agendaFormSubmitButton}
+                className={styles.appSettingSubmitButton}
                 type="submit"
             >
                 Save Settings

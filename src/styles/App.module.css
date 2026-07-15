@@ -180,6 +180,16 @@ h1 {
 }
 
 .sidebarSvgOpen {
+  filter:
+    invert(100%)
+    sepia(0%)
+    saturate(7457%)
+    hue-rotate(172deg)
+    brightness(97%)
+    contrast(110%)
+    drop-shadow(0 0 6px rgba(255,255,255,.65))
+    drop-shadow(0 0 16px rgba(255,255,255,.35));
+
     animation:
       revolverSnap .2s cubic-bezier(.22,1,.32,1),
       barrelHeat .35s ease-in-out;
@@ -329,10 +339,10 @@ h1 {
   padding: 1vw;
 }
 
-.agendaForm {
+.agendaForm, .appSettingForm {
   font-family: Arial, sans-serif;
   width: 90%;
-  max-height: 60vh;
+  max-height: 75vh;
   overflow-y: scroll;
   margin: 0 auto;
   padding: 20px;
@@ -341,7 +351,7 @@ h1 {
   background-color: #f9f9f9;
 }
 
-.agendaFormGroup {
+.agendaFormGroup, .appSettingFormGroup {
   display: flex;
   flex-flow: column wrap;
   width: 100%;
@@ -353,7 +363,7 @@ h1 {
   width: auto;
 }
 
-.agendaFormLabel {
+.agendaFormLabel, .appSettingFormLabel {
   display: block;
   font-weight: bold;
   margin-bottom: 8px;
@@ -394,19 +404,19 @@ h1 {
 }
 
 
-.agendaFormTaskRow {
+.agendaFormTaskRow, .appSettingClassRow {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 1vh;
   width: 100%;
   overflow: hidden;
 }
 
-.agendaFormTaskRow input[type="text"] {
+.agendaFormTaskRow input[type="text"], .appSettingClassRow input[type="text"] {
   flex: 1;
 }
 
-.agendaFormTaskRow select {
+.agendaFormTaskRow select, .appSettingClassRow select {
   margin-left: 8px;
 }
 
@@ -443,7 +453,7 @@ h1 {
   height: auto;
 }
 
-.agendaFormButton, .addSchoolScheduleButton {
+.agendaFormButton, .appSettingsButton, .addSchoolScheduleButton {
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -453,6 +463,7 @@ h1 {
 }
 
 .agendaFormButton:hover,
+.appSettingsButton:hover,
 .addSchoolScheduleButton:hover {
   background-color: #0056b3;
 }
@@ -461,7 +472,7 @@ h1 {
   margin-bottom: 2vh;
 }
 
-.agendaFormSubmitButton {
+.agendaFormSubmitButton, .appSettingSubmitButton {
   height: 4vh;
   font-size: 1.25em;
   width: 80%;
@@ -470,6 +481,31 @@ h1 {
   justify-content: center;
   align-items: center;
   margin: auto;
+}
+
+.appSettingsClassText {
+  margin-right: 1vw;
+}
+
+.appSettingsButton {
+  margin-left: 1vw;
+}
+
+.classTimeEntry {
+  margin: 2px;
+  width: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.appSettingClassRow {
+  padding: 8px 0;
+}
+
+.appSettingsAdditionalScheduleText {
+  max-width: 30vw;
+  margin-right: 1vw;
 }
 
 /* APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP APP */
@@ -555,7 +591,8 @@ h1 {
 }
 
 .addClassFormSubmitButton,
-.agendaFormSubmitButton {
+.agendaFormSubmitButton,
+.appSettingSubmitButton {
   min-height: 3vh;
   max-height: 5vh;
   padding: 0.6em 1.4em;
@@ -573,7 +610,8 @@ h1 {
 }
 
 .addClassFormSubmitButton:hover,
-.agendaFormSubmitButton:hover {
+.agendaFormSubmitButton:hover,
+.appSettingSubmitButton:hover {
   background: #16A34A;
   transform: translateY(-2px);
 }

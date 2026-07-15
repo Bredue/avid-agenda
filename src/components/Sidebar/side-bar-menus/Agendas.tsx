@@ -7,6 +7,8 @@ import Agenda from "../../../models/agenda";
 import * as ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+import { handleClassSort } from "../../../helpers/sortClasses";
+
 import clipboardSvg from '../../../assets/supplies/clipboard-outline.svg';
 import headphonesSvg from '../../../assets/supplies/headphones.svg';
 import laptopSvg from '../../../assets/supplies/laptop.svg';
@@ -330,7 +332,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     *Assigned Classes
                 </label>
                 <div className={styles.classList}>
-                    {classes.map(cls => (
+                    {handleClassSort(classes).map(cls => (
                         <div
                             key={cls.id}
                             className={`${styles.agendaFormClassItem} ${assignedClasses.includes(cls.id) ? styles.agendaFormClassItemSelected : ''}`}
