@@ -32,6 +32,7 @@ const Header: FC<HeaderProps> = (props) => {
       } catch (err) {
           console.error("Failed to load settings", err);
       }
+
   }, [headerRefresh]);
 
   useEffect(() => {
