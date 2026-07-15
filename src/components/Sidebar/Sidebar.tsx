@@ -2,11 +2,12 @@ import React, { FC, useEffect, useState } from "react";
 import styles from '../../styles/App.module.css';
 import ClassList from "./ClassList";
 import ClassAddButton from "./ClassAddButton";
-import AddClassForm from "./AddClassForm";
+import AddClassForm from "./side-bar-menus/AddClassForm";
 import SidebarMenu from "./SidebarMenu";
 import Class from "../../models/class";
-import Agendas from "./class-menus/Agendas";
+import Agendas from "./side-bar-menus/Agendas";
 import Agenda from "../../models/agenda";
+import AppSettings from "./side-bar-menus/AppSettings";
 
 interface SidebarProps {
   changeSidebarStatus: () => void,
@@ -162,6 +163,15 @@ const Sidebar:FC<SidebarProps> = (props) => {
                 addAgenda={addAgenda}
                 agendaEditRequest={agendaEditRequest}
                 editAgenda={editAgenda}
+              />
+            </>
+          ) : (
+            <></>
+          )}
+          {sidebarMenuStatus === 'settings' ? (
+            <>
+              <AppSettings 
+                
               />
             </>
           ) : (

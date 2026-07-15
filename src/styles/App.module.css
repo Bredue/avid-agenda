@@ -443,7 +443,7 @@ h1 {
   height: auto;
 }
 
-.agendaFormButton {
+.agendaFormButton, .addSchoolScheduleButton {
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -452,8 +452,13 @@ h1 {
   cursor: pointer;
 }
 
-.agendaFormButton:hover {
+.agendaFormButton:hover,
+.addSchoolScheduleButton:hover {
   background-color: #0056b3;
+}
+
+.addSchoolScheduleButton {
+  margin-bottom: 2vh;
 }
 
 .agendaFormSubmitButton {
@@ -530,7 +535,7 @@ h1 {
   z-index: 3;
 }
 
-.closeAddClassFormSvg {
+.closeAddClassFormSvg, .closeExtraSchoolScheduleOption {
   width: 5vh;
   height: auto;
   cursor: pointer;
@@ -549,7 +554,8 @@ h1 {
   font-size: 1.5em;
 }
 
-.addClassFormSubmitButton {
+.addClassFormSubmitButton,
+.agendaFormSubmitButton {
   min-height: 3vh;
   max-height: 5vh;
   padding: 0.6em 1.4em;
@@ -566,7 +572,8 @@ h1 {
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
 }
 
-.addClassFormSubmitButton:hover {
+.addClassFormSubmitButton:hover,
+.agendaFormSubmitButton:hover {
   background: #16A34A;
   transform: translateY(-2px);
 }
@@ -627,7 +634,8 @@ h1 {
 .classListEditButton,
 .classListDeleteButton,
 .agendaItemEditButton,
-.agendaItemDeleteButton {
+.agendaItemDeleteButton,
+.schoolTimeRemoveButton {
   padding: 3px 8px;
   font-size: 12px;
   line-height: 1.3;
@@ -650,13 +658,15 @@ h1 {
 }
 
 .classListDeleteButton,
-.agendaItemDeleteButton {
+.agendaItemDeleteButton,
+.schoolTimeRemoveButton {
   color: #b33;
   margin-left: 6px;
 }
 
 .classListDeleteButton:hover,
-.agendaItemDeleteButton:hover {
+.agendaItemDeleteButton:hover,
+.schoolTimeRemoveButton:hover {
   background: #fff5f5;
   border-color: #d88;
   color: #922;

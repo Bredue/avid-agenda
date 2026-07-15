@@ -1,9 +1,9 @@
 import { FC } from "react";
 import styles from '../../styles/App.module.css';
-import Class from "../../models/class";
+import ClassModel from '../../models/class';
 
 interface ClassListProps {
-  classes: Class[],
+  classes: ClassModel[],
   selectActiveClass: (selectedClass: string) => void,
   selectedClass: string,
   removeClass: (id: string) => void,

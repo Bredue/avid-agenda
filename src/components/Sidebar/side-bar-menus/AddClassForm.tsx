@@ -1,8 +1,8 @@
 import React, { FC, useState, ChangeEvent, useEffect } from "react";
-import styles from '../../styles/App.module.css';
-import closeSvg from '../../assets/close.svg';
+import styles from '../../../styles/App.module.css';
+import closeSvg from '../../../assets/close.svg';
 import toast from "react-hot-toast";
-import Class from "../../models/class";
+import Class from "../../../models/class";
 
 interface AddClassFormProps {
   changeAddClassFromStatus: () => void,
