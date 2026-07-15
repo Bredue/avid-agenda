@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 import styles from "../../../styles/App.module.css";
 import { handleClassSort } from "../../../helpers/sortClasses";
 
-interface SettingsProps {}
+interface SettingsProps {
+    handleHeaderRefreshRequest: () => void,
+}
 
 interface ClassTime {
     start: string;
@@ -25,7 +27,9 @@ const placeholderBank = [
     "field trip"
 ];
 
-const AppSettings: FC<SettingsProps> = () => {
+const AppSettings: FC<SettingsProps> = (props) => {
+
+    const { handleHeaderRefreshRequest } = props;
 
     const [enableSchoolSchedule, setEnableSchoolSchedule] = useState(false);
     const [enableClassTimes, setEnableClassTimes] = useState(false);
@@ -303,6 +307,7 @@ const AppSettings: FC<SettingsProps> = () => {
             JSON.stringify(settings.toPlainObject())
         );
 
+        handleHeaderRefreshRequest();
         toast.success("Settings Saved!");
     };
 

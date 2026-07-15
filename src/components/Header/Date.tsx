@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import styles from '../../styles/App.module.css';
 
-const Date = () => {
+const HeaderDate = () => {
 
   const [date, setDate] = useState(dayjs().format('MMMM, ddd DD'));
 
@@ -22,4 +22,4 @@ const Date = () => {
   )
 };
 
-export default Date;
+export default HeaderDate;

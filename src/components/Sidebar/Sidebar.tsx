@@ -27,6 +27,7 @@ interface SidebarProps {
     classes: string[],
   },
   editAgenda: () => void,
+  handleHeaderRefreshRequest: () => void,
 };
 
 const Sidebar:FC<SidebarProps> = (props) => {
@@ -45,6 +46,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
     editClass,
     agendaEditRequest,
     editAgenda,
+    handleHeaderRefreshRequest,
   } = props;
 
   const [addClassFormStatus, setAddClassFormStatus] = useState(false);
@@ -106,7 +108,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
         id="sidebar-container-background"
       >
         <div className={styles.sidebarContainer}>
-          {classes.length > 0 && selectedClass.length > 0 ? (
+          {classes.length > 0 ? (
             <>
               <SidebarMenu 
                 sidebarMenuStatus={sidebarMenuStatus}
@@ -137,7 +139,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
               ) : null}
             </>
           ) : (
-            <p className={styles.sidebarText}>Select a class to add agenda items and events</p>
+            <></>
           )}
           {sidebarMenuStatus === 'classes' ? (
             <>
@@ -171,7 +173,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
           {sidebarMenuStatus === 'settings' ? (
             <>
               <AppSettings 
-                
+                handleHeaderRefreshRequest={handleHeaderRefreshRequest}
               />
             </>
           ) : (

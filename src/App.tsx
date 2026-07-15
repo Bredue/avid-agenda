@@ -19,6 +19,7 @@ function App() {
     id: '',
     classes: [],
   });
+  const [headerRefresh, setHeaderRefresh] = useState(false);
 
   useEffect(() => {
     mountClasses();
@@ -127,12 +128,17 @@ function App() {
     });
   };
 
+  const handleHeaderRefreshRequest = () => {
+    setHeaderRefresh(prev => !prev);
+};
+
   return (
     <>
       <Toaster />
       <Header 
         sidebarStatus={sidebarStatus}
-        changeSidebarStatus={changeSidebarStatus} 
+        changeSidebarStatus={changeSidebarStatus}
+        headerRefresh={headerRefresh}
       />
       <Sidebar 
         changeSidebarStatus={changeSidebarStatus}
@@ -148,6 +154,7 @@ function App() {
         editClass={editClass}
         agendaEditRequest={agendaEditRequest}
         editAgenda={editAgenda}
+        handleHeaderRefreshRequest={handleHeaderRefreshRequest}
       /> 
       <SingePageApp 
         cls={classes.find((cls) => cls.id === selectedClass)}

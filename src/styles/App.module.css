@@ -68,6 +68,7 @@ h1 {
   margin: 0;
   padding: 0;
   height: 7vh;
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -82,6 +83,24 @@ h1 {
   gap: 2vw;
   padding: 2vw;
   font-size: 2em;
+}
+
+.dayProgress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    height: 2px;
+    width: 0;
+
+    background: #4dc9ff;
+
+    box-shadow:
+        0 0 4px rgba(77, 201, 255, .9),
+        0 0 8px rgba(77, 201, 255, .5);
+
+    pointer-events: none;
+    transition: width 0.5s linear;
 }
 
 /* SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR */

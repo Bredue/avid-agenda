@@ -11,8 +11,6 @@ const ClassAddButton:FC<ClassAddButtonProps> = (props) => {
 
   const { addClassFormStatus, changeAddClassFromStatus } = props;
 
-  console.log(addClassFormStatus)
-
   return (
     <img 
       onClick={() => changeAddClassFromStatus()}
