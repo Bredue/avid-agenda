@@ -670,12 +670,16 @@ const AppSettings: FC<SettingsProps> = (props) => {
                     <input
                         type="checkbox"
                         checked={showDayProgress}
-                        disabled={!enableSchoolSchedule}
-                        onChange={(e) =>
+                        onChange={(e) => {
+                            if (!enableSchoolSchedule && e.target.checked) {
+                                toast.error("Enable School Start and End Times first.");
+                                return;
+                            }
+
                             setShowDayProgress(
                                 e.target.checked
                             )
-                        }
+                        }}
                     />
                     Show School Progress Bar
                 </label>
@@ -686,14 +690,16 @@ const AppSettings: FC<SettingsProps> = (props) => {
                     <input
                         type="checkbox"
                         checked={showClassProgress}
-                        disabled={!enableClassTimes}
-                        onChange={(e) =>
-                            setShowClassProgress(
-                                e.target.checked
-                            )
-                        }
+                        onChange={(e) => {
+                            if (!enableClassTimes && e.target.checked) {
+                                toast.error("Enable Typical Class Start and End Times first.");
+                                return;
+                            }
+
+                            setShowClassProgress(e.target.checked);
+                        }}
                     />
-                    Show Class Progress Bar
+                    Show Time to Class End Data
                 </label>
             </div>
 
