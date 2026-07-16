@@ -23,7 +23,6 @@ const Header: FC<HeaderProps> = ({
 }) => {
 
     const getAppSettings = () => {
-
         const raw =
             localStorage.getItem("settings");
 
@@ -31,15 +30,11 @@ const Header: FC<HeaderProps> = ({
             return new Settings();
 
         try {
-
             return Settings.fromPlainObject(
                 JSON.parse(raw)
             );
-
         } catch {
-
             return new Settings();
-
         }
     }
 
@@ -58,19 +53,14 @@ const Header: FC<HeaderProps> = ({
     const [showCountdown, setShowCountdown] =
         useState(false);
 
-
     const getClassList = (): CurrentClass[] => {
-
         if (!settings.progressBars.showClassProgress)
             return [];
-
 
         const selectedSchedule =
             settings.additionalSchedules.selectedSchedule;
 
-
         if (selectedSchedule) {
-
             return Object.values(
                 selectedSchedule.classes
             )
@@ -79,15 +69,12 @@ const Header: FC<HeaderProps> = ({
                     classTime.start &&
                     classTime.end
             );
-
         }
-
 
         if (
             settings.classTimes.enabled &&
             settings.classTimes.classes.length > 0
         ) {
-
             return settings.classTimes.classes
                 .flatMap(
                     classSchedule =>
@@ -98,14 +85,9 @@ const Header: FC<HeaderProps> = ({
                         classTime.start &&
                         classTime.end
                 );
-
         }
-
-
         return [];
-
     };
-
 
     const findCurrentClass = (): CurrentClass | null => {
 
@@ -120,7 +102,6 @@ const Header: FC<HeaderProps> = ({
             now.getMinutes() * 60 +
             now.getSeconds();
 
-
         const activeClasses =
             classes.filter(classTime => {
 
@@ -134,31 +115,24 @@ const Header: FC<HeaderProps> = ({
                         .split(":")
                         .map(Number);
 
-
                 const startSeconds =
                     sh * 3600 +
                     sm * 60;
-
 
                 const endSeconds =
                     eh * 3600 +
                     em * 60;
 
-
                 return (
                     currentSeconds >= startSeconds &&
                     currentSeconds < endSeconds
                 );
-
             });
-
 
         if (!activeClasses.length)
             return null;
 
-
         return activeClasses.sort((a, b) => {
-
             const aStart =
                 a.start
                     .split(":")
@@ -169,88 +143,61 @@ const Header: FC<HeaderProps> = ({
                     .split(":")
                     .map(Number);
 
-
             return (
                 (bStart[0] * 60 + bStart[1]) -
                 (aStart[0] * 60 + aStart[1])
             );
-
         })[0];
-
     };
-
 
     // Reload settings only after a save request
     useEffect(() => {
-
         setSettings(
             getAppSettings()
         );
-
     }, [headerRefresh]);
-
 
     // Find current class once after settings reload
     useEffect(() => {
-
         if (!settings.progressBars.showClassProgress) {
-
             setActiveClass(null);
-
             return;
-
         }
-
 
         const current =
             findCurrentClass();
 
-
         setActiveClass(current);
 
-
         if (current) {
-
             console.log(
                 "Mounted class:",
                 current.start,
                 "-",
                 current.end
             );
-
         }
-
-
     }, [settings]);
 
 
     // Countdown handler and next-class remount
     useEffect(() => {
-
         if (!activeClass) {
-
             setRemainingSeconds(0);
-
             return;
-
         }
 
-
         const updateCountdown = () => {
-
             const now =
                 new Date();
-
 
             const [eh, em] =
                 activeClass.end
                     .split(":")
                     .map(Number);
 
-
             const end =
                 new Date(now);
-
 
             end.setHours(
                 eh,
@@ -258,7 +205,6 @@ const Header: FC<HeaderProps> = ({
                 0,
                 0
             );
-
 
             const remaining =
                 Math.max(
@@ -271,14 +217,11 @@ const Header: FC<HeaderProps> = ({
                     )
                 );
 
-
             setRemainingSeconds(
                 remaining
             );
 
-
             if (remaining === 0) {
-
                 console.log(
                     "Class ended:",
                     activeClass.start,
@@ -286,13 +229,10 @@ const Header: FC<HeaderProps> = ({
                     activeClass.end
                 );
 
-
                 const nextClass =
                     findCurrentClass();
 
-
                 if (nextClass) {
-
                     console.log(
                         "Next class mounted:",
                         nextClass.start,
@@ -303,23 +243,15 @@ const Header: FC<HeaderProps> = ({
                     setActiveClass(
                         nextClass
                     );
-
                     return;
-
                 }
 
-
                 setActiveClass(null);
-
                 setShowCountdown(false);
-
             }
-
         };
 
-
         updateCountdown();
-
 
         const interval =
             setInterval(
@@ -327,10 +259,8 @@ const Header: FC<HeaderProps> = ({
                 1000
             );
 
-
         return () =>
             clearInterval(interval);
-
 
     }, [activeClass]);
 
@@ -392,35 +322,28 @@ const Header: FC<HeaderProps> = ({
 
     // Calculates school progress
     useEffect(() => {
-
         const updateProgress = () => {
-
             const {
                 schoolStart,
                 schoolEnd
             } =
                 settings.schoolTimeSettings;
 
-
             const now =
                 new Date();
-
 
             const [sh, sm] =
                 schoolStart
                     .split(":")
                     .map(Number);
 
-
             const [eh, em] =
                 schoolEnd
                     .split(":")
                     .map(Number);
 
-
             const start =
                 new Date(now);
-
 
             start.setHours(
                 sh,
@@ -429,10 +352,8 @@ const Header: FC<HeaderProps> = ({
                 0
             );
 
-
             const end =
                 new Date(now);
-
 
             end.setHours(
                 eh,
@@ -441,24 +362,15 @@ const Header: FC<HeaderProps> = ({
                 0
             );
 
-
             if (now <= start) {
-
                 setDayProgress(0);
-
                 return;
-
             }
-
 
             if (now >= end) {
-
                 setDayProgress(100);
-
                 return;
-
             }
-
 
             setDayProgress(
                 (
@@ -466,12 +378,9 @@ const Header: FC<HeaderProps> = ({
                     (end.getTime() - start.getTime())
                 ) * 100
             );
-
         };
 
-
         updateProgress();
-
 
         const interval =
             setInterval(
@@ -479,10 +388,8 @@ const Header: FC<HeaderProps> = ({
                 30000
             );
 
-
         return () =>
             clearInterval(interval);
-
 
     }, [settings]);
 
@@ -492,34 +399,26 @@ const Header: FC<HeaderProps> = ({
             remainingSeconds / 60
         );
 
-
     const seconds =
         remainingSeconds % 60;
-
 
     const countdownText =
         `${minutes}:${seconds
             .toString()
             .padStart(2, "0")} remaining`;
 
-
     const forceCountdown =
         remainingSeconds <= 60 &&
         remainingSeconds > 0;
 
-
     return (
         <div className={styles.headerContainer}>
-
             <SidebarButton
                 sidebarStatus={sidebarStatus}
                 changeSidebarStatus={changeSidebarStatus}
             />
-
             <div className={styles.dateAndTimeContainer}>
-
                 <div className={styles.headerViewport}>
-
                     <div
                         className={`${styles.headerStack} ${
                             showCountdown || forceCountdown
@@ -527,35 +426,26 @@ const Header: FC<HeaderProps> = ({
                                 : ""
                         }`}
                     >
-
                         <div className={styles.headerClock}>
                             <HeaderDate />
                             <Time />
                         </div>
 
-
                         <div className={styles.classCountdown}>
                             {countdownText}
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
 
-
             {settings.progressBars.showDayProgress && (
-
                 <div
                     className={styles.dayProgress}
                     style={{
                         width: `${dayProgress}%`
                     }}
                 />
-
             )}
-
         </div>
     );
 
