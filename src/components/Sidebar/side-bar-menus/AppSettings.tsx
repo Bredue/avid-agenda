@@ -354,6 +354,14 @@ const AppSettings: FC<SettingsProps> = (props) => {
                     }
                 }));
 
+        const updatedSelectedSchedule =
+            currentSchedule
+                ? additionalSchedules.find(
+                    schedule =>
+                        schedule.label === currentSchedule.label
+                )
+                : undefined;
+
         const settings =
             new Settings(
                 enableSchoolSchedule,
@@ -363,7 +371,7 @@ const AppSettings: FC<SettingsProps> = (props) => {
                 formattedClassTimes,
                 enableAdditionalSchedules,
                 additionalSchedules,
-                currentSchedule,
+                updatedSelectedSchedule,
                 showDayProgress,
                 showClassProgress
             );

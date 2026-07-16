@@ -33,7 +33,7 @@ const SingePageApp: FC<SingePageAppProps> = (props) => {
         />
       ) : (
         <p className={styles.singlePageText}>
-          No classes selected or agendas present, please create one, using the menu icon
+          No agendas available. Use the menu icon to create a class or a new agenda. Then select a class to view and present their corresponding agenda
         </p>
       )}
     </main>

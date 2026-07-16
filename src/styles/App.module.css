@@ -75,6 +75,7 @@ h1 {
   align-items: center;
   border-bottom: 1px solid #333333;
   background-color: #1f1f1f;
+  overflow: hidden;
 }
 
 .dateAndTimeContainer {
@@ -83,6 +84,9 @@ h1 {
   gap: 2vw;
   padding: 2vw;
   font-size: 2em;
+  height: 100%;
+  align-items: center;
+  overflow: hidden;
 }
 
 .dayProgress {
@@ -101,6 +105,51 @@ h1 {
 
     pointer-events: none;
     transition: width 0.5s linear;
+}
+
+.headerViewport {
+    position: relative;
+
+    overflow: hidden;
+
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+}
+
+.headerStack {
+    display: flex;
+    flex-direction: column;
+
+    height: 200%;
+
+    transition:
+        transform .45s cubic-bezier(.4, 0, .2, 1);
+}
+
+.showCountdown {
+    transform: translateY(-50%);
+}
+
+.headerClock,
+.classCountdown {
+    height: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerClock {
+    flex-flow: row nowrap;
+    gap: 2vw;
+}
+
+.classCountdown {
+    color: #ff5c5c;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 /* SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR SIDEBAR */
