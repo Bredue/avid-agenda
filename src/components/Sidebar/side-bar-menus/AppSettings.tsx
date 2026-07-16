@@ -41,6 +41,7 @@ const AppSettings: FC<SettingsProps> = (props) => {
         AdditionalSchedule[]
     >([]);
     const [placeholders, setPlaceholders] = useState<string[]>([]);
+    const [currentSchedule, setCurrentSchedule] = useState<AdditionalSchedule>();
 
     useEffect(() => {
 
@@ -211,6 +212,10 @@ const AppSettings: FC<SettingsProps> = (props) => {
             settings.additionalSchedules.schedules
         );
 
+        setCurrentSchedule(
+            settings.additionalSchedules.selectedSchedule
+        );
+
         setShowDayProgress(
             settings.progressBars.showDayProgress
         );
@@ -358,6 +363,7 @@ const AppSettings: FC<SettingsProps> = (props) => {
                 formattedClassTimes,
                 enableAdditionalSchedules,
                 additionalSchedules,
+                currentSchedule,
                 showDayProgress,
                 showClassProgress
             );
@@ -369,11 +375,15 @@ const AppSettings: FC<SettingsProps> = (props) => {
             )
         );
 
+        console.log("currentSchedule state:", currentSchedule);
+        console.log(settings.additionalSchedules.selectedSchedule);
+
         handleHeaderRefreshRequest();
 
         toast.success(
             "Settings Saved!"
         );
+
     };
 
     return (
@@ -519,11 +529,16 @@ const AppSettings: FC<SettingsProps> = (props) => {
                     <input
                         type="checkbox"
                         checked={enableAdditionalSchedules}
-                        onChange={(e) =>
+                        onChange={(e) => {
+                            if (!enableSchoolSchedule && e.target.checked) {
+                                toast.error("Enable School Start and End Times first.");
+                                return;
+                            }
+
                             setEnableAdditionalSchedules(
                                 e.target.checked
                             )
-                        }
+                        }}
                     />
                     Add Additional School Schedules
                 </label>
@@ -531,6 +546,37 @@ const AppSettings: FC<SettingsProps> = (props) => {
 
             {enableAdditionalSchedules && (
                 <>
+                    <div className={styles.appSettingFormGroup}>
+                        <label className={styles.appSettingFormLabel}>
+                            Selected Modified Schedule that will be used today
+                        </label>
+
+                        <select
+                            className={styles.appSettingsAdditionalScheduleText}
+                            value={currentSchedule?.label ?? ""}
+                            onChange={(e) => {
+                                const selected = additionalSchedules.find(
+                                    schedule => schedule.label === e.target.value
+                                );
+
+                                setCurrentSchedule(selected);
+                            }}
+                        >
+                            <option value="">
+                                None - Normal School Schedule
+                            </option>
+
+                            {additionalSchedules.map((schedule, index) => (
+                                <option
+                                    key={index}
+                                    value={schedule.label}
+                                >
+                                    {schedule.label || `Schedule ${index + 1}`}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
                     {additionalSchedules.map((schedule, index) => (
 
                         <div

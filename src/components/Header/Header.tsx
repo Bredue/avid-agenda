@@ -19,20 +19,24 @@ const Header: FC<HeaderProps> = (props) => {
     headerRefresh,
   } = props;
 
+  const getAppSettings = () => {
+    const raw = localStorage.getItem("settings");
+    if (!raw) return new Settings();
+
+    try {
+        const parse = Settings.fromPlainObject(JSON.parse(raw));
+        return parse;
+    } catch {
+        return new Settings();
+    }
+  }
+
   const [dayProgress, setDayProgress] = useState(0);
-  const [settings, setSettings] = useState(new Settings());
+  const [settings, setSettings] = useState(getAppSettings());
 
   useEffect(() => {
-      const raw = localStorage.getItem("settings");
-
-      if (!raw) return;
-
-      try {
-          setSettings(Settings.fromPlainObject(JSON.parse(raw)));
-      } catch (err) {
-          console.error("Failed to load settings", err);
-      }
-
+      const updatedSettings = getAppSettings();
+      setSettings(updatedSettings);
   }, [headerRefresh]);
 
   useEffect(() => {

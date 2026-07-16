@@ -30,6 +30,7 @@ class Settings {
     additionalSchedules: {
         enabled: boolean;
         schedules: AdditionalSchedule[];
+        selectedSchedule?: AdditionalSchedule;
     };
 
     progressBars: {
@@ -47,6 +48,7 @@ class Settings {
 
         additionalSchedulesEnabled: boolean = false,
         schedules: AdditionalSchedule[] = [],
+        selectedSchedule?: AdditionalSchedule,
 
         showDayProgress: boolean = false,
         showClassProgress: boolean = false
@@ -64,7 +66,8 @@ class Settings {
 
         this.additionalSchedules = {
             enabled: additionalSchedulesEnabled,
-            schedules
+            schedules,
+            selectedSchedule
         };
 
         this.progressBars = {
@@ -93,6 +96,7 @@ class Settings {
 
             obj.additionalSchedules?.enabled ?? false,
             obj.additionalSchedules?.schedules ?? [],
+            obj.additionalSchedules?.selectedSchedule,
 
             obj.progressBars?.showDayProgress ?? false,
             obj.progressBars?.showClassProgress ?? false
