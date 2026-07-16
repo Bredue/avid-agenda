@@ -9,7 +9,10 @@ Local storage in the web browser is utilized to store classroom agendas for an A
 *Note: If using firefox make sure that strict privacy settings are disabled so that local storage can be utilized. The app cannot be used in incognito mode and will lose all data if the user clears their history, re-downloads their web browser, or switches devices.
 
 ## Task List
-- [x] Settings Menu - adding customization like start and end time of school-day and displaying a progress bar, or countdown display for each class
+- [x] Settings Menu - adding customization like start and end time of school-day and displaying a progress bar for school day
+- [x] Class Progress Display - have header clock swipe out and display remaining time in class and end time of class
+- [x] In settings menu - user can select current day schedule.
+- [ ] Add setting menu for moving classes automatically. When end time is reached open next classes agenda at class start time.
 - [ ] WICOR Avid items added to agenda tasks
 - [ ] CSS overhaul for Avid Agenda Display (EQ, HW, Tasks)
 - [ ] Update to accurate stylzed svg or pngs for required items
