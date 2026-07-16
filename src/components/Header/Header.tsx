@@ -323,14 +323,22 @@ const Header: FC<HeaderProps> = ({
     // Calculates school progress
     useEffect(() => {
         const updateProgress = () => {
-            const {
-                schoolStart,
-                schoolEnd
-            } =
-                settings.schoolTimeSettings;
 
-            const now =
-                new Date();
+          const selectedSchedule =
+              settings.additionalSchedules.selectedSchedule;
+
+          const schoolStart =
+              selectedSchedule
+                  ? selectedSchedule.schoolStart
+                  : settings.schoolTimeSettings.schoolStart;
+
+          const schoolEnd =
+              selectedSchedule
+                  ? selectedSchedule.schoolEnd
+                  : settings.schoolTimeSettings.schoolEnd;
+
+          const now =
+              new Date();
 
             const [sh, sm] =
                 schoolStart
