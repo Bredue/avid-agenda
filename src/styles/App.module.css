@@ -407,6 +407,13 @@ h1 {
   padding: 1vw;
 }
 
+.singlePageText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5vw;
+}
+
 .agendaForm, .appSettingForm {
   font-family: Arial, sans-serif;
   width: 85%;

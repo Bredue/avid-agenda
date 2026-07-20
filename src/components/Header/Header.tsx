@@ -265,7 +265,7 @@ const Header: FC<HeaderProps> = ({
     }, [activeClass]);
 
 
-    // Shows countdown every 30 seconds for 5 seconds
+    // Shows countdown every minute for 5 seconds
     useEffect(() => {
 
         if (!activeClass) {
@@ -288,7 +288,7 @@ const Header: FC<HeaderProps> = ({
         const interval =
             setInterval(
                 showWarning,
-                30000
+                60000
             );
 
         return () =>
