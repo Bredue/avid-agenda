@@ -127,9 +127,9 @@ const Sidebar:FC<SidebarProps> = (props) => {
                     fontSize: '16px',
                     fontWeight: 'bold',
                     position: 'absolute',
-                    top: '8vh',
-                    width: '80%',
-                    height: '5vh',
+                    top: '7vh',
+                    width: '60%',
+                    height: '4vh',
                     left: '50%',
                     transform: 'translateX(-50%)',
                   }}
@@ -143,6 +143,9 @@ const Sidebar:FC<SidebarProps> = (props) => {
           )}
           {sidebarMenuStatus === 'classes' ? (
             <>
+              <p className={styles.selectClassText}>
+                Select a class to use
+              </p>
               <ClassList 
                 classes={classes}
                 selectActiveClass={selectActiveClass}
