@@ -63,7 +63,7 @@ const Agendas: FC<AgendasProps> = (props) => {
 
     const [assignedClasses, setAssignedClasses] = useState<string[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-    const [tasks, setTasks] = useState<{ id: string; task: string; duration: string }[]>([]);
+    const [tasks, setTasks] = useState<{ id: string; task: string; link: string; duration: string }[]>([]);
     const [durations, setDurations] = useState<string[]>([]);
     const [why, setWhy] = useState('');
     const [essentialQuestion, setEssentialQuestion] = useState('');
@@ -91,7 +91,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const handleAddTask = () => {
-        setTasks([...tasks, { id: uniqid(), task: '', duration: '5min' }]);
+        setTasks([...tasks, { id: uniqid(), task: '', link: '', duration: '5min' }]);
     };
 
     const handleTaskChange = (id: string, field: string, value: string) => {
@@ -418,6 +418,13 @@ const Agendas: FC<AgendasProps> = (props) => {
                             value={task.task}
                             onChange={(e) => handleTaskChange(task.id, 'task', e.target.value)}
                             placeholder="Task"
+                        />
+                        <input
+                            className={`${styles.agendaFormTaskInput} ${styles.agendaFormLinkInput}`}
+                            type="url"
+                            value={task.link}
+                            onChange={(e) => handleTaskChange(task.id, 'link', e.target.value)}
+                            placeholder="Link to resource"
                         />
                         <select
                             className={styles.agendaFormSelectDuration}

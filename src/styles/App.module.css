@@ -445,11 +445,7 @@ h1 {
   margin-bottom: 8px;
 }
 
-.agendaFormTaskInput {
-  min-width: 15vw;
-}
-
-.agendaFormSelect, .agendaFormSelectDuration, input[type="date"], input[type="text"] {
+.agendaFormSelect, .agendaFormSelectDuration, input[type="date"], input[type="text"], input[type="url"] {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -471,6 +467,8 @@ h1 {
 .agendaFormCloseIcon {
   width: 2vw;
   height: auto;
+  filter: invert(45%) sepia(18%) saturate(1952%) hue-rotate(314deg) brightness(93%) contrast(97%);
+  cursor: pointer;
 }
 
 .agendaFormClassItemSelected {
@@ -486,10 +484,15 @@ h1 {
   margin-bottom: 1vh;
   width: 100%;
   overflow: hidden;
+  gap: 0.5vw;
 }
 
-.agendaFormTaskRow input[type="text"], .appSettingClassRow input[type="text"] {
+.agendaFormTaskRow input[type="text"], .appSettingClassRow input[type="text"], .agendaFormTaskRow input[type="url"] {
   flex: 1;
+}
+
+.agendaFormLinkInput {
+  max-width: 10vw;
 }
 
 .agendaFormTaskRow select, .appSettingClassRow select {

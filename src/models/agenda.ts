@@ -1,12 +1,17 @@
 import uniqid from 'uniqid';
 
-type Tasks = { id: string; task: string; duration: string }[]
+type Tasks = { 
+    id: string; 
+    task: string;
+    link: string;
+    duration: string;
+}[]
 
 interface SVGOption {
     id: string;
     svg: string;
     alt: string;
-  }
+}
 
 class Agenda {
     assignedClasses: string[];
