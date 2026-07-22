@@ -57,6 +57,10 @@ const Sidebar:FC<SidebarProps> = (props) => {
   });
 
   useEffect(() => {
+    if (sidebarStatus === true) setSidebarMenuStatus('classes')
+  }, [sidebarStatus])
+
+  useEffect(() => {
     if (agendaEditRequest.status === true) {
       changeSidebarMenuStatus('agendas');
     }
@@ -77,8 +81,8 @@ const Sidebar:FC<SidebarProps> = (props) => {
   const verifyUserOffClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     if (target.id === 'sidebar-container-background') {
-      changeSidebarStatus();
       changeSidebarMenuStatus('classes');
+      changeSidebarStatus();
     }
   };
 
@@ -110,7 +114,7 @@ const Sidebar:FC<SidebarProps> = (props) => {
         <div className={styles.sidebarContainer}>
           {classes.length > 0 ? (
             <>
-              <SidebarMenu 
+              <SidebarMenu
                 sidebarMenuStatus={sidebarMenuStatus}
                 changeSidebarMenuStatus={changeSidebarMenuStatus}
               />

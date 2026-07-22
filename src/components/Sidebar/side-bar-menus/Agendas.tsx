@@ -40,7 +40,6 @@ interface SVGOption {
 const Agendas: FC<AgendasProps> = (props) => {
 
     const DatePicker = (ReactDatePicker as any).default ?? ReactDatePicker;
-    console.log(DatePicker)
 
     const { 
         classes, 

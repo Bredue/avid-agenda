@@ -190,7 +190,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
       <div className={styles.agendaOptionsContainer}>
         <h2 className={styles.agendaOptionsHeaderText}>Select an agenda</h2>
         {getAgendaDates().map((agenda) => (
-          <p 
+          <div 
             className={styles.agendaOptionText}
             key={agenda.agendaId}
             onClick={() => handleAgendaSelection(agenda.agendaId)}
@@ -219,7 +219,7 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
                 </button>
               </div>
             )}
-          </p>
+          </div>
         ))}
       </div>
     );
