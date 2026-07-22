@@ -261,7 +261,6 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
         </div>
 
         <div className={styles.agendaPresentationTasks}>
-          <h3 className={styles.agendaPresentationTasksHeader}>Agenda:</h3>
           <ul className={styles.agendaPresentationTasksList}>
             {(selectedAgenda as Agenda).tasks.map((task, index) => (
               <li 
