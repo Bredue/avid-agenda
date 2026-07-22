@@ -179,16 +179,6 @@ const Agendas: FC<AgendasProps> = (props) => {
             toast.error('essential question required to create an agenda', {'id': 'essential-question-error'});
             return true;
         };
-
-        if (homework.length === 0) {
-            toast.error('homework required to create an agenda', {'id': 'homework-error'});
-            return true;
-        };
-
-        if (why.length === 0) {
-            toast.error('the "why" is required to create an agenda', {'id': 'why-error'});
-            return true;
-        };
         
         if (tasks.length === 0) {
             toast.error('at least one task is required to create an agenda', {'id': 'tasks-error'});
@@ -363,12 +353,13 @@ const Agendas: FC<AgendasProps> = (props) => {
                     className={styles.agendaFormLabel} 
                     htmlFor="EQ"
                 >
-                    Essential Question
+                    Essential Question <span className={styles.required}>*</span>
                 </label>
                 <input 
                     className={styles.agendaFormTaskInput} 
                     type="text" 
-                    value={essentialQuestion} 
+                    value={essentialQuestion}
+                    required
                     onChange={(e) => handleEQChange(e.target.value)}>
                 </input>
             </div>
@@ -378,7 +369,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     className={styles.agendaFormLabel} 
                     htmlFor="HW"
                 >
-                    Homework
+                    Homework <span className={styles.optional}>(optional)</span>
                 </label>
                 <input 
                     className={styles.agendaFormTaskInput} 
@@ -393,7 +384,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     className={styles.agendaFormLabel} 
                     htmlFor="why"
                 >
-                    The "why"
+                    The "Why" <span className={styles.optional}>(optional)</span>
                 </label>
                 <input 
                     className={styles.agendaFormTaskInput} 

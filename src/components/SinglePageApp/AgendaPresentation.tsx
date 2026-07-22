@@ -230,22 +230,34 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
         <div className={styles.agendaImportInfoContainer}>
           <header className={styles.agendaPresentationHeader}>
             <h2 className={styles.agendaPresentationEssentialQuestion}>EQ: {(selectedAgenda as Agenda).essentialQuestion}</h2>
-            <h2 className={styles.agendaPresentationHomework}>HW: {(selectedAgenda as Agenda).homework}</h2>
-            <p className={styles.agendaPresentationWhy}><strong>Why:</strong> {(selectedAgenda as Agenda).why}</p>
+            {(selectedAgenda as Agenda).homework.trim().length > 0 && (
+              <h2 className={styles.agendaPresentationHomework}>
+                HW: {(selectedAgenda as Agenda).homework}
+              </h2>
+            )}
+            {(selectedAgenda as Agenda).why.trim().length > 0 && (
+              <p className={styles.agendaPresentationWhy}>
+                <strong>Why:</strong> {(selectedAgenda as Agenda).why}
+              </p>
+            )}
           </header>
-          <div className={styles.agendaPresentationSvgContainer}>
-            <h2 className={styles.agendaPresentationHeaderText}>Required Items</h2>
-            <div className={styles.agendaPresentationSvgIcons}>
-              {(selectedAgenda as Agenda).selectedSvgs.map((svg) => (
-                <img
-                  key={svg.id}
-                  src={svg.svg}
-                  alt={svg.alt}
-                  className={styles.agendaPresentationSvgIcon}
-                />
-              ))}
+          {(selectedAgenda as Agenda).selectedSvgs.length > 0 && (
+            <div className={styles.agendaPresentationSvgContainer}>
+              <h2 className={styles.agendaPresentationHeaderText}>
+                  Required Items
+              </h2>
+              <div className={styles.agendaPresentationSvgIcons}>
+                {(selectedAgenda as Agenda).selectedSvgs.map((svg) => (
+                    <img
+                        key={svg.id}
+                        src={svg.svg}
+                        alt={svg.alt}
+                        className={styles.agendaPresentationSvgIcon}
+                    />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className={styles.agendaPresentationTasks}>

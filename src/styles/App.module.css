@@ -562,6 +562,17 @@ h1 {
   margin: auto;
 }
 
+.required {
+    color: #e74c3c;
+    margin-left: 0.15rem;
+}
+
+.optional {
+    color: #888;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
 .appSettingsClassText {
   margin-right: 1vw;
 }
