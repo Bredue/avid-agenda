@@ -313,12 +313,14 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
                 <p>{task.task}</p>
                 {taskSelected === task.id ? (
                   <div className={styles.taskItemSvgContainer}>
-                    <img
-                      id="timer-icon"
-                      src={timerSvg}
-                      alt="timer icon"
-                      className={styles.agendaPresentationTimerSvg}
-                    />
+                    {task.duration !== "No Time Set" && (
+                      <img
+                        id="timer-icon"
+                        src={timerSvg}
+                        alt="timer icon"
+                        className={styles.agendaPresentationTimerSvg}
+                      />
+                    )}
 
                     {shouldShowLinkIcon(task.id) && (
                       <img
