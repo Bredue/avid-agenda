@@ -495,10 +495,6 @@ h1 {
   max-width: 10vw;
 }
 
-.agendaFormTaskRow select, .appSettingClassRow select {
-  margin-left: 8px;
-}
-
 .agendaFormRequiredItemsFormGroup {
   display: flex;
   flex-flow: column wrap;

@@ -330,7 +330,9 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
                     )}
                   </div>
                 ) : null}
-                <p>{task.duration}</p>
+                {task.duration !== "No Time Set" && (
+                  <span>{task.duration}</span>
+                )}
               </li>
             ))}
           </ul>

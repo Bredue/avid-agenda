@@ -81,7 +81,7 @@ const Agendas: FC<AgendasProps> = (props) => {
 
     const compileTaskDurations = () => {
         const durations: string[] = [];
-        durations.push('-');
+        durations.push('No Time Set');
         for (let i = 1; i <= 60; i += 1) {
             durations.push(`${i}min`);
         }
@@ -90,7 +90,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     };
 
     const handleAddTask = () => {
-        setTasks([...tasks, { id: uniqid(), task: '', link: '', duration: '5min' }]);
+        setTasks([...tasks, { id: uniqid(), task: '', link: '', duration: 'No Time Set' }]);
     };
 
     const handleTaskChange = (id: string, field: string, value: string) => {
