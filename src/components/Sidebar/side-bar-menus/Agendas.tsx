@@ -318,7 +318,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     className={styles.agendaFormLabel}
                     htmlFor="classes"
                 >
-                    *Assigned Classes
+                    Assigned Classes <span className={styles.required}>*</span>
                 </label>
                 <div className={styles.classList}>
                     {handleClassSort(classes).map(cls => (
