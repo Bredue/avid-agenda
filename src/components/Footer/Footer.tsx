@@ -12,7 +12,7 @@ const Footer = () => {
   const mountFooterTimeout = () => {
     setTimeout(() => {
       setFooterActive(false);
-    }, 15000);
+    }, 5000);
   };
 
   if (footerActive === true) {
