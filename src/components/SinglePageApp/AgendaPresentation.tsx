@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from '../../styles/App.module.css';
 import Agenda from "../../models/agenda";
-import playSvg from '../../assets/play.svg';
+import linkSvg from '../../assets/link.svg';
+import timerSvg from '../../assets/timer.svg';
 import CountdownTimer from "./CountdownTimer";
 import toast from "react-hot-toast";
 
@@ -132,10 +133,14 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
   };
 
   const handleTaskSelect = (e: React.MouseEvent, taskId: string) => {
-    if ((e.target as any).id === 'play-icon') {
+    if ((e.target as any).id === 'timer-icon') {
       handleOpenTaskTimer(taskId);
       return;
     };
+
+    if ((e.target as any).id === 'link-icon') {
+      handleOpenLink(taskId);
+    }
 
     if (taskSelected === taskId) {
       setTaskSelected('');
@@ -177,6 +182,41 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
       taskId: '',
       task: [],
     });
+  };
+
+  const handleOpenLink = (taskId: string) => {
+    const task = (selectedAgenda as Agenda).tasks.find((task) => task.id === taskId);
+
+    if (!task) {
+        console.error(`Task with id "${taskId}" not found.`);
+        return;
+    }
+
+    if (!task.link) {
+        console.warn("This task does not have a link.");
+        return;
+    }
+
+    const url = /^https?:\/\//i.test(task.link)
+        ? task.link
+        : `https://${task.link}`;
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const shouldShowLinkIcon = (taskId: string): boolean => {
+    const selectedTask = (selectedAgenda as Agenda).tasks.find((task) => task.id === taskId);
+
+    if (!selectedTask || !selectedTask.link?.trim()) {
+      return false;
+    }
+
+    try {
+      new URL(selectedTask.link);
+      return true;
+    } catch {
+      return false;
+    }
   };
 
   if (Object.keys(selectedAgenda).length === 0 && agendas.length === 0) {
@@ -272,15 +312,24 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
               >
                 <p>{task.task}</p>
                 {taskSelected === task.id ? (
-                  <img 
-                    id="play-icon"
-                    src={playSvg} 
-                    alt="play icon" 
-                    className={styles.agendaPresentationPlaySvg}>
-                  </img>
-                ) : (
-                  <></>
-                )}
+                  <div className={styles.taskItemSvgContainer}>
+                    <img
+                      id="timer-icon"
+                      src={timerSvg}
+                      alt="timer icon"
+                      className={styles.agendaPresentationTimerSvg}
+                    />
+
+                    {shouldShowLinkIcon(task.id) && (
+                      <img
+                        id="link-icon"
+                        src={linkSvg}
+                        alt="link icon"
+                        className={styles.agendaPresentationLinkSvg}
+                      />
+                    )}
+                  </div>
+                ) : null}
                 <p>{task.duration}</p>
               </li>
             ))}

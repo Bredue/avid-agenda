@@ -10,8 +10,6 @@ const SidebarMenu:FC<SidebarMenuProps> = (props) => {
 
     const { sidebarMenuStatus, changeSidebarMenuStatus } = props;
 
-    console.log(sidebarMenuStatus)
-
     const handleTabClick = (tab: string) => {
         changeSidebarMenuStatus(tab);
     };

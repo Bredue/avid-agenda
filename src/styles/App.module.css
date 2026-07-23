@@ -1009,8 +1009,15 @@ h1 {
   color: #242424;
 }
 
-.agendaPresentationPlaySvg {
-  width: 3vw;
+.taskItemSvgContainer {
+  gap: 2vw;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.agendaPresentationLinkSvg, .agendaPresentationTimerSvg {
+  width: 2.5vw;
   height: auto;
   filter: invert(0%) sepia(7%) saturate(988%) hue-rotate(317deg) brightness(97%) contrast(72%);
   cursor: pointer;
