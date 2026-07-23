@@ -21,6 +21,7 @@ The project is inspired by the AVID (Advancement Via Individual Determination) f
 - [ ] Update to accurate stylzed svg or pngs for required items
 - [ ] Timer will now only take up task list side and will blink red 5 times before closing back to presentation mode
 - [ ] Timer ring options in settings menu
+- [ ] Setting for EQ pop-up at last 2-minutes of class. EQ pops up entire page, below header, white background, with breathing effect
 - [x] ~Settings Menu - adding customization like start and end time of school-day and displaying a progress bar for school day~
 - [x] ~Class Progress Display - have header clock swipe out and display remaining time in class and end time of class~
 - [x] ~In settings menu - user can select current day schedule.~
