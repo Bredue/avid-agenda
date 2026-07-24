@@ -21,6 +21,7 @@ class Agenda {
     essentialQuestion: string;
     homework: string;
     selectedSvgs: SVGOption[];
+    selectedWiroc: string[];
     id: string;
 
     constructor(
@@ -31,6 +32,7 @@ class Agenda {
         essentialQuestion: string, 
         homework: string, 
         selectedSvgs: SVGOption[],
+        selectedWiroc: string[],
         id?: string,
     ) {
         this.assignedClasses = assignedClasses;
@@ -40,6 +42,7 @@ class Agenda {
         this.essentialQuestion = essentialQuestion;
         this.homework = homework;
         this.selectedSvgs = selectedSvgs;
+        this.selectedWiroc = selectedWiroc;
         this.id = id || uniqid();
     }
 
@@ -68,6 +71,7 @@ class Agenda {
         essentialQuestion: string,
         homework: string,
         selectedSvgs: SVGOption[],
+        selectedWiroc: string[],
         id: string 
     } {
         return {
@@ -78,6 +82,7 @@ class Agenda {
             essentialQuestion: this.essentialQuestion,
             homework: this.homework,
             selectedSvgs: this.selectedSvgs,
+            selectedWiroc: this.selectedWiroc,
             id: this.id
         };
     }
@@ -90,7 +95,8 @@ class Agenda {
             why: string, 
             essentialQuestion: string, 
             homework: string, 
-            selectedSvgs: SVGOption[], 
+            selectedSvgs: SVGOption[],
+            selectedWiroc: string[],
             id: string 
         }): Agenda {
             const instance = new Agenda(
@@ -101,6 +107,7 @@ class Agenda {
                 obj.essentialQuestion,
                 obj.homework,
                 obj.selectedSvgs,
+                obj.selectedWiroc ?? [],
             );
             instance.id = obj.id;
             return instance;

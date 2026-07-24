@@ -495,17 +495,21 @@ h1 {
   max-width: 10vw;
 }
 
-.agendaFormRequiredItemsFormGroup {
+.agendaFormRequiredItemsFormGroup, .agendaFormWirocItemsFormGroup {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-  gap: 2vh;
+}
+
+.agendaFormWirocItemsFormGroup {
+  margin-top: 2vh;
 }
 
 .agendaFormSelectContainer {
   width: 50%;
   height: 25vh;
+  margin-bottom: 2vh;
 }
 
 .agendaFormSelectOption {
@@ -517,6 +521,8 @@ h1 {
 .selectedSvgContainer {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: auto;
   gap: 1vh;
@@ -524,7 +530,7 @@ h1 {
 }
 
 .agendaFormSelectedSvg {
-  width: 2vw;
+  width: 3vw;
   height: auto;
 }
 

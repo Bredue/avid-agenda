@@ -8,7 +8,6 @@ import * as ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import { handleClassSort } from "../../../helpers/sortClasses";
-
 import clipboardSvg from '../../../assets/supplies/clipboard.png';
 import headphonesSvg from '../../../assets/supplies/headphones.png';
 import laptopSvg from '../../../assets/supplies/laptop.png';
@@ -64,6 +63,14 @@ const Agendas: FC<AgendasProps> = (props) => {
         { id: 'glue', svg: glueSvg, alt: 'Glue' },
     ];
 
+    const wirocOptions = [
+        { id: 'writing', label: 'W - Writing' },
+        { id: 'inquiry', label: 'I - Inquiry' },
+        { id: 'reading', label: 'R - Reading' },
+        { id: 'organization', label: 'O - Organization' },
+        { id: 'collaboration', label: 'C - Collaboration' },
+    ];
+
     const [assignedClasses, setAssignedClasses] = useState<string[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
     const [tasks, setTasks] = useState<{ id: string; task: string; link: string; duration: string }[]>([]);
@@ -72,6 +79,7 @@ const Agendas: FC<AgendasProps> = (props) => {
     const [essentialQuestion, setEssentialQuestion] = useState('');
     const [homework, setHomework] = useState('');
     const [selectedSvgs, setSelectedSvgs] = useState<string[]>([]);
+    const [selectedWiroc, setSelectedWiroc] = useState<string[]>([]);
 
     useEffect(() => {
         compileTaskDurations();
@@ -146,6 +154,23 @@ const Agendas: FC<AgendasProps> = (props) => {
         });
     };
 
+    const handleWirocChange = (e: React.MouseEvent<HTMLSelectElement>) => {
+        const selectedOption = (e.target as HTMLSelectElement).value;
+
+        setSelectedWiroc((prevState) => {
+            const index = prevState.indexOf(selectedOption);
+
+            if (index !== -1) {
+                return [
+                    ...prevState.slice(0, index),
+                    ...prevState.slice(index + 1),
+                ];
+            }
+
+            return [...prevState, selectedOption];
+        });
+    };
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         removeEmptyTasks();
@@ -215,6 +240,7 @@ const Agendas: FC<AgendasProps> = (props) => {
             essentialQuestion,
             homework,
             compileSvgData(),
+            selectedWiroc,
         );
 
         assignedClasses.forEach((assignedClass) => {
@@ -243,6 +269,7 @@ const Agendas: FC<AgendasProps> = (props) => {
             essentialQuestion,
             homework,
             compileSvgData(),
+            selectedWiroc,
             agendaEditRequest.id,
         );
 
@@ -311,6 +338,12 @@ const Agendas: FC<AgendasProps> = (props) => {
                     selectedSvgs.push(svg.id);
                 });
                 setSelectedSvgs(selectedSvgs);
+
+                const selectedWiroc: string[] = [];
+                agenda.selectedWiroc.forEach((wiroc) => {
+                    selectedWiroc.push(wiroc);
+                });
+                setSelectedWiroc(selectedWiroc);
             };
         };
     };
@@ -446,12 +479,40 @@ const Agendas: FC<AgendasProps> = (props) => {
                 </button>
             </div>
 
+            <div className={styles.agendaFormWirocItemsFormGroup}>
+                <label
+                    htmlFor="wiroc"
+                    className={styles.agendaFormLabel}
+                >
+                    Which WIROC methods will you be using? <span className={styles.optional}>(optional)</span>
+                </label>
+
+                <select
+                    id="wiroc"
+                    multiple
+                    value={selectedWiroc}
+                    onChange={() => { return; }}
+                    onClick={(e) => handleWirocChange(e)}
+                    className={styles.agendaFormSelectContainer}
+                >
+                    {wirocOptions.map(option => (
+                        <option
+                            key={option.id}
+                            value={option.id}
+                            className={styles.agendaFormSelectOption}
+                        >
+                            {option.label}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
             <div className={styles.agendaFormRequiredItemsFormGroup}>
                 <label 
                     htmlFor="necessaryItems"
                     className={styles.agendaFormLabel}
                 >
-                    What materials are needed?
+                    What materials are needed? <span className={styles.optional}>(optional)</span>
                 </label>
                 <select 
                     id="necessaryItems" 
