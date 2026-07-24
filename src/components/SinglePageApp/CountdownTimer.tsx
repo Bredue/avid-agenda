@@ -12,6 +12,8 @@ import volumeOffSvg from '../../assets/volume-off.svg';
 import volumeLowSvg from '../../assets/volume-low.svg';
 import volumeMediumSvg from '../../assets/volume-medium.svg';
 import volumeHighSvg from '../../assets/volume-high.svg';
+import fullScreenSvg from '../../assets/fullscreen.svg';
+import exitFullScreenSvg from '../../assets/fullscreen-exit.svg';
 import toast from 'react-hot-toast';
 
 interface CountdownTimerProps {
@@ -54,6 +56,7 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
     const [optionSvgSelected, setOptionSvgSelected] = useState('play');
     const [editTimerForm, setEditTimerForm] = useState(false);
     const [timerNotificationVolume, setTimerNotificationVolume] = useState('High');
+    const [fullScreen, setFullScreen] = useState(false);
 
     useEffect(() => {
         convertDurationToColorsTime();
@@ -182,11 +185,19 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
         };
     };
 
+    const handleCountDownTimerScreenAdjustment = () => {
+        setFullScreen(prevState => !prevState);
+    };
+
     if (Object.keys(task).length > 0) {
         return (
-            <div 
-                id='countdown-timer-background'
-                className={styles.countdownTimerBackground}
+            <div
+                id="countdown-timer-background"
+                className={`${styles.countdownTimerBackground} ${
+                    fullScreen
+                        ? styles.countDownTimerBackgroundFullScreen
+                        : styles.countDownTimerBackgroundHalfScreen
+                }`}
             >
 
                 <img 
@@ -195,6 +206,24 @@ const CountdownTimer:FC<CountdownTimerProps> = (props) => {
                     alt='close icon' 
                     className={styles.countdownTimerCloseSvg}>
                 </img>
+
+                {fullScreen === false && (
+                    <img 
+                        onClick={() => handleCountDownTimerScreenAdjustment()}
+                        src={fullScreenSvg} 
+                        alt='full-screen icon' 
+                        className={styles.countDownTimerFullScreenSvg}>
+                    </img>
+                )}
+
+                {fullScreen === true && (
+                    <img 
+                        onClick={() => handleCountDownTimerScreenAdjustment()}
+                        src={exitFullScreenSvg} 
+                        alt='exit full-screen icon' 
+                        className={styles.countDownTimerExitFullScreenSvg}>
+                    </img>
+                )}
 
                 <img 
                     onClick={() => handleOpenEditTimerForm()}
