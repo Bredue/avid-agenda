@@ -934,11 +934,28 @@ h1 {
   flex-wrap: wrap;
 }
 
+.agendaPresentationSvgIconContainer {
+  gap: 1vh;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 1vh;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid #8d8d8d;
+  border-radius: 5px;
+}
+
 .agendaPresentationSvgIcon {
-  width: 34px;
+  width: 3.5vw;
   opacity: .8;
   transition: opacity .2s;
-  filter: invert(95%) sepia(69%) saturate(0%) hue-rotate(113deg) brightness(93%) contrast(73%);
+}
+
+.agendaPresentationSvgIconText {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
 }
 
 .agendaPresentationSvgIcon:hover {

@@ -284,16 +284,19 @@ const AgendaPresentation:FC<AgendaProps> = (props) => {
           {(selectedAgenda as Agenda).selectedSvgs.length > 0 && (
             <div className={styles.agendaPresentationSvgContainer}>
               <h2 className={styles.agendaPresentationHeaderText}>
-                  Required Items
+                  Today you'll need:
               </h2>
               <div className={styles.agendaPresentationSvgIcons}>
                 {(selectedAgenda as Agenda).selectedSvgs.map((svg) => (
-                    <img
-                        key={svg.id}
-                        src={svg.svg}
-                        alt={svg.alt}
-                        className={styles.agendaPresentationSvgIcon}
-                    />
+                    <div className={styles.agendaPresentationSvgIconContainer}>
+                      <img
+                          key={svg.id}
+                          src={svg.svg}
+                          alt={svg.alt}
+                          className={styles.agendaPresentationSvgIcon}
+                      />
+                      <p className={styles.agendaPresentationSvgIconText}>{svg.alt}</p>
+                    </div>
                 ))}
               </div>
             </div>

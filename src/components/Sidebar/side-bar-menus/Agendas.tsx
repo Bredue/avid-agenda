@@ -9,15 +9,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import { handleClassSort } from "../../../helpers/sortClasses";
 
-import clipboardSvg from '../../../assets/supplies/clipboard-outline.svg';
-import headphonesSvg from '../../../assets/supplies/headphones.svg';
-import laptopSvg from '../../../assets/supplies/laptop.svg';
-import markerSvg from '../../../assets/supplies/marker.svg';
-import notebookSvg from '../../../assets/supplies/notebook.svg';
-import notesSvg from '../../../assets/supplies/notes.svg';
-import penSvg from '../../../assets/supplies/pen.svg';
-import pencilSvg from '../../../assets/supplies/pencil.svg';
-import scissorsSvg from '../../../assets/supplies/scissors.svg';
+import clipboardSvg from '../../../assets/supplies/clipboard.png';
+import headphonesSvg from '../../../assets/supplies/headphones.png';
+import laptopSvg from '../../../assets/supplies/laptop.png';
+import highlighterSvg from '../../../assets/supplies/highlighter.png';
+import notebookSvg from '../../../assets/supplies/notebook.png';
+import notesSvg from '../../../assets/supplies/notes.png';
+import penSvg from '../../../assets/supplies/pen.png';
+import pencilSvg from '../../../assets/supplies/pencil.png';
+import scissorsSvg from '../../../assets/supplies/scissor.png';
+import glueSvg from '../../../assets/supplies/glue.png';
+import plannerSvg from '../../../assets/supplies/planner.png';
 
 
 interface AgendasProps {
@@ -49,15 +51,17 @@ const Agendas: FC<AgendasProps> = (props) => {
     } = props;
 
     const svgOptions: SVGOption[] = [
-        { id: 'clipboard', svg: clipboardSvg, alt: 'Clipboard' },
-        { id: 'headphones', svg: headphonesSvg, alt: 'Headphones' },
+        { id: 'pencil', svg: pencilSvg, alt: 'Pencil' },
+        { id: 'planner', svg: plannerSvg, alt: 'Planner' },
         { id: 'laptop', svg: laptopSvg, alt: 'Laptop' },
-        { id: 'marker', svg: markerSvg, alt: 'Marker' },
         { id: 'notebook', svg: notebookSvg, alt: 'Notebook' },
         { id: 'notes', svg: notesSvg, alt: 'Notes' },
+        { id: 'highlighter', svg: highlighterSvg, alt: 'Highlighter' },
         { id: 'pen', svg: penSvg, alt: 'Pen' },
-        { id: 'pencil', svg: pencilSvg, alt: 'Pencil' },
+        { id: 'clipboard', svg: clipboardSvg, alt: 'Clipboard' },
+        { id: 'headphones', svg: headphonesSvg, alt: 'Headphones' },
         { id: 'scissors', svg: scissorsSvg, alt: 'Scissors' },
+        { id: 'glue', svg: glueSvg, alt: 'Glue' },
     ];
 
     const [assignedClasses, setAssignedClasses] = useState<string[]>([]);
@@ -447,7 +451,7 @@ const Agendas: FC<AgendasProps> = (props) => {
                     htmlFor="necessaryItems"
                     className={styles.agendaFormLabel}
                 >
-                    What items are required?
+                    What materials are needed?
                 </label>
                 <select 
                     id="necessaryItems" 
