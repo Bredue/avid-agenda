@@ -27,7 +27,7 @@ const SidebarMenu:FC<SidebarMenuProps> = (props) => {
                     className={`${styles.sideBarMenuButton} ${sidebarMenuStatus === 'agendas' ? styles.active : ''}`}
                     onClick={() => handleTabClick('agendas')}
                 >
-                    Agendas
+                    Agenda
                 </button>
                 <button
                     className={`${styles.sideBarMenuButton} ${sidebarMenuStatus === 'settings' ? styles.active : ''}`}
